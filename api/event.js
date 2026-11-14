@@ -1,7 +1,7 @@
-// API de conversiones de Meta — recibe PageView y Lead desde la landing y los reenvía desde el servidor.
+// API de conversiones de Meta — recibe eventos desde las landings y los reenvía desde el servidor.
 // Requiere en Vercel la variable de entorno META_CAPI_TOKEN (y opcional META_TEST_CODE para "Probar eventos").
 const PIXEL_ID = '1490857044727030';
-const ALLOWED = ['PageView', 'Lead'];
+const ALLOWED = ['PageView', 'Lead', 'ViewContent', 'Contact', 'VioClase3'];
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).end();
