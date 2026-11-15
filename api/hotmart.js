@@ -23,7 +23,10 @@ const sha256 = (s) => crypto.createHash('sha256').update(String(s)).digest('hex'
 const T = () => AbortSignal.timeout(7000);
 
 const COMPRA = ['PURCHASE_APPROVED', 'PURCHASE_COMPLETE'];
-const IDS = String(process.env.HOTMART_PRODUCT_ID || '').split(',').map(x => x.trim()).filter(Boolean);
+// Productos del embudo (upsell/downsell). Se pueden cambiar con HOTMART_EXTRA_IDS sin tocar el código.
+const EXTRA = String(process.env.HOTMART_EXTRA_IDS || '8895925,8896209'); // Luna AI (upsell US$14.99) · Luna AI Tutor (downsell US$12.99)
+const IDS = [...new Set((String(process.env.HOTMART_PRODUCT_ID || '') + (process.env.HOTMART_PRODUCT_ID ? ',' + EXTRA : ''))
+  .split(',').map(x => x.trim()).filter(Boolean))];
 const esPrincipal = (id) => !IDS.length || String(id) === IDS[0];
 const REEMBOLSO = ['PURCHASE_REFUNDED', 'PURCHASE_CHARGEBACK', 'PURCHASE_CANCELED'];
 const ABANDONO = 'PURCHASE_OUT_OF_SHOPPING_CART';

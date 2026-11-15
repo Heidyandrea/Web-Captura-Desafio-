@@ -179,8 +179,13 @@ footer a{text-decoration:underline}
            WIDGET DE HOTMART (Embudo de Ventas): pegar aquí el código </> del paso del embudo.
            Hotmart muestra los botones "Sí, lo quiero" y "No, gracias" con el cobro en 1 clic.
            ===================================================================== -->
+      <!-- HOTMART - Sales Funnel Widget -->
       <div id="hotmart-sales-funnel"></div>
-      <!-- /WIDGET -->
+      <script src="https://checkout.hotmart.com/lib/hotmart-checkout-elements.js"></script>
+      <script>
+      checkoutElements.init('salesFunnel').mount('#hotmart-sales-funnel')
+      </script>
+      <!-- HOTMART - Sales Funnel Widget -->
 
       <p class="safe">🔒 Se cobra con la misma tarjeta de tu inscripción, sin volver a escribir tus datos.</p>
       <p class="cancel">Suscripción mensual. Cancelas cuando quieras desde tu cuenta de Hotmart.</p>
