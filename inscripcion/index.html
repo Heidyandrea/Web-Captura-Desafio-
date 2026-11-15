@@ -520,7 +520,7 @@ footer{margin-top:40px}
     <p class="lead">El método que activa tu cerebro, no tu memoria. <b>Beca de US$200 solo hasta el 21 de noviembre.</b></p>
 
     <div class="vsl" id="vsl" style="display:none"></div>
-    <div class="hero-img" id="heroImg"><img src="img/plataforma.webp" alt="Plataforma de NeuroFluency English Course" width="1100" height="614"></div>
+    <div class="hero-img" id="heroImg"><img src="/inscripcion/img/plataforma.webp" alt="Plataforma de NeuroFluency English Course" width="1100" height="614"></div>
 
     <div class="hero-cta buy-only">
       <a href="#oferta" class="btn btn-buy js-buy" data-boton="hero">Quiero inscribirme ahora<small>US$397 · o en 2 o 3 cuotas</small></a>
@@ -613,10 +613,10 @@ footer{margin-top:40px}
 
       <p class="stack-h">🎁 Bonos incluidos</p>
       <div class="bmini">
-        <div><img src="img/bono-21dias.webp" alt="" loading="lazy"><p><b>Desafío 21 días</b><small>US$97</small></p></div>
-        <div><img src="img/bono-bootcamp.webp" alt="" loading="lazy"><p><b>Bootcamp mundo laboral</b><small>US$97</small></p></div>
-        <div><img src="img/bono-entrevista.webp" alt="" loading="lazy"><p><b>Domina tu entrevista</b><small>US$97</small></p></div>
-        <div><img src="img/bono-fluidez.webp" alt="" loading="lazy"><p><b>Código de fluidez nativa</b><small>US$97</small></p></div>
+        <div><img src="/inscripcion/img/bono-21dias.webp" alt="" loading="lazy"><p><b>Desafío 21 días</b><small>US$97</small></p></div>
+        <div><img src="/inscripcion/img/bono-bootcamp.webp" alt="" loading="lazy"><p><b>Bootcamp mundo laboral</b><small>US$97</small></p></div>
+        <div><img src="/inscripcion/img/bono-entrevista.webp" alt="" loading="lazy"><p><b>Domina tu entrevista</b><small>US$97</small></p></div>
+        <div><img src="/inscripcion/img/bono-fluidez.webp" alt="" loading="lazy"><p><b>Código de fluidez nativa</b><small>US$97</small></p></div>
       </div>
 
       <p class="stack-h fast-h">⚡ Acción rápida · solo los primeros inscritos</p>
@@ -889,8 +889,8 @@ if (VSL_YT) {
 // Testimonios
 (function () {
   const box = $('#tvideo');
-  if (TESTIMONIOS_YT) { ytFacade(box, TESTIMONIOS_YT, 'img/testimonios-poster.webp', 'Testimonios de alumnos', 'testimonios'); return; }
-  box.innerHTML = '<video src="testimonios.mp4" poster="img/testimonios-poster.webp" controls playsinline preload="none" title="Testimonios de alumnos de NeuroFluency"></video>' +
+  if (TESTIMONIOS_YT) { ytFacade(box, TESTIMONIOS_YT, '/inscripcion/img/testimonios-poster.webp', 'Testimonios de alumnos', 'testimonios'); return; }
+  box.innerHTML = '<video src="/inscripcion/testimonios.mp4" poster="/inscripcion/img/testimonios-poster.webp" controls playsinline preload="none" title="Testimonios de alumnos de NeuroFluency"></video>' +
     '<button class="facade" type="button" aria-label="Reproducir testimonios" style="background:transparent"><span class="play"><i class="fa-solid fa-play"></i></span><span class="vlabel"><i class="fa-solid fa-heart"></i> Testimonios de alumnos</span></button>';
   const v = box.querySelector('video'), f = box.querySelector('.facade'), prog = progreso('testimonios');
   let first = true;
