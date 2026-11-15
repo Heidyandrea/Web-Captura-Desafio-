@@ -3,23 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>¡Bienvenido a NeuroFluency! · Un paso más</title>
+<title>¡Gracias! Tu acceso ya va en camino · NeuroFluency</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="theme-color" content="#07070C">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://www.youtube-nocookie.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
 
-<!-- ============ MEDICIÓN (mismo visitante que /inscripcion) ============ -->
 <script>
+// =====================================================================
+//  AJUSTE — pega aquí el ID del video de YouTube (lo que va después de youtu.be/ o de /live/)
+//  Vacío = se muestra un resumen de Luna en lugar del video.
+// =====================================================================
+window.VIDEO_YT = '';
+window.VIDEO_YT = window.VIDEO_YT || new URLSearchParams(location.search).get('yt') || ''; // prueba: ?yt=ID
+// =====================================================================
 (function(){
   try{
     var v=JSON.parse(localStorage.getItem('ewh_vid')||'null');
     if(!v||!/^v[a-z0-9]{8,24}$/.test(v)){v='v'+(Date.now().toString(36)+Math.random().toString(36).slice(2,8)).replace(/[^a-z0-9]/g,'').slice(0,14);localStorage.setItem('ewh_vid',JSON.stringify(v));}
-    window.ewhVid=v;
-    window.ewhUtm=JSON.parse(localStorage.getItem('ewh_utm')||'{}')||{};
-    window.ewhId=JSON.parse(localStorage.getItem('ewh_id')||'{}')||{};
+    window.ewhVid=v; window.ewhUtm=JSON.parse(localStorage.getItem('ewh_utm')||'{}')||{}; window.ewhId=JSON.parse(localStorage.getItem('ewh_id')||'{}')||{};
   }catch(e){window.ewhVid='';window.ewhUtm={};window.ewhId={};}
 })();
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -31,9 +36,9 @@ s.parentNode.insertBefore(t,s)}(window,document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 (function(){var am={external_id:window.ewhVid};if(ewhId.email)am.em=ewhId.email;if(ewhId.phone)am.ph=ewhId.phone;fbq('init','1490857044727030',am);})();
 window.ewhCookie=function(k){var m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):'';};
-window.ewhTrack=function(name,params,custom,track){
+window.ewhTrack=function(name,params,custom,track,noPixel){
   var id=name+'.'+Date.now()+'.'+Math.random().toString(36).slice(2,10);
-  if(custom){fbq('trackCustom',name,params||{},{eventID:id});}else{fbq('track',name,params||{},{eventID:id});}
+  if(!noPixel){ if(custom){fbq('trackCustom',name,params||{},{eventID:id});}else{fbq('track',name,params||{},{eventID:id});} }
   try{
     var body=JSON.stringify({event_name:name,event_id:id,event_source_url:location.href,fbp:ewhCookie('_fbp'),fbc:ewhCookie('_fbc'),
       custom_data:params||{},vid:window.ewhVid,user:window.ewhId||{},track:Object.assign({},window.ewhUtm||{},track||{})});
@@ -47,165 +52,123 @@ ewhTrack('VioUpsell',{content_name:'LUNA_UPSELL',value:14.99,currency:'USD'},tru
 </script>
 
 <style>
-:root{--bg:#07070C;--bg2:#0C0B14;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.16);--text:#EEECF6;--muted:#A39FB6;--dim:#6F6B82;
---gold:#E3B964;--gold2:#F6DA9A;--violet:#8B5CF6;--violet2:#B9A2FF;--teal:#2DD4BF;--teal2:#7CF0DF;--off:#F2566D;--wa:#25D366;
+:root{--bg:#07070C;--line:rgba(255,255,255,.1);--text:#EEECF6;--muted:#A39FB6;--dim:#6F6B82;--gold:#E3B964;--gold2:#F6DA9A;--violet:#8B5CF6;--teal:#2DD4BF;--teal2:#7CF0DF;--off:#F2566D;
 --serif:'Instrument Serif',Georgia,serif;--sans:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-.wrap{max-width:720px;margin:0 auto;padding:0 18px;position:relative;z-index:2}
-.serif{font-family:var(--serif);font-weight:400;font-style:italic}
-.gold{background:linear-gradient(100deg,var(--gold2),var(--gold) 45%,#B8893A);-webkit-background-clip:text;background-clip:text;color:transparent}
-.teal{color:var(--teal2)}
-b,strong{color:#fff}
-.glass{background:linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:20px}
-.amb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.45;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  background-image:radial-gradient(circle at 10% -5%,rgba(45,212,191,.16),transparent 40%),radial-gradient(circle at 100% 25%,rgba(139,92,246,.18),transparent 45%)}
+.wrap{max-width:760px;margin:0 auto;padding:16px 14px 40px}
+.top{text-align:center}
+.thanks{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:800;letter-spacing:.05em;color:var(--teal2);padding:7px 13px;border-radius:99px;border:1px solid rgba(45,212,191,.4);background:rgba(45,212,191,.08)}
+h1{font-size:clamp(23px,5.6vw,36px);line-height:1.12;font-weight:800;letter-spacing:-.02em;margin-top:12px}
+h1 em{font-family:var(--serif);font-weight:400;font-size:1.1em;background:linear-gradient(100deg,var(--gold2),var(--gold) 45%,#B8893A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.warn{margin:12px auto 0;max-width:520px;font-size:13.5px;font-weight:700;color:#FFC2CB;padding:9px 12px;border-radius:12px;background:rgba(242,86,109,.09);border:1px solid rgba(242,86,109,.32)}
 
-/* barra de progreso de compra */
-.steps{display:flex;justify-content:center;gap:6px;padding:12px 0;background:linear-gradient(90deg,#0f2a26,#0c0b14 50%,#0f2a26);border-bottom:1px solid rgba(45,212,191,.25);font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
-.steps span{display:flex;align-items:center;gap:6px;color:var(--muted)}
-.steps .ok{color:var(--teal2)}
-.steps .now{color:var(--gold2)}
-.steps i{font-style:normal}
+/* VIDEO protagonista */
+.video{position:relative;margin:16px -14px 0;aspect-ratio:16/9;background:#000;overflow:hidden}
+@media(min-width:640px){.video{margin:18px 0 0;border-radius:18px;border:1px solid rgba(227,185,100,.45);box-shadow:0 0 70px -25px rgba(227,185,100,.6)}}
+.video iframe,.video>#yt{position:absolute;inset:0;width:100%;height:100%;border:0}
+.sound{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:0;cursor:pointer;background:rgba(7,7,12,.35);color:#fff;font-family:var(--sans)}
+.sound .b{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;font-size:30px;background:linear-gradient(135deg,var(--gold2),var(--gold) 50%,#D29A3E);color:#160f02;box-shadow:0 0 0 9px rgba(227,185,100,.2),0 10px 30px -5px rgba(227,185,100,.7);animation:pulse 1.8s ease-in-out infinite}
+.sound .t{font-size:15px;font-weight:800;padding:8px 14px;border-radius:99px;background:rgba(0,0,0,.65)}
+@keyframes pulse{50%{transform:scale(1.07)}}
+.hint{text-align:center;font-size:12.5px;color:var(--muted);margin-top:8px}
 
-header{position:relative;overflow:hidden;text-align:center;padding:26px 0 0}
-.badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal2);padding:7px 14px;border-radius:99px;border:1px solid rgba(45,212,191,.4);background:rgba(45,212,191,.08)}
-h1{font-size:clamp(28px,5.4vw,46px);line-height:1.08;font-weight:800;letter-spacing:-.02em;margin-top:16px}
-h1 .serif{font-size:1.12em}
-.lead{font-size:clamp(15.5px,1.8vw,18px);color:#D3D0E0;margin:12px auto 0;max-width:560px}
-.warn{display:inline-block;margin-top:14px;font-size:13px;font-weight:700;color:#FFB3BE;padding:7px 12px;border-radius:10px;background:rgba(242,86,109,.08);border:1px solid rgba(242,86,109,.3)}
+/* resumen si aún no hay video */
+.nov{margin-top:16px;padding:16px;border-radius:18px;border:1px solid rgba(227,185,100,.4);background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02));text-align:left}
+.nov h2{font-size:17px;font-weight:800;text-align:center}
+.nov ul{list-style:none;margin-top:10px;display:grid;gap:8px;font-size:14.5px}
+.nov li{display:flex;gap:9px}
 
-/* chat */
-.chat{max-width:400px;margin:24px auto 0;padding:14px;border-radius:24px;background:#0b141a;border:1px solid rgba(37,211,102,.3);box-shadow:0 0 60px -25px rgba(37,211,102,.5);text-align:left}
-.chat .top{display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.06)}
-.chat .av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--violet),var(--teal));font-size:18px}
-.chat .top b{display:block;font-size:14px}.chat .top small{font-size:11.5px;color:var(--wa)}
-.msg{max-width:84%;margin-top:9px;padding:8px 11px;border-radius:12px;font-size:13.5px;line-height:1.4}
-.msg.in{background:#202c33;border-top-left-radius:4px}
-.msg.out{background:#005c4b;margin-left:auto;border-top-right-radius:4px}
-.msg.fix{background:#202c33;border-left:3px solid var(--gold)}
-.msg .x{color:#ffb3be;text-decoration:line-through}.msg .ok{color:#9ef0c8;font-weight:700}
-.voice{display:flex;align-items:center;gap:8px}
-.voice .bars{flex:1;height:18px;background:repeating-linear-gradient(90deg,#9ef0c8 0 2px,transparent 2px 5px);opacity:.6;border-radius:3px}
-
-section{padding-top:40px}
-.st{text-align:center;margin-bottom:16px}
-.st h2{font-size:clamp(22px,3.6vw,30px);font-weight:800;line-height:1.15}
-.why{display:grid;gap:10px}
-.why div{display:flex;gap:12px;align-items:flex-start;padding:14px 16px}
-.why .ic{flex:none;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:19px;background:rgba(139,92,246,.14);border:1px solid rgba(139,92,246,.35)}
-.why b{display:block;font-size:15px;line-height:1.25}
-.why p{font-size:13.5px;color:var(--muted);margin-top:3px}
-
-.phase{margin-top:12px;padding:14px 16px;border-radius:14px;background:rgba(227,185,100,.07);border:1px dashed rgba(227,185,100,.4);font-size:14px;color:#E8E2CF;text-align:center}
-
-/* oferta */
-.offer{padding:22px 18px;text-align:center;border:1px solid rgba(227,185,100,.5);background:linear-gradient(170deg,rgba(139,92,246,.14),rgba(10,9,16,.94) 45%);box-shadow:0 0 80px -30px rgba(227,185,100,.5)}
-.offer .name{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
-.price{font-size:clamp(50px,9vw,68px);font-weight:800;line-height:1;margin-top:10px;letter-spacing:-.03em}
-.price sup{font-size:.34em;vertical-align:1.4em;margin-right:4px}
-.price small{font-size:.28em;color:var(--muted);font-weight:700;letter-spacing:0}
-.per{font-size:14.5px;color:#D3D0E0;margin-top:8px}
-.incl{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:14px}
-.incl span{font-size:12.5px;font-weight:700;padding:6px 10px;border-radius:99px;background:rgba(45,212,191,.08);border:1px solid rgba(45,212,191,.3);color:#D9F7F2}
-
-/* widget de Hotmart */
-#hotmart-sales-funnel{margin-top:18px;min-height:60px}
-.wfallback{margin-top:18px;font-size:12.5px;color:var(--dim)}
-.safe{margin-top:12px;font-size:12.5px;color:var(--muted)}
-.cancel{margin-top:10px;font-size:12.5px;color:var(--dim)}
-
-.faq{display:grid;gap:8px}
-.faq details summary{list-style:none;cursor:pointer;padding:13px 16px;font-size:14.5px;font-weight:700;display:flex;justify-content:space-between;gap:10px}
-.faq details summary::-webkit-details-marker{display:none}
-.faq details summary::after{content:"+";color:var(--gold);font-size:20px;line-height:1}
-.faq details[open] summary::after{content:"–"}
-.faq details p{padding:0 16px 14px;font-size:14px;color:#C9C5D8}
-
-footer{padding:30px 0 40px;margin-top:40px;border-top:1px solid var(--line);text-align:center;font-size:11.5px;color:var(--dim)}
-footer a{text-decoration:underline}
-@media (max-width:640px){.steps{font-size:10px;gap:4px}.glass{border-radius:16px}}
+.once{text-align:center;font-size:15px;font-weight:700;margin-top:18px;color:#E9E6F2}
+.once b{color:var(--gold2)}
+#hotmart-sales-funnel{margin-top:12px;min-height:56px}
+.price{text-align:center;margin-top:10px;font-size:13px;color:var(--muted)}
+.price b{color:#fff}
+.price s{color:var(--dim)}
+footer{text-align:center;font-size:11px;color:var(--dim);margin-top:28px}
+footer a{text-decoration:underline;color:inherit}
+@media (prefers-reduced-motion:reduce){.sound .b{animation:none}}
 </style>
 </head>
 <body>
-
-<div class="steps">
-  <span class="ok"><i>✔</i> Pago confirmado</span><span>›</span>
-  <span class="now"><i>②</i> Oferta especial</span><span>›</span>
-  <span><i>③</i> Acceso</span>
-</div>
-
-<header>
-  <div class="amb" style="width:380px;height:380px;top:-120px;left:-150px;background:rgba(45,212,191,.16)"></div>
-  <div class="amb" style="width:320px;height:320px;top:120px;right:-140px;background:rgba(139,92,246,.2)"></div>
-  <div class="wrap">
-    <span class="badge">🎉 ¡Ya eres parte de NeuroFluency!</span>
-    <h1>Antes de entrar… ¿quieres practicar tu inglés <span class="serif gold">todos los días</span> con Luna?</h1>
-    <p class="lead">Tu acceso al curso ya va camino a tu correo. Esta oferta es <b>solo para alumnos nuevos</b> y aparece una sola vez.</p>
-    <span class="warn">⚠️ No cierres esta página: tu acceso no se pierde, pero esta oferta sí</span>
-
-    <div class="chat" aria-hidden="true">
-      <div class="top"><span class="av">🌙</span><div><b>Luna AI</b><small>en línea</small></div></div>
-      <div class="msg in">Hi! What did you do yesterday? 🌙</div>
-      <div class="msg out">Yesterday I go to the office and I have a meeting</div>
-      <div class="msg fix">Yesterday I <span class="x">go</span> <span class="ok">went</span> to the office and I <span class="x">have</span> <span class="ok">had</span> a meeting.<br><small style="color:#A39FB6">Hablas del pasado → go = went, have = had. Now tell me: how was the meeting?</small></div>
-      <div class="msg out voice">▶ <span class="bars"></span> 0:07</div>
-      <div class="msg in">Great answer! Let's keep going 👏</div>
-    </div>
-  </div>
-</header>
-
 <main class="wrap">
-  <section>
-    <div class="st"><h2>Tu compañera de práctica <span class="serif gold">en WhatsApp</span></h2></div>
-    <div class="why">
-      <div class="glass"><span class="ic">💬</span><div><b>Conversa contigo a tu nivel</b><p>Le escribes o le mandas audios y te responde al instante, como una tutora personal.</p></div></div>
-      <div class="glass"><span class="ic">✅</span><div><b>Corrige lo que importa</b><p>Te explica en español tus errores, sin hacerte perder la confianza.</p></div></div>
-      <div class="glass"><span class="ic">🧠</span><div><b>Recuerda tu progreso</b><p>Guarda tus errores frecuentes y las frases que aprendes, y te las repasa justo antes de olvidarlas.</p></div></div>
-      <div class="glass"><span class="ic">🗺</span><div><b>Hecha para el método NeuroFluency</b><p>Te acompaña en las 5 fases del curso y en tu Anki. Sin apps nuevas: funciona dentro de tu WhatsApp.</p></div></div>
-    </div>
-    <p class="phase">🎯 En la <b>Fase 5 · Fluidez Real</b> del curso vas a hablar a diario con IA. <b>Con Luna empiezas desde el día 1.</b></p>
-  </section>
+  <div class="top">
+    <span class="thanks">🎉 ¡Gracias! Tu acceso a NeuroFluency ya va camino a tu correo</span>
+    <h1>Antes de empezar, mira este <em>video corto</em></h1>
+    <p class="warn">⚠️ No cierres esta página: tu acceso no se pierde, pero esta oferta sí</p>
+  </div>
 
-  <section id="oferta">
-    <div class="offer glass">
-      <p class="name">🌙 Luna AI · tutora de inglés con IA</p>
-      <p class="price gold"><sup>US$</sup>14.99<small> /mes</small></p>
-      <p class="per">Menos de <b>US$0.50 al día</b> por practicar inglés todos los días.</p>
-      <div class="incl"><span>💬 Texto y audios</span><span>⏰ 24/7</span><span>🧠 Recuerda tu progreso</span><span>📱 En tu WhatsApp</span></div>
+  <div class="video" id="videoBox" hidden>
+    <div id="yt"></div>
+    <button class="sound" id="soundBtn" type="button" aria-label="Activar sonido del video">
+      <span class="b">🔊</span><span class="t" id="soundTxt">Toca para escuchar el video</span>
+    </button>
+  </div>
+  <p class="hint" id="hint" hidden>🔊 Activa el sonido y míralo completo: dura muy poco</p>
 
-      <!-- =====================================================================
-           WIDGET DE HOTMART (Embudo de Ventas): pegar aquí el código </> del paso del embudo.
-           Hotmart muestra los botones "Sí, lo quiero" y "No, gracias" con el cobro en 1 clic.
-           ===================================================================== -->
-      <!-- HOTMART - Sales Funnel Widget -->
-      <div id="hotmart-sales-funnel"></div>
-      <script src="https://checkout.hotmart.com/lib/hotmart-checkout-elements.js"></script>
-      <script>
-      checkoutElements.init('salesFunnel').mount('#hotmart-sales-funnel')
-      </script>
-      <!-- HOTMART - Sales Funnel Widget -->
+  <div class="nov" id="noVideo">
+    <h2>🌙 Luna AI · tu tutora de inglés en WhatsApp</h2>
+    <ul>
+      <li>💬 <span>Practica conversando por texto o audios, <b>todos los días</b>.</span></li>
+      <li>✅ <span>Corrige lo importante y te lo explica en español.</span></li>
+      <li>🧠 <span>Recuerda tus errores y te los repasa antes de que los olvides.</span></li>
+      <li>🗺 <span>Hecha para las 5 fases de NeuroFluency.</span></li>
+    </ul>
+  </div>
 
-      <p class="safe">🔒 Se cobra con la misma tarjeta de tu inscripción, sin volver a escribir tus datos.</p>
-      <p class="cancel">Suscripción mensual. Cancelas cuando quieras desde tu cuenta de Hotmart.</p>
-    </div>
-  </section>
+  <p class="once">Esta oferta es <b>solo para alumnos nuevos</b> y aparece una sola vez.</p>
 
-  <section>
-    <div class="faq">
-      <details class="glass"><summary>¿Cómo empiezo a usar a Luna?</summary><p>Al aceptar, recibes por correo y WhatsApp el enlace para escribirle a Luna. Le cuentas para qué quieres el inglés y en unos minutos estima tu nivel.</p></details>
-      <details class="glass"><summary>¿Necesito descargar algo?</summary><p>No. Luna funciona dentro de tu WhatsApp, por texto o por notas de voz.</p></details>
-      <details class="glass"><summary>¿Puedo cancelar?</summary><p>Sí. Es una suscripción mensual y la cancelas cuando quieras desde tu cuenta de Hotmart.</p></details>
-      <details class="glass"><summary>¿Y si digo que no?</summary><p>No pasa nada: tu inscripción a NeuroFluency ya está confirmada y tu acceso llega igual a tu correo.</p></details>
-    </div>
-  </section>
+  <!-- HOTMART - Sales Funnel Widget -->
+  <div id="hotmart-sales-funnel"></div>
+  <script src="https://checkout.hotmart.com/lib/hotmart-checkout-elements.js"></script>
+  <script>
+  checkoutElements.init('salesFunnel').mount('#hotmart-sales-funnel')
+  </script>
+  <!-- HOTMART - Sales Funnel Widget -->
+
+  <p class="price">Luna AI · <b>US$14.99/mes</b> · con la misma tarjeta, en 1 clic · cancelas cuando quieras</p>
+
+  <footer>© 2026 English With Heidy · NeuroFluency · Luna AI · <a href="/privacidad.html">Privacidad</a></footer>
 </main>
 
-<footer>
-  <div class="wrap">
-    <p>© 2026 English With Heidy · NeuroFluency · Luna AI</p>
-    <p style="margin-top:6px"><a href="/privacidad.html">Privacidad</a> · <a href="/terminos.html">Términos</a></p>
-  </div>
-</footer>
+<script>
+(function(){
+  var id = (window.VIDEO_YT || '').trim();
+  if (!id) return;
+  document.getElementById('noVideo').hidden = true;
+  document.getElementById('videoBox').hidden = false;
+  document.getElementById('hint').hidden = false;
+  var btn = document.getElementById('soundBtn'), txt = document.getElementById('soundTxt'), player = null, sent = {};
+  window.onYouTubeIframeAPIReady = function(){
+    player = new YT.Player('yt', {
+      videoId: id, host: 'https://www.youtube-nocookie.com',
+      playerVars: { autoplay: 1, mute: 1, playsinline: 1, rel: 0, modestbranding: 1, controls: 1 },
+      events: {
+        onReady: function(e){ e.target.mute(); e.target.playVideo(); },
+        onStateChange: function(e){
+          if (e.data === YT.PlayerState.PLAYING) {
+            clearInterval(window._vt);
+            window._vt = setInterval(function(){
+              var d = player.getDuration() || 0; if (!d) return;
+              var pct = player.getCurrentTime() / d * 100;
+              [25,50,75,95].forEach(function(x){ if (pct >= x && !sent[x]) { sent[x]=1; ewhTrack('VideoProgreso',{},true,{boton:'LUNA_UPSELL'.toLowerCase()+'_'+x},true); } });
+            }, 1500);
+          }
+        }
+      }
+    });
+  };
+  var s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(s);
+  // Si el navegador no deja reproducir solo, el botón dice "Toca para ver el video"
+  setTimeout(function(){ try { if (player && player.getPlayerState && player.getPlayerState() !== 1) txt.textContent = 'Toca para ver el video'; } catch(e){} }, 2500);
+  btn.addEventListener('click', function(){
+    try { player.unMute(); player.setVolume(100); player.seekTo(0, true); player.playVideo(); } catch(e){}
+    btn.remove();
+    ewhTrack('VideoProgreso',{},true,{boton:'LUNA_UPSELL'.toLowerCase()+'_play'},true);
+  });
+})();
+</script>
 </body>
 </html>
