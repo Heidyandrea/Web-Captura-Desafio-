@@ -6,7 +6,8 @@
 //
 // Variables de entorno en Vercel:
 //   HOTMART_HOTTOK      → el "Hottok" de Hotmart (Herramientas → Webhook). Si está, se rechaza todo lo que no lo traiga.
-//   HOTMART_PRODUCT_ID  → (opcional) ID del producto NeuroFluency; si está, solo ese producto genera Purchase/etiquetas.
+//   HOTMART_PRODUCT_ID  → IDs de producto separados por coma. El PRIMERO es NeuroFluency (curso principal);
+//                         los demás (ej. Luna AI del upsell) también generan Purchase con su propio valor y etiqueta.
 //   NF_API_KEY          → la misma de /api/event (Supabase)
 //   META_CAPI_TOKEN     → el mismo de /api/event
 //   SYSTEMIO_API_KEY    → el mismo de /api/lead
@@ -22,6 +23,8 @@ const sha256 = (s) => crypto.createHash('sha256').update(String(s)).digest('hex'
 const T = () => AbortSignal.timeout(7000);
 
 const COMPRA = ['PURCHASE_APPROVED', 'PURCHASE_COMPLETE'];
+const IDS = String(process.env.HOTMART_PRODUCT_ID || '').split(',').map(x => x.trim()).filter(Boolean);
+const esPrincipal = (id) => !IDS.length || String(id) === IDS[0];
 const REEMBOLSO = ['PURCHASE_REFUNDED', 'PURCHASE_CHARGEBACK', 'PURCHASE_CANCELED'];
 const ABANDONO = 'PURCHASE_OUT_OF_SHOPPING_CART';
 
@@ -40,7 +43,7 @@ function parse(b) {
   let valorUsd = null;
   if (moneda === 'USD' && valor != null) valorUsd = valor;
   else if (String(orig.currency_value || '').toUpperCase() === 'USD' && orig.value != null) valorUsd = Number(orig.value);
-  else if (COMPRA.includes(b.event)) valorUsd = Number(process.env.PRECIO_USD || 397);
+  else if (COMPRA.includes(b.event) && esPrincipal(prod.id)) valorUsd = Number(process.env.PRECIO_USD || 397);
   const sck = String(origin.sck || d.sck || '').trim().toLowerCase();
   const name = String(buyer.name || '').trim();
   return {
@@ -176,7 +179,10 @@ module.exports = async (req, res) => {
 
   const v = parse(b);
   if (!v.evento) return res.status(200).json({ ok: true, ignorado: true });
-  const esNuestro = !process.env.HOTMART_PRODUCT_ID || v.producto_id === String(process.env.HOTMART_PRODUCT_ID);
+  const esNuestro = !IDS.length || IDS.includes(v.producto_id);
+  const principal = esPrincipal(v.producto_id);
+  const nombreProd = principal ? 'NeuroFluency English Course' : (v.producto || 'Producto ' + v.producto_id);
+  const tagCompra = principal ? 'Comprador NeuroFluency' : 'Comprador ' + nombreProd;
   const salida = { ok: true, evento: v.evento };
 
   // 1) Supabase (sabemos si es nuevo + datos del visitante)
@@ -197,14 +203,14 @@ module.exports = async (req, res) => {
     const usd = v.valor_usd != null;
     tareas.push(capi('Purchase', 'purchase.' + (v.transaction || v.email), v, vis, {
       value: usd ? v.valor_usd : v.valor, currency: usd ? 'USD' : (v.moneda || 'USD'),
-      content_name: 'NeuroFluency English Course', content_type: 'product',
-      content_ids: [v.producto_id || 'neurofluency'], order_id: v.transaction || undefined, num_items: 1,
+      content_name: nombreProd, content_type: 'product',
+      content_ids: [v.producto_id || 'neurofluency'], upsell: principal ? undefined : true, order_id: v.transaction || undefined, num_items: 1,
       payment_type: v.metodo_pago || undefined, installments: v.cuotas || undefined
     }).then(ok => { salida.meta = ok ? 'Purchase' : 'error';
       if (ok && key && vis && vis.id) return rpc('nf_api_venta_capi', { p_key: key, p_id: vis.id }).catch(() => {}); })
       .catch(e => console.error('capi', e.message)));
-    tareas.push(etiquetar(v, ['Comprador NeuroFluency'], ['Carrito Abandonado NF']).catch(e => console.error('sio', e.message)));
-  } else if (esNuestro && v.evento === ABANDONO && v.email) {
+    tareas.push(etiquetar(v, [tagCompra], principal ? ['Carrito Abandonado NF'] : []).catch(e => console.error('sio', e.message)));
+  } else if (esNuestro && principal && v.evento === ABANDONO && v.email) {
     const dia = new Date().toISOString().slice(0, 10);
     tareas.push(capi('CheckoutAbandonado', 'abandono.' + sha256(v.email).slice(0, 16) + '.' + dia, v, vis, {
       content_name: 'NeuroFluency English Course', value: Number(process.env.PRECIO_USD || 397), currency: 'USD'

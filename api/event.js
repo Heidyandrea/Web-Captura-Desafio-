@@ -14,7 +14,7 @@ const SB_ANON = process.env.NF_SUPABASE_ANON || 'sb_publishable_WNcuZo1C522GYYdt
 
 // Eventos que se envían a Meta
 const CAPI_EVENTS = ['PageView', 'Lead', 'ViewContent', 'Contact', 'VioClase3',
-  'InitiateCheckout', 'VioOferta', 'VioVideoVenta', 'VioTestimonios'];
+  'InitiateCheckout', 'VioOferta', 'VioVideoVenta', 'VioTestimonios', 'VioUpsell'];
 // Eventos que SOLO se guardan en Supabase (no van a Meta)
 const LOG_ONLY = ['Scroll', 'VideoProgreso'];
 
