@@ -24,7 +24,9 @@ const T = () => AbortSignal.timeout(7000);
 
 const COMPRA = ['PURCHASE_APPROVED', 'PURCHASE_COMPLETE'];
 // Productos del embudo (upsell/downsell). Se pueden cambiar con HOTMART_EXTRA_IDS sin tocar el código.
-const EXTRA = String(process.env.HOTMART_EXTRA_IDS || '8895925,8896209'); // Luna AI (upsell US$14.99) · Luna AI Tutor (downsell US$12.99)
+// 8895925 Luna AI (upsell US$14.99) · 8896209 Luna AI Tutor (downsell US$12.99)
+// 8981917 Acceso Preferencial (order bump) · 8982076 Pase Acompañante 50% OFF (order bump)
+const EXTRA = String(process.env.HOTMART_EXTRA_IDS || '8895925,8896209,8981917,8982076');
 const IDS = [...new Set((String(process.env.HOTMART_PRODUCT_ID || '') + (process.env.HOTMART_PRODUCT_ID ? ',' + EXTRA : ''))
   .split(',').map(x => x.trim()).filter(Boolean))];
 const esPrincipal = (id) => !IDS.length || String(id) === IDS[0];
@@ -207,7 +209,7 @@ module.exports = async (req, res) => {
     tareas.push(capi('Purchase', 'purchase.' + (v.transaction || v.email), v, vis, {
       value: usd ? v.valor_usd : v.valor, currency: usd ? 'USD' : (v.moneda || 'USD'),
       content_name: nombreProd, content_type: 'product',
-      content_ids: [v.producto_id || 'neurofluency'], upsell: principal ? undefined : true, order_id: v.transaction || undefined, num_items: 1,
+      content_ids: [v.producto_id || 'neurofluency'], tipo: principal ? 'principal' : (['8981917','8982076'].includes(v.producto_id) ? 'order_bump' : 'upsell'), order_id: v.transaction || undefined, num_items: 1,
       payment_type: v.metodo_pago || undefined, installments: v.cuotas || undefined
     }).then(ok => { salida.meta = ok ? 'Purchase' : 'error';
       if (ok && key && vis && vis.id) return rpc('nf_api_venta_capi', { p_key: key, p_id: vis.id }).catch(() => {}); })
