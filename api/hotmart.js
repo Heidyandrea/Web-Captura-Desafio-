@@ -2,7 +2,7 @@
 //   1) Guarda TODOS los eventos en Supabase (nf_ventas_eventos) y los enlaza con el visitante de /inscripcion (vía sck)
 //   2) Reenvía el webhook tal cual a n8n (flujo "NF – Webhooks de entrada": contacto, bienvenida de alumno y mensajes de carrito por WhatsApp)
 //   3) Envía a Meta (API de Conversiones):  Purchase (compra aprobada)  y  CheckoutAbandonado (abandono de carrito)
-//   4) Etiqueta en systeme.io:  Comprador NeuroFluency / Carrito Abandonado NF / Reembolso NF
+//   4) Etiqueta en systeme.io:  Comprador NeuroFluency / Carrito Abandonado NF / Pago Rechazado NF / Reembolso NF
 //
 // Variables de entorno en Vercel:
 //   HOTMART_HOTTOK      → el "Hottok" de Hotmart (Herramientas → Webhook). Si está, se rechaza todo lo que no lo traiga.
@@ -30,7 +30,8 @@ const EXTRA = String(process.env.HOTMART_EXTRA_IDS || '8895925,8896209,8981917,8
 const IDS = [...new Set((String(process.env.HOTMART_PRODUCT_ID || '') + (process.env.HOTMART_PRODUCT_ID ? ',' + EXTRA : ''))
   .split(',').map(x => x.trim()).filter(Boolean))];
 const esPrincipal = (id) => !IDS.length || String(id) === IDS[0];
-const REEMBOLSO = ['PURCHASE_REFUNDED', 'PURCHASE_CHARGEBACK', 'PURCHASE_CANCELED'];
+const REEMBOLSO = ['PURCHASE_REFUNDED', 'PURCHASE_CHARGEBACK'];
+const RECHAZO = 'PURCHASE_CANCELED'; // Hotmart: tarjeta rechazada / pago no aprobado (no es reembolso)
 const ABANDONO = 'PURCHASE_OUT_OF_SHOPPING_CART';
 
 // ---------- leer el webhook (v2, con tolerancia a variaciones) ----------
@@ -214,13 +215,15 @@ module.exports = async (req, res) => {
     }).then(ok => { salida.meta = ok ? 'Purchase' : 'error';
       if (ok && key && vis && vis.id) return rpc('nf_api_venta_capi', { p_key: key, p_id: vis.id }).catch(() => {}); })
       .catch(e => console.error('capi', e.message)));
-    tareas.push(etiquetar(v, [tagCompra], principal ? ['Carrito Abandonado NF'] : []).catch(e => console.error('sio', e.message)));
+    tareas.push(etiquetar(v, [tagCompra], principal ? ['Carrito Abandonado NF', 'Pago Rechazado NF'] : []).catch(e => console.error('sio', e.message)));
   } else if (esNuestro && principal && v.evento === ABANDONO && v.email) {
     const dia = new Date().toISOString().slice(0, 10);
     tareas.push(capi('CheckoutAbandonado', 'abandono.' + sha256(v.email).slice(0, 16) + '.' + dia, v, vis, {
       content_name: 'NeuroFluency English Course', value: Number(process.env.PRECIO_USD || 397), currency: 'USD'
     }).then(ok => { salida.meta = ok ? 'CheckoutAbandonado' : 'error'; }).catch(e => console.error('capi', e.message)));
     tareas.push(etiquetar(v, ['Carrito Abandonado NF'], []).catch(e => console.error('sio', e.message)));
+  } else if (esNuestro && principal && nuevo && v.evento === RECHAZO && v.email) {
+    tareas.push(etiquetar(v, ['Pago Rechazado NF'], []).catch(e => console.error('sio', e.message)));
   } else if (esNuestro && nuevo && REEMBOLSO.includes(v.evento)) {
     tareas.push(etiquetar(v, ['Reembolso NF'], []).catch(e => console.error('sio', e.message)));
   }
