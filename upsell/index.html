@@ -89,6 +89,8 @@ h1 em{font-family:var(--serif);font-weight:400;font-size:1.1em;background:linear
 .price s{color:var(--dim)}
 footer{text-align:center;font-size:11px;color:var(--dim);margin-top:28px}
 footer a{text-decoration:underline;color:inherit}
+.video.vertical{aspect-ratio:9/16;max-width:340px;margin:16px auto 0;border-radius:18px;border:1px solid rgba(227,185,100,.45);box-shadow:0 0 70px -25px rgba(227,185,100,.6)}
+@media(max-width:400px){.video.vertical{max-width:78vw}}
 @media (prefers-reduced-motion:reduce){.sound .b{animation:none}}
 </style>
 </head>
@@ -100,7 +102,7 @@ footer a{text-decoration:underline;color:inherit}
     <p class="warn">⚠️ No cierres esta página: tu acceso no se pierde, pero esta oferta sí</p>
   </div>
 
-  <div class="video" id="videoBox" hidden>
+  <div class="video vertical" id="videoBox" hidden>
     <div id="yt"></div>
     <button class="sound" id="soundBtn" type="button" aria-label="Activar sonido del video">
       <span class="b">🔊</span><span class="t" id="soundTxt">Toca para escuchar el video</span>
