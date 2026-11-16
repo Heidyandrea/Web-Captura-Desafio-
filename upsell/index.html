@@ -140,7 +140,8 @@ footer a{text-decoration:underline;color:inherit}
   var id = (window.VIDEO_YT || '').trim();
   if (!id) return;
   document.getElementById('noVideo').hidden = true;
-  document.getElementById('videoBox').hidden = false;
+  var vb = document.getElementById('videoBox'); vb.hidden = false;
+  vb.style.background = '#000 url(https://i.ytimg.com/vi/' + id + '/hqdefault.jpg) center/cover no-repeat'; // miniatura mientras carga
   document.getElementById('hint').hidden = false;
   var btn = document.getElementById('soundBtn'), txt = document.getElementById('soundTxt'), player = null, sent = {};
   window.onYouTubeIframeAPIReady = function(){
