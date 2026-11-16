@@ -704,7 +704,7 @@ footer{margin-top:40px}
 //  AJUSTES — único lugar que se toca
 // =====================================================================
 const HOTMART_URL   = 'https://pay.hotmart.com/S108296516N?off=lgiyabc5&bid=1794616949899';
-const APERTURA      = new Date('2026-11-16T09:00:00-05:00'); // apertura (Grupo VIP 9:00 AM Ecuador)
+const APERTURA      = new Date('2026-11-16T08:00:00-05:00'); // apertura técnica 8:00 AM Ecuador (VIP recibe el enlace a las 9:00, todos a las 10:00)
 const CIERRE        = new Date('2026-11-21T23:59:59-05:00'); // fin de la beca y de la inscripción
 const VSL_YT        = 'fyd-GoFqG14';   // ← ID del video de ventas en YouTube (ej. 'dQw4w9WgXcQ'). Vacío = se muestra la imagen.
 const TESTIMONIOS_YT = '';  // ← opcional: ID de YouTube del video de testimonios. Vacío = se usa testimonios.mp4
@@ -751,7 +751,7 @@ function aplicarEstado() {
     if (estado === 'antes') {
       a.setAttribute('aria-disabled', 'true');
       if (!a.dataset.orig) a.dataset.orig = a.innerHTML;
-      a.innerHTML = 'Se abre el lunes 16 · 9:00 AM<small>Hora de Ecuador / Colombia / Miami</small>';
+      a.innerHTML = 'Se abre el lunes 16 · 8:00 AM<small>Hora de Ecuador / Colombia / Miami</small>';
       a.href = '#oferta';
     } else {
       a.removeAttribute('aria-disabled');
@@ -774,7 +774,7 @@ function tick() {
   const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60, s = Math.floor(ms / 1e3) % 60;
   $('#cdD').textContent = pad(d); $('#cdH').textContent = pad(h); $('#cdM').textContent = pad(m); $('#cdS').textContent = pad(s);
   const t = (d ? d + 'd ' : '') + pad(h) + ':' + pad(m) + ':' + pad(s);
-  if (estado === 'antes') { $('#topTxt').textContent = 'Inscripciones se abren el lunes 16, 9:00 AM'; $('#topCd').textContent = '· Faltan ' + t; }
+  if (estado === 'antes') { $('#topTxt').textContent = 'Inscripciones se abren el lunes 16, 8:00 AM'; $('#topCd').textContent = '· Faltan ' + t; }
   else { $('#topTxt').textContent = 'Beca de US$200 · termina en'; $('#topCd').textContent = t; }
   setTimeout(tick, 1000);
 }
