@@ -966,5 +966,77 @@ a,button,.yes,.toggle-card{touch-action:manipulation}
     }
   })();
 </script>
+<!-- =====================================================================
+     NF · WHATSAPP OPCIONAL + PERMISO PARA RECORDATORIOS
+     Pegar JUSTO ANTES de </body> en:
+       · web-captura-desafio/index.html          (anuncios)
+       · web-captura-desafio-organico/index.html (orgánica)
+     No toca nada más: añade el campo al paso del correo y lo manda a /api/lead.
+     Si la persona no lo llena, todo funciona exactamente igual que antes.
+     ===================================================================== -->
+<style>
+.nf-wa{margin-top:4px;text-align:left}
+.nf-wa .em-in{margin-bottom:8px}
+.nf-chk{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.45;color:#D2CFDD;cursor:pointer;margin:2px 0 10px}
+.nf-chk input{width:20px;height:20px;flex-shrink:0;margin-top:1px;accent-color:#25D366;cursor:pointer}
+.nf-chk b{color:#fff}
+</style>
+<script>
+(function () {
+  var form = document.getElementById('emForm');
+  var email = document.getElementById('emInput');
+  var err = document.getElementById('emErr');
+  if (!form || !email || !err) return;
+
+  // 1) Campo de WhatsApp + casilla de permiso (desmarcada: el permiso debe ser explícito)
+  var box = document.createElement('div');
+  box.className = 'nf-wa';
+  box.innerHTML =
+    '<input class="em-in" id="nfWa" type="tel" inputmode="tel" autocomplete="tel" ' +
+    'placeholder="Tu WhatsApp con código de país (ej. +593 99 123 4567)" maxlength="22">' +
+    '<label class="nf-chk"><input type="checkbox" id="nfOk">' +
+    '<span>Quiero recibir por <b>WhatsApp</b> la confirmación de mi registro, mi <b>regalo del desafío</b> ' +
+    'y los avisos de cada clase. Puedo salir cuando quiera respondiendo SALIR.</span></label>';
+  err.parentNode.insertBefore(box, err);
+
+  var title = document.getElementById('emTitle');
+  if (title) title.textContent = '¿Dónde te enviamos los accesos?';
+
+  var wa = document.getElementById('nfWa');
+  var ok = document.getElementById('nfOk');
+  var digits = function (s) { return String(s || '').replace(/\D/g, ''); };
+  // Si escribe el número, marcamos la casilla por comodidad (puede desmarcarla)
+  wa.addEventListener('input', function () { if (digits(wa.value).length >= 8 && !wa.dataset.touched) { ok.checked = true; } });
+  ok.addEventListener('change', function () { wa.dataset.touched = '1'; });
+
+  // 2) Validación: si quiere recordatorios, el número debe ser válido
+  document.addEventListener('submit', function (e) {
+    if (e.target !== form) return;
+    var d = digits(wa.value);
+    if (ok.checked && (d.length < 8 || d.length > 15)) {
+      e.preventDefault(); e.stopImmediatePropagation();
+      err.textContent = 'Escribe tu WhatsApp con código de país para enviarte los recordatorios.';
+      wa.focus();
+    }
+  }, true);
+
+  // 3) Agrega el WhatsApp y el permiso a lo que se envía a /api/lead
+  var _fetch = window.fetch;
+  window.fetch = function (url, init) {
+    try {
+      if (String(url).indexOf('/api/lead') !== -1 && init && typeof init.body === 'string') {
+        var b = JSON.parse(init.body);
+        var d = digits(wa.value);
+        if (d.length >= 8) {
+          b.phone = (wa.value.trim().charAt(0) === '+' || d.indexOf('00') === 0 || d.length > 10) ? '+' + d.replace(/^00/, '') : d;
+          b.wa_ok = !!ok.checked;
+        }
+        init = Object.assign({}, init, { body: JSON.stringify(b) });
+      }
+    } catch (x) {}
+    return _fetch.apply(this, [url, init]);
+  };
+})();
+</script>
 </body>
 </html>
