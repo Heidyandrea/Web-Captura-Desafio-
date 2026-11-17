@@ -593,6 +593,15 @@ h1{font-size:clamp(32px,5.6vw,56px);margin-top:16px}
   .bmini{gap:10px}
   .stack li{font-size:14px;padding:12px 2px}
 }
+.ucards{display:grid;gap:12px;margin:6px 0 8px}
+.ucard{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center;padding:12px;border-radius:14px;background:rgba(0,0,0,.25);border:1px solid rgba(45,212,191,.3)}
+.ucard img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}
+.ucard .tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.1em;padding:3px 8px;border-radius:6px;background:rgba(45,212,191,.18);color:var(--teal-2);border:1px solid rgba(45,212,191,.45)}
+.ucard b{display:block;font-size:19px;margin-top:8px;line-height:1.2}
+.ucard small{display:block;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--gold-2)}
+.ucard em{display:block;font-style:normal;font-weight:800;color:var(--muted);margin-top:6px}
+.ucard .mine{font-size:13px;color:#D9F7F2;margin-top:6px}
+@media (max-width:760px){.ucard{grid-template-columns:110px 1fr;gap:12px}.ucard b{font-size:17px}}
 </style>
 </head>
 <body>
@@ -609,7 +618,7 @@ h1{font-size:clamp(32px,5.6vw,56px);margin-top:16px}
       </div>
     </div>
   </div>
-  <a class="tb-unlock" id="tbUnlock" href="#desbloqueados">🔓 <b>Nuevo bono desbloqueado:</b> <span id="tbBono">Kit SOS</span> <em>· US$97</em> <u>Ver</u></a>
+  <a class="tb-unlock" id="tbUnlock" href="#desbloqueados">🔓 <b>Nuevo bono desbloqueado:</b> <span id="tbBono">Kit SOS English</span> <em>· US$97</em> <u>Ver</u></a>
 </div>
 
 <!-- ============ 1. HERO + VIDEO + PRIMER BOTÓN ============ -->
@@ -724,8 +733,11 @@ h1{font-size:clamp(32px,5.6vw,56px);margin-top:16px}
       <div class="unlocked" id="desbloqueados">
       <p class="stack-h">🔓 Bonos desbloqueados esta semana</p>
       <ul class="stack">
-        <li><span>🆘 Kit SOS <span class="tag">NUEVO</span></span> <span class="v">US$97</span></li>
       </ul>
+      <div class="ucards">
+        <div class="ucard"><img src="/inscripcion/img/bono-kitsos.webp" alt="Kit SOS English · Tu salvavidas" loading="lazy" width="720" height="720">
+          <div><span class="tag">🔓 DESBLOQUEADO · MARTES 17</span><b>Kit SOS English</b><small>Tu salvavidas</small><em>US$97</em><p class="mine">💜 Si ya compraste, también es tuyo.</p></div></div>
+      </div>
       </div>
 
       <p class="stack-h fast-h">⚡ Acción rápida · solo los primeros inscritos</p>
