@@ -504,12 +504,112 @@ footer{margin-top:40px}
   .stack li{font-size:13.5px}
   .stack .tag{display:block;width:max-content;margin:3px 0 0}
 }
+
+/* ===== versión premium: barra grande + más aire ===== */
+body{line-height:1.6}
+.topbar{background:linear-gradient(90deg,#20163a,#100d1d 50%,#20163a);border-bottom:1px solid rgba(227,185,100,.35);box-shadow:0 8px 30px -12px rgba(0,0,0,.8)}
+.topbar .in{display:block;max-width:880px;padding:10px 16px;text-transform:none;letter-spacing:0;font-size:inherit}
+.tb-row{display:flex;align-items:center;justify-content:center;gap:10px 18px;flex-wrap:wrap}
+.tb-label{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.tb-label .dot{width:9px;height:9px}
+.tb-cd{display:flex;align-items:center;gap:6px}
+.tb-cd span{min-width:52px;padding:6px 6px 5px;border-radius:10px;background:rgba(0,0,0,.45);border:1px solid rgba(227,185,100,.4);text-align:center;line-height:1}
+.tb-cd b{display:block;font-size:22px;font-weight:800;color:var(--gold-2);font-variant-numeric:tabular-nums}
+.tb-cd small{display:block;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.tb-cd i{font-style:normal;font-weight:800;color:var(--gold);opacity:.7}
+.tb-unlock{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:nowrap;white-space:nowrap;padding:9px 16px;background:linear-gradient(90deg,rgba(45,212,191,.08),rgba(45,212,191,.2),rgba(45,212,191,.08));border-top:1px solid rgba(45,212,191,.35);font-size:14.5px;color:#D9F7F2}
+.tb-unlock b{color:var(--teal-2)}
+.tb-unlock em{font-style:normal;color:var(--muted);font-weight:700}
+.tb-unlock u{margin-left:6px;text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:99px;background:var(--teal);color:#032520}
+section{scroll-margin-top:150px}
+.block{padding:84px 0 0}
+.st{margin-bottom:30px}
+.st h2{font-size:clamp(26px,4vw,40px);margin-top:14px}
+.hero{padding-top:34px}
+h1{font-size:clamp(32px,5.6vw,56px);margin-top:16px}
+.hero .lead{margin-top:16px;line-height:1.55}
+.vsl,.hero-img{margin-top:28px}
+.hero-cta{margin-top:26px}
+.mini-price{margin-top:12px}
+.trust{margin-top:20px;gap:10px 22px}
+.chips{gap:14px}
+.chip-i{padding:16px 16px;border-radius:16px}
+.chip-i b{font-size:14.5px}
+.chip-i small{font-size:13px;margin-top:4px}
+.phases::before{left:23px}
+.ph{padding-bottom:16px;gap:18px}
+.ph .num{width:48px;height:48px;font-size:19px}
+.ph .card{padding:20px 22px}
+.ph h3{font-size:19px}
+.ph ul{gap:7px;font-size:15px;margin-top:12px}
+.anki{margin-top:14px;padding:12px 14px;font-size:13.5px}
+.offer{padding:34px 30px}
+.incl{gap:8px;padding:16px 0 6px}
+.incl span{font-size:13px;padding:7px 12px}
+.stack-h{margin-top:30px;padding-top:22px;border-top:1px solid var(--line);font-size:12px;letter-spacing:.14em}
+.bmini{gap:12px;margin-top:14px}
+.bmini div{border-radius:14px}
+.bmini p{padding:11px 12px 12px;font-size:12.5px}
+.bmini b{font-size:13.5px;margin-bottom:2px}
+.stack li{padding:13px 4px;font-size:15px}
+.unlocked{margin-top:30px;padding:4px 18px 10px;border-radius:16px;border:1px solid rgba(45,212,191,.45);background:linear-gradient(160deg,rgba(45,212,191,.12),rgba(45,212,191,.03));box-shadow:0 0 40px -18px rgba(45,212,191,.6)}
+.unlocked .stack-h{margin-top:14px;padding-top:0;border-top:0;color:var(--teal-2)}
+.unlocked .stack li{border-bottom-color:rgba(45,212,191,.18);font-weight:700}
+.unlocked .stack li:last-child{border-bottom:0}
+.unlocked .stack .tag{background:rgba(45,212,191,.18);color:var(--teal-2);border-color:rgba(45,212,191,.45)}
+.fast-note{margin-top:12px}
+.price{margin-top:34px;padding-top:28px;border-top:1px solid var(--line)}
+.price .total{font-size:14.5px}
+.price .now{margin-top:14px}
+.price .beca{margin-top:14px;font-size:13px;padding:8px 14px}
+.price .cuotas{margin-top:16px}
+.offer-cd{margin-top:22px;gap:10px}
+.offer .btn-buy{margin-top:22px}
+.guar{gap:14px}
+.guar .glass{padding:20px 22px;gap:18px}
+.faq{gap:12px}
+.faq summary{padding:18px 20px}
+.faq details p{padding:0 20px 18px}
+.final{margin-top:30px}
+.help{margin-top:30px;padding:22px}
+@media (max-width:760px){
+  section{scroll-margin-top:170px}
+  .block{padding-top:60px}
+  .topbar .in{padding:7px 10px}
+  .tb-row{gap:4px 8px}
+  .tb-label{font-size:11px;letter-spacing:.04em}
+  .tb-cd{gap:3px}
+  .tb-cd span{min-width:38px;padding:4px 3px 3px;border-radius:8px}
+  .tb-cd b{font-size:16px}
+  .tb-cd small{font-size:7.5px;margin-top:2px}
+  .tb-cd i{font-size:12px}
+  .tb-unlock{padding:7px 10px;font-size:12.5px;gap:4px}
+  .tb-unlock em{display:none}
+  .tb-unlock u{margin-left:4px;font-size:10.5px;padding:2px 8px}
+  .chip-i{padding:14px 12px}
+  .ph .card{padding:16px 16px}
+  .offer{padding:24px 16px}
+  .unlocked{padding:2px 12px 8px}
+  .bmini{gap:10px}
+  .stack li{font-size:14px;padding:12px 2px}
+}
 </style>
 </head>
 <body>
 
 <div class="topbar">
-  <div class="in"><i class="dot"></i> <span id="topTxt">Inscripciones NeuroFluency</span> <span id="topCd" class="cd"></span></div>
+  <div class="in">
+    <div class="tb-row">
+      <span class="tb-label"><i class="dot"></i> <span id="topTxt">Beca de US$200 · termina en</span><span id="topCd" class="cd" hidden></span></span>
+      <div class="tb-cd" aria-label="Tiempo restante de la beca">
+        <span><b id="tD">00</b><small>días</small></span><i>:</i>
+        <span><b id="tH">00</b><small>horas</small></span><i>:</i>
+        <span><b id="tM">00</b><small>min</small></span><i>:</i>
+        <span><b id="tS">00</b><small>seg</small></span>
+      </div>
+    </div>
+  </div>
+  <a class="tb-unlock" id="tbUnlock" href="#desbloqueados">🔓 <b>Nuevo bono desbloqueado:</b> <span id="tbBono">Kit SOS</span> <em>· US$97</em> <u>Ver</u></a>
 </div>
 
 <!-- ============ 1. HERO + VIDEO + PRIMER BOTÓN ============ -->
@@ -520,7 +620,6 @@ footer{margin-top:40px}
     <span class="eyebrow" id="heroEyebrow">INSCRIPCIONES ABIERTAS · NEUROFLUENCY</span>
     <h1>Habla inglés en <span class="gold-text"><span class="serif it">90 días</span></span> con NeuroFluency</h1>
     <p class="lead">El método que activa tu cerebro, no tu memoria. <b>Beca de US$200 solo hasta el 21 de noviembre.</b></p>
-    <a href="#desbloqueados" class="unlock-pill">🔓 Nuevo bono desbloqueado: <b>Kit SOS</b> (US$97) · ver todo lo que incluye</a>
 
     <div class="vsl" id="vsl" style="display:none"></div>
     <div class="hero-img" id="heroImg"><img src="/inscripcion/img/plataforma.webp" alt="Plataforma de NeuroFluency English Course" width="1100" height="614"></div>
@@ -622,10 +721,12 @@ footer{margin-top:40px}
         <div><img src="/inscripcion/img/bono-fluidez.webp" alt="" loading="lazy"><p><b>Código de fluidez nativa</b><small>US$97</small></p></div>
       </div>
 
-      <p class="stack-h" id="desbloqueados">🔓 Bonos desbloqueados esta semana</p>
+      <div class="unlocked" id="desbloqueados">
+      <p class="stack-h">🔓 Bonos desbloqueados esta semana</p>
       <ul class="stack">
         <li><span>🆘 Kit SOS <span class="tag">NUEVO</span></span> <span class="v">US$97</span></li>
       </ul>
+      </div>
 
       <p class="stack-h fast-h">⚡ Acción rápida · solo los primeros inscritos</p>
       <ul class="stack">
@@ -670,7 +771,7 @@ footer{margin-top:40px}
       <details class="glass"><summary>¿Cómo recibo el acceso?</summary><p>Al instante: te llega un correo con tu usuario y contraseña, y Heidy te da la bienvenida por WhatsApp. Escribe bien tu correo al pagar.</p></details>
       <details class="glass"><summary>¿Puedo pagar en cuotas o en mi moneda?</summary><p>Sí. Pago único de US$397 o, con tarjeta, en 2 o 3 cuotas. En el pago toca "Change country" para ver tu moneda local y los métodos de tu país.</p></details>
       <details class="glass"><summary>¿Cuánto tiempo necesito al día?</summary><p>Tú decides el ritmo, sin cronogramas rígidos. El acceso es de por vida.</p></details>
-      <details class="glass"><summary>¿Hasta cuándo está la beca de US$200?</summary><p id="faqHasta">Hasta el viernes 21 de noviembre a las 11:59 p. m. (hora de Ecuador / Colombia). Después vuelve a US$597.</p></details>
+      <details class="glass"><summary>¿Hasta cuándo está la beca de US$200?</summary><p id="faqHasta">Hasta el sábado 21 de noviembre a las 11:59 p. m. (hora de Ecuador / Colombia). Después vuelve a US$597.</p></details>
     </div>
 
     <div class="final buy-only">
@@ -776,11 +877,12 @@ function tick() {
   const prev = estado;
   if (calcEstado() !== prev) aplicarEstado();
   const now = Date.now();
-  if (estado === 'cerrado') { $('#topTxt').textContent = 'Inscripciones cerradas'; $('#topCd').textContent = ''; return; }
+  if (estado === 'cerrado') { $('#topTxt').textContent = 'Inscripciones cerradas'; $('#topCd').textContent = ''; document.querySelector('.tb-cd').style.display = 'none'; $('#tbUnlock').style.display = 'none'; return; }
   const target = estado === 'antes' ? APERTURA : CIERRE;
   const ms = Math.max(0, target - now);
   const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60, s = Math.floor(ms / 1e3) % 60;
   $('#cdD').textContent = pad(d); $('#cdH').textContent = pad(h); $('#cdM').textContent = pad(m); $('#cdS').textContent = pad(s);
+  $('#tD').textContent = pad(d); $('#tH').textContent = pad(h); $('#tM').textContent = pad(m); $('#tS').textContent = pad(s);
   const t = (d ? d + 'd ' : '') + pad(h) + ':' + pad(m) + ':' + pad(s);
   if (estado === 'antes') { $('#topTxt').textContent = 'Inscripciones se abren el lunes 16, 8:00 AM'; $('#topCd').textContent = '· Faltan ' + t; }
   else { $('#topTxt').textContent = 'Beca de US$200 · termina en'; $('#topCd').textContent = t; }
