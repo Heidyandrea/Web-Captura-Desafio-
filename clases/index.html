@@ -360,13 +360,13 @@ footer .disclaimer{max-width:720px;margin:8px auto 0;font-size:11px;line-height:
       <div class="reg-wa glass">
         <span class="free">ÚLTIMO PASO DEL CAMINO</span>
         <h2>Mantén tu cerebro bilingüe en <span class="teal">ON</span>. Sigamos <span class="gold-text"><span class="serif it">juntos</span></span>.</h2>
-        <p class="desc">En el grupo de WhatsApp recibes los avisos, el material del desafío y las próximas clases en vivo.</p>
+        <p class="desc">En el <b>Grupo VIP</b> se anuncian primero los bonos que se desbloquean esta semana y tienes los enlaces oficiales de inscripción a NeuroFluency.</p>
         <div class="warn">
           <i class="fa-solid fa-circle-exclamation"></i>
-          <div><b>Únete solo si todavía NO estás en otro grupo del desafío.</b> Si ya estás en uno, quédate ahí: recibirás exactamente la misma información.</div>
+          <div><b>Solo Heidy y Pablo administran el grupo.</b> Nadie del equipo te va a escribir ni llamar por privado para cobrarte.</div>
         </div>
-        <a href="https://chat.whatsapp.com/J38rNK5wNNB0t4wqXJuoT7" class="btn btn-wa" id="waBtn">
-          <i class="fa-brands fa-whatsapp" style="font-size:24px"></i> UNIRME AL GRUPO DE WHATSAPP
+        <a href="https://chat.whatsapp.com/BafKQebS00WKZbUQ3hGjnN" class="btn btn-wa" id="waBtn">
+          <i class="fa-brands fa-whatsapp" style="font-size:24px"></i> UNIRME AL GRUPO VIP
         </a>
         <p class="wa-hint">Se abrirá WhatsApp: toca <b>“Unirse al grupo”</b> para entrar.</p>
       </div>
@@ -495,7 +495,7 @@ document.querySelectorAll('.video').forEach(v => {
 document.getElementById('waBtn').addEventListener('click', e => {
   e.preventDefault();
   const href = e.currentTarget.href;
-  if (window.ewhTrack) ewhTrack('Contact', {content_name: 'ACB_REPLAY_WA', clases_vistas: seen.length});
+  if (window.ewhTrack) ewhTrack('Contact', {content_name: 'ACB_REPLAY_WA_VIP', clases_vistas: seen.length});
   setTimeout(() => { window.location.href = href; }, 250);
 });
 
