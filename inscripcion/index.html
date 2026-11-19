@@ -634,7 +634,7 @@ h1{font-size:clamp(32px,5.6vw,56px);margin-top:16px}
     <div class="hero-img" id="heroImg"><img src="/inscripcion/img/plataforma.webp" alt="Plataforma de NeuroFluency English Course" width="1100" height="614"></div>
 
     <div class="hero-cta buy-only">
-      <a href="#oferta" class="btn btn-buy js-buy" data-boton="hero">Quiero inscribirme ahora<small>US$397 · o en 2 o 3 cuotas</small></a>
+      <a href="#oferta" class="btn btn-buy js-buy" data-boton="hero">Quiero inscribirme ahora<small id="heroCuotas">US$397 · o en 2 o 3 cuotas</small></a>
       <p class="mini-price">Precio oficial <s>US$597</s> · hoy <b>US$397</b> con la beca</p>
     </div>
     <div class="trust">
@@ -755,7 +755,7 @@ h1{font-size:clamp(32px,5.6vw,56px);margin-top:16px}
         <p class="total">Valor total <s>US$1.717</s> · Precio oficial <s>US$597</s></p>
         <p class="now gold-text"><sup>US$</sup>397</p>
         <span class="beca">🎓 Beca de US$200 · solo en este evento</span>
-        <p class="cuotas">Pago único o con tarjeta en <b>2 o 3 cuotas</b> (3 × US$142)</p>
+        <p class="cuotas" id="ofertaCuotas">Pago único o con tarjeta en <b>2 o 3 cuotas</b> (3 × US$142)</p>
       </div>
       <div class="offer-cd buy-only" aria-label="Tiempo restante">
         <div><b id="cdD">00</b><small>Días</small></div><div><b id="cdH">00</b><small>Horas</small></div>
@@ -783,7 +783,7 @@ h1{font-size:clamp(32px,5.6vw,56px);margin-top:16px}
     <div class="st"><span class="eyebrow v">Preguntas frecuentes</span></div>
     <div class="faq">
       <details class="glass"><summary>¿Cómo recibo el acceso?</summary><p>Al instante: te llega un correo con tu usuario y contraseña, y Heidy te da la bienvenida por WhatsApp. Escribe bien tu correo al pagar.</p></details>
-      <details class="glass"><summary>¿Puedo pagar en cuotas o en mi moneda?</summary><p>Sí. Pago único de US$397 o, con tarjeta, en 2 o 3 cuotas. En el pago toca "Change country" para ver tu moneda local y los métodos de tu país.</p></details>
+      <details class="glass"><summary>¿Puedo pagar en cuotas o en mi moneda?</summary><p id="faqCuotas">Sí. Pago único de US$397 o, con tarjeta, en 2 o 3 cuotas. En el pago toca "Change country" para ver tu moneda local y los métodos de tu país.</p></details>
       <details class="glass"><summary>¿Cuánto tiempo necesito al día?</summary><p>Tú decides el ritmo, sin cronogramas rígidos. El acceso es de por vida.</p></details>
       <details class="glass"><summary>¿Hasta cuándo está la beca de US$200?</summary><p id="faqHasta">Hasta el sábado 21 de noviembre a las 11:59 p. m. (hora de Ecuador / Colombia). Después vuelve a US$597.</p></details>
     </div>
@@ -811,7 +811,7 @@ h1{font-size:clamp(32px,5.6vw,56px);margin-top:16px}
 </footer>
 
 <div class="sticky" id="sticky">
-  <div class="p"><b>US$397</b><small>o en cuotas</small></div>
+  <div class="p"><b>US$397</b><small id="stickyCuotas">o en cuotas</small></div>
   <a href="#" class="btn btn-buy js-buy" data-boton="barra">Inscribirme ahora</a>
 </div>
 
@@ -826,7 +826,10 @@ h1{font-size:clamp(32px,5.6vw,56px);margin-top:16px}
 // =====================================================================
 //  AJUSTES — único lugar que se toca
 // =====================================================================
-const HOTMART_URL   = 'https://pay.hotmart.com/S108296516N?off=lgiyabc5&checkoutMode=10'; // checkoutMode=10 = página de pago personalizada (diseño + order bump)
+const HOTMART_URL   = 'https://pay.hotmart.com/S108296516N?off=lgiyabc5&checkoutMode=10'; // checkoutMode=10 = página de pago personalizada (diseño + order bump) · 2 o 3 cuotas
+const HOTMART_URL_6 = 'https://pay.hotmart.com/S108296516N?off=jt1zklto&checkoutMode=10'; // misma página de pago (order bumps) con hasta 6 cuotas
+const SEIS_CUOTAS   = new Date('2026-11-18T20:00:00-05:00'); // desde esta hora los botones usan HOTMART_URL_6 y los textos dicen 6 cuotas
+const CUOTA_6       = 73;      // valor de cada cuota en 6 pagos (según el checkout de Hotmart)
 const APERTURA      = new Date('2026-11-16T08:00:00-05:00'); // apertura técnica 8:00 AM Ecuador (VIP recibe el enlace a las 9:00, todos a las 10:00)
 const CIERRE        = new Date('2026-11-21T23:59:59-05:00'); // fin de la beca y de la inscripción
 const VSL_YT        = 'fyd-GoFqG14';   // ← ID del video de ventas en YouTube (ej. 'dQw4w9WgXcQ'). Vacío = se muestra la imagen.
@@ -837,11 +840,14 @@ const WA_SOPORTE    = '593992969267';
 const WA_TEXTO      = 'Necesito ayuda con la compra';
 const PRECIO        = 397;
 //  Para ver la página abierta antes del lunes: agrega ?prueba=1 a la URL
+//  Para ver ya la versión de 6 cuotas: agrega ?cuotas6=1 a la URL
 // =====================================================================
 
 const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 const PRUEBA = new URLSearchParams(location.search).has('prueba');
+const FORZAR6 = new URLSearchParams(location.search).has('cuotas6');
+const seisActivo = () => FORZAR6 || Date.now() >= SEIS_CUOTAS;
 const pad = n => String(n).padStart(2, '0');
 
 // ---------- Contenido configurable ----------
@@ -849,7 +855,7 @@ if (REGISTRADOS) $('#fastTxt').textContent = 'Hay más de ' + REGISTRADOS + ' pe
 
 // ---------- Enlace de pago con rastreo ----------
 function checkoutUrl() {
-  const u = new URL(HOTMART_URL);
+  const u = new URL(seisActivo() ? HOTMART_URL_6 : HOTMART_URL);
   u.searchParams.set('sck', window.ewhVid);                              // enlaza la compra con este visitante
   u.searchParams.set('src', (ewhUtm.utm_source || 'directo').slice(0, 30).toLowerCase().replace(/[^a-z0-9_-]/g, ''));
   ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(k => { if (ewhUtm[k]) u.searchParams.set(k, ewhUtm[k]); });
@@ -887,7 +893,22 @@ function aplicarEstado() {
   else $('#heroEyebrow').textContent = 'INSCRIPCIONES CERRADAS';
 }
 
+let seisAplicado = false;
+function aplicarCuotas() {
+  if (!seisActivo() || seisAplicado) return;
+  seisAplicado = true;
+  $('#heroCuotas').textContent = 'US$397 · o hasta en 6 cuotas de US$' + CUOTA_6;
+  $('#ofertaCuotas').innerHTML = 'Pago único o con tarjeta <b>hasta en 6 cuotas</b> (6 × US$' + CUOTA_6 + ')';
+  const f = $('#faqCuotas'); if (f) f.innerHTML = f.innerHTML.replace('en 2 o 3 cuotas', 'hasta en 6 cuotas de US$' + CUOTA_6);
+  $('#stickyCuotas').textContent = 'o 6 × US$' + CUOTA_6;
+  const tb = $('#tbUnlock');
+  if (tb) tb.innerHTML = '🔓 <b>Desbloqueado a pedido de los alumnos:</b> pago en 6 cuotas <em>· 6 × US$' + CUOTA_6 + '</em> <u>Ver</u>';
+  if (tb) tb.setAttribute('href', '#oferta');
+  if (estado === 'abierto') $$('.js-buy').forEach(a => { a.href = checkoutUrl(); });
+}
+
 function tick() {
+  aplicarCuotas();
   const prev = estado;
   if (calcEstado() !== prev) aplicarEstado();
   const now = Date.now();
