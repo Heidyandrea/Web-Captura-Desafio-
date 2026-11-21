@@ -618,7 +618,7 @@ h1{font-size:clamp(32px,5.6vw,56px);margin-top:16px}
       </div>
     </div>
   </div>
-  <a class="tb-unlock" id="tbUnlock" href="#desbloqueados">🔓 <b>Nuevo bono desbloqueado:</b> <span id="tbBono">Gimnasia Vocal</span> <em>· US$97</em> <u>Ver</u></a>
+  <a class="tb-unlock" id="tbUnlock" href="#desbloqueados">🔓 <b>Nuevo bono desbloqueado:</b> <span id="tbBono">Protocolo Cero Vergüenza</span> <em>· US$97</em> <u>Ver</u></a>
 </div>
 
 <!-- ============ 1. HERO + VIDEO + PRIMER BOTÓN ============ -->
@@ -735,8 +735,10 @@ h1{font-size:clamp(32px,5.6vw,56px);margin-top:16px}
       <ul class="stack">
       </ul>
       <div class="ucards">
+        <div class="ucard"><img src="/inscripcion/img/bono-cero-verguenza.webp" alt="Protocolo Cero Vergüenza · Pierde el miedo al ridículo" loading="lazy" width="720" height="720">
+          <div><span class="tag">🔓 NUEVO · DESBLOQUEADO VIERNES 20</span><b>Protocolo Cero Vergüenza</b><small>Pierde el miedo al ridículo</small><em>US$97</em><p class="mine">💜 Si ya compraste, también es tuyo.</p></div></div>
         <div class="ucard"><img src="/inscripcion/img/bono-gimnasia-vocal.webp" alt="Gimnasia Vocal · Destraba tu lengua en 5 minutos" loading="lazy" width="720" height="720">
-          <div><span class="tag">🔓 NUEVO · DESBLOQUEADO MIÉRCOLES 18</span><b>Gimnasia Vocal</b><small>Destraba tu lengua en 5 minutos</small><em>US$97</em><p class="mine">💜 Si ya compraste, también es tuyo.</p></div></div>
+          <div><span class="tag">🔓 DESBLOQUEADO · MIÉRCOLES 18</span><b>Gimnasia Vocal</b><small>Destraba tu lengua en 5 minutos</small><em>US$97</em><p class="mine">💜 Si ya compraste, también es tuyo.</p></div></div>
         <div class="ucard"><img src="/inscripcion/img/bono-kitsos.webp" alt="Kit SOS English · Tu salvavidas" loading="lazy" width="720" height="720">
           <div><span class="tag">🔓 DESBLOQUEADO · MARTES 17</span><b>Kit SOS English</b><small>Tu salvavidas</small><em>US$97</em><p class="mine">💜 Si ya compraste, también es tuyo.</p></div></div>
       </div>
@@ -752,7 +754,7 @@ h1{font-size:clamp(32px,5.6vw,56px);margin-top:16px}
       <p class="fast-note" id="fastTxt">Los cupos se asignan por orden de inscripción.</p>
 
       <div class="price">
-        <p class="total">Valor total <s>US$1.717</s> · Precio oficial <s>US$597</s></p>
+        <p class="total">Valor total <s>US$1.814</s> · Precio oficial <s>US$597</s></p>
         <p class="now gold-text"><sup>US$</sup>397</p>
         <span class="beca">🎓 Beca de US$200 · solo en este evento</span>
         <p class="cuotas" id="ofertaCuotas">Pago único o con tarjeta en <b>2 o 3 cuotas</b> (3 × US$142)</p>
@@ -902,8 +904,8 @@ function aplicarCuotas() {
   const f = $('#faqCuotas'); if (f) f.innerHTML = f.innerHTML.replace('en 2 o 3 cuotas', 'hasta en 6 cuotas de US$' + CUOTA_6);
   $('#stickyCuotas').textContent = 'o 6 × US$' + CUOTA_6;
   const tb = $('#tbUnlock');
-  if (tb) tb.innerHTML = '🔓 <b>Desbloqueado a pedido de los alumnos:</b> pago en 6 cuotas <em>· 6 × US$' + CUOTA_6 + '</em> <u>Ver</u>';
-  if (tb) tb.setAttribute('href', '#oferta');
+  if (tb) tb.innerHTML = '🔥 <b>Último día:</b> Kit SOS + Gimnasia Vocal + Protocolo Cero Vergüenza <em>· hasta 6 × US$' + CUOTA_6 + '</em> <u>Ver</u>';
+  if (tb) tb.setAttribute('href', '#desbloqueados');
   if (estado === 'abierto') $$('.js-buy').forEach(a => { a.href = checkoutUrl(); });
 }
 
