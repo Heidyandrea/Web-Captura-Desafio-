@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Encuesta de alumnos · NeuroFluency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07070C;--bg-2:#0C0B14;--line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.18);
+  --text:#EEECF6;--muted:#A39FB6;--dim:#6F6B82;
+  --gold:#E3B964;--gold-2:#F6DA9A;--gold-3:#B8893A;--violet:#8B5CF6;--teal:#2DD4BF;--off:#F2566D;
+  --serif:'Instrument Serif',Georgia,serif;--sans:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:radial-gradient(1200px 600px at 50% -200px,rgba(139,92,246,.18),transparent 60%),var(--bg);color:var(--text);font-family:var(--sans);line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:28px 18px 80px}
+.brand{text-align:center;font-size:11.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(32px,7vw,44px);line-height:1.05;text-align:center;margin:10px 0 10px}
+h1 i{background:linear-gradient(100deg,var(--gold-2),var(--gold) 45%,var(--gold-3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--muted);text-align:center;font-size:15px;max-width:520px;margin:0 auto 22px}
+.card{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:20px;padding:22px 18px;box-shadow:0 20px 40px -24px rgba(0,0,0,.9)}
+.progress{height:6px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden;margin:0 0 6px}
+.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--violet),var(--gold));transition:width .35s}
+.steplbl{font-size:12px;color:var(--dim);text-align:right;margin-bottom:14px}
+h2{font-size:20px;font-weight:800;letter-spacing:-.01em;margin-bottom:4px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:18px}
+.q{margin:0 0 22px}
+.q > label,.q > .ql{display:block;font-weight:700;font-size:15px;margin-bottom:8px}
+.q .hint{display:block;font-weight:500;font-size:12.5px;color:var(--dim);margin-top:2px}
+.req{color:var(--gold)}
+input[type=text],input[type=email],input[type=tel],textarea,select{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--line-2);border-radius:12px;color:var(--text);font:inherit;font-size:16px;padding:12px 14px;outline:none}
+textarea{min-height:90px;resize:vertical}
+select option{background:#14121f}
+input:focus,textarea:focus,select:focus{border-color:var(--gold)}
+.opts{display:grid;gap:8px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opt{display:flex;align-items:center;gap:10px;padding:11px 13px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.025);cursor:pointer;font-size:14.5px;user-select:none}
+.opt input{accent-color:var(--gold);width:18px;height:18px;flex:none}
+.opt:has(input:checked){border-color:var(--gold);background:rgba(227,185,100,.10)}
+.scale{display:grid;grid-template-columns:repeat(11,1fr);gap:4px}
+.scale .opt{justify-content:center;padding:10px 0;font-weight:700}
+.scale .opt input{display:none}
+.scale-l{display:flex;justify-content:space-between;font-size:12px;color:var(--dim);margin-top:6px}
+.other{margin-top:8px;display:none}
+.other.on{display:block}
+.btns{display:flex;gap:10px;margin-top:8px}
+button{font:inherit;font-weight:800;font-size:16px;border:0;border-radius:14px;padding:15px 18px;cursor:pointer}
+.btn{flex:1;color:#160f02;background:linear-gradient(100deg,var(--gold-2),var(--gold) 50%,var(--gold-3))}
+.btn[disabled]{opacity:.55;cursor:wait}
+.ghost{background:transparent;color:var(--muted);border:1px solid var(--line-2)}
+.err{color:var(--off);font-size:14px;margin-top:10px;display:none}
+.err.on{display:block}
+.note{font-size:12.5px;color:var(--dim);text-align:center;margin-top:16px}
+.done{text-align:center}
+.done .big{font-size:52px}
+.done ol{text-align:left;margin:14px 0 0 20px;color:var(--text)}
+.done li{margin:6px 0}
+.hide{display:none}
+@media (max-width:430px){.opts.two{grid-template-columns:1fr}.scale{grid-template-columns:repeat(6,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">NeuroFluency Course · Alumnos</div>
+  <h1>Ayúdame a hacer <i>tu curso</i> todavía mejor</h1>
+  <p class="lead">Te toma unos 7 minutos. Con tus respuestas Heidy prepara las clases en vivo, los bonos y el contenido nuevo. Solo pueden responder quienes ya compraron el curso.</p>
+
+  <div class="card">
+    <div class="progress"><span id="bar"></span></div>
+    <div class="steplbl" id="steplbl"></div>
+    <form id="f" novalidate></form>
+    <div class="err" id="err"></div>
+  </div>
+  <p class="note">Tus respuestas son privadas y solo las usa el equipo de English With Heidy.</p>
+</div>
+
+<script>
+// ---------- Preguntas ----------
+// type: text | email | tel | textarea | radio | check | select | scale
+// other:true agrega "Otro" con campo de texto. req:true obligatoria.
+const PAISES = ['Estados Unidos','Canadá','México','Colombia','Ecuador','Perú','Venezuela','España','Chile','Argentina','Guatemala','Honduras','El Salvador','República Dominicana','Puerto Rico','Panamá','Costa Rica','Bolivia','Uruguay','Paraguay','Nicaragua','Cuba','Reino Unido','Otro'];
+const STEPS = [
+  { title: 'Primero, confirma tu compra', sub: 'Usa el correo y el WhatsApp con los que compraste NeuroFluency.', verify: true, qs: [
+    { id: 'email', label: 'Correo con el que compraste', type: 'email', req: true },
+    { id: 'phone', label: 'WhatsApp con el que compraste', hint: 'Con código de país. Ej.: +1 786 555 1234', type: 'tel', req: true },
+  ]},
+  { title: 'Sobre ti', sub: 'Así sabemos para quién creamos el contenido.', qs: [
+    { id: 'nombre', label: 'Nombre y apellido', type: 'text', req: true },
+    { id: 'pais', label: '¿En qué país vives?', type: 'select', options: PAISES, req: true },
+    { id: 'ciudad', label: 'Ciudad o estado', type: 'text' },
+    { id: 'pais_origen', label: '¿De qué país eres originalmente?', type: 'select', options: PAISES },
+    { id: 'tiempo_pais', label: 'Si vives fuera de tu país, ¿hace cuánto?', type: 'radio', options: ['No vivo fuera de mi país','Menos de 1 año','1 a 3 años','3 a 10 años','Más de 10 años'] },
+    { id: 'edad', label: 'Edad', type: 'radio', two: true, options: ['18–24','25–34','35–44','45–54','55–64','65 o más'], req: true },
+    { id: 'genero', label: 'Eres', type: 'radio', two: true, options: ['Mujer','Hombre','Prefiero no decirlo'] },
+    { id: 'ocupacion', label: '¿A qué te dedicas?', type: 'radio', options: ['Empleado/a','Negocio propio o independiente','Profesional (salud, ingeniería, educación…)','Trabajo en construcción, limpieza, restaurante o servicios','Estudiante','Hogar','Jubilado/a'], other: true, req: true },
+    { id: 'nivel', label: '¿Cómo describes tu inglés hoy?', type: 'radio', options: ['Casi no entiendo nada','Entiendo palabras sueltas, no puedo hablar','Entiendo bastante, pero me bloqueo al hablar','Me defiendo, pero quiero fluidez','Hablo bien, quiero perfeccionar'], req: true },
+    { id: 'para_que', label: '¿Para qué necesitas el inglés?', hint: 'Marca todas las que apliquen', type: 'check', options: ['Mejor trabajo o ascenso','Comunicarme donde vivo (médico, banco, escuela)','Hablar con mis hijos o nietos','Viajar','Emigrar o trabajar para otro país','Entrevistas de trabajo','Ciudadanía o trámites','Sentirme seguro/a'], other: true, req: true },
+  ]},
+  { title: 'Cómo conociste a Heidy', sub: 'Esto nos dice qué canales funcionan.', qs: [
+    { id: 'donde_conocio', label: '¿Dónde conociste a Heidy por primera vez?', type: 'radio', options: ['Instagram','Facebook','TikTok','YouTube','Un anuncio','Me lo recomendó alguien','Un grupo de WhatsApp','Ya era alumno/a de antes'], other: true, req: true },
+    { id: 'desde_cuando', label: '¿Desde hace cuánto la sigues?', type: 'radio', options: ['Menos de 1 mes','1 a 3 meses','3 a 12 meses','1 a 2 años','Más de 2 años'], req: true },
+    { id: 'vio_publicidad', label: '¿Viste anuncios de Heidy antes de comprar?', type: 'radio', options: ['Sí, muchas veces','Sí, algunas veces','No recuerdo','No'], req: true },
+    { id: 'anuncio_recuerda', label: 'Si recuerdas algún anuncio o video que te llamó la atención, ¿cuál era?', type: 'textarea' },
+    { id: 'red_principal', label: '¿En qué red pasas más tiempo?', type: 'radio', two: true, options: ['Facebook','Instagram','TikTok','YouTube','WhatsApp'], other: true },
+    { id: 'clases_vistas', label: '¿Qué clases del desafío viste?', hint: 'Marca todas las que viste, en vivo o grabadas', type: 'check', options: ['Clase 1','Clase 2','Clase 3','Clase bonus (inglés para el trabajo)','No vi ninguna'], req: true },
+    { id: 'en_vivo', label: '¿Las viste en vivo o grabadas?', type: 'radio', options: ['En vivo','Grabadas','Algunas en vivo y otras grabadas','No las vi'] },
+    { id: 'grupo_vip', label: '¿Estuviste en el Grupo VIP de WhatsApp?', type: 'radio', two: true, options: ['Sí','No','No sé'], req: true },
+    { id: 'convencio', label: '¿Qué te convenció de comprar?', hint: 'Marca todas las que apliquen', type: 'check', options: ['Las clases del desafío','La forma de enseñar de Heidy','Los testimonios de alumnos','Los bonos','El precio o las cuotas','Las mentorías en vivo','Luna, la tutora con IA','La garantía de 7 días','La comunidad'], other: true, req: true },
+    { id: 'casi_freno', label: '¿Qué casi te impide comprar?', hint: 'Marca todas las que apliquen', type: 'check', options: ['Nada, estaba decidido/a','El precio','No tener tiempo','Dudaba si me iba a funcionar','Desconfianza de comprar por internet','Problemas con el pago','Tenía que consultarlo con alguien'], other: true },
+  ]},
+  { title: 'Tu compra', sub: 'Para mejorar el proceso de pago.', qs: [
+    { id: 'metodo', label: '¿Cómo pagaste?', type: 'radio', options: ['Tarjeta de crédito','Tarjeta de débito','Apple Pay o Google Pay','PayPal','Efectivo (pago en tienda)','Transferencia, PSE o Nequi','Otro medio fuera de Hotmart (Whop, Zelle…)'], other: true, req: true },
+    { id: 'plan', label: '¿En cuántos pagos?', type: 'radio', two: true, options: ['Un solo pago','2 cuotas','3 cuotas','6 cuotas','No recuerdo'], req: true },
+    { id: 'cuotas_decisiva', label: 'Si pagaste en cuotas, ¿habrías comprado sin esa opción?', type: 'radio', options: ['Sí, igual habría comprado','No, las cuotas fueron decisivas','No pagué en cuotas'] },
+    { id: 'problemas_pago', label: '¿Tuviste algún problema al pagar?', type: 'radio', options: ['No, fue fácil','Me rechazaron la tarjeta','No encontraba mi método de pago','Me cobraron en otra moneda o con comisión','Tuve que pedir ayuda por WhatsApp'], other: true, req: true },
+    { id: 'vio_luna', label: 'Después de pagar apareció un video sobre Luna, la tutora con IA. ¿Lo viste?', type: 'radio', options: ['Sí, lo vi completo','Lo vi en parte','No apareció o no lo vi','No recuerdo'], req: true },
+    { id: 'luna_decision', label: '¿Tomaste Luna?', type: 'radio', options: ['Sí','No, por el precio','No, no entendí qué era','No, no me interesa por ahora','No, no tenía la tarjeta a mano','No me apareció la oferta'] },
+  ]},
+  { title: 'Acceso y comunidad', sub: 'Queremos asegurarnos de que nadie se quede afuera.', qs: [
+    { id: 'acceso', label: '¿Pudiste entrar al curso?', type: 'radio', options: ['Sí, sin problemas','Sí, pero me costó','No, todavía no puedo entrar','No he intentado entrar'], req: true },
+    { id: 'acceso_problema', label: 'Si tuviste problemas para entrar, ¿qué pasó?', type: 'textarea' },
+    { id: 'telegram', label: '¿Ya estás en el grupo de Telegram de alumnos?', hint: 'Ahí enviamos los enlaces de las clases en vivo', type: 'radio', options: ['Sí, ya estoy','No, no sé dónde está','No, no tengo Telegram','No sabía que existía'], req: true },
+    { id: 'horario', label: '¿Qué horario te queda mejor para las clases en vivo? (hora de tu país)', hint: 'Marca todas las que te sirvan', type: 'check', options: ['Mañana (8–11 a. m.)','Mediodía (12–2 p. m.)','Tarde (3–6 p. m.)','Noche (7–9 p. m.)','Noche tarde (después de las 9 p. m.)'], req: true },
+    { id: 'dias', label: '¿Qué días?', type: 'check', two: true, options: ['Lunes a viernes','Sábado','Domingo'] },
+    { id: 'tiempo_semana', label: '¿Cuánto tiempo puedes dedicarle por semana?', type: 'radio', two: true, options: ['Menos de 1 hora','1 a 3 horas','3 a 5 horas','Más de 5 horas'], req: true },
+    { id: 'dispositivo', label: '¿Desde dónde estudias más?', type: 'radio', two: true, options: ['Celular','Computadora','Tablet'] },
+  ]},
+  { title: 'NeuroFluency', sub: 'Lo más importante: qué te gusta y qué te falta.', qs: [
+    { id: 'gusta', label: '¿Qué es lo que más te gusta de NeuroFluency hasta ahora?', type: 'textarea', req: true },
+    { id: 'bono', label: '¿Qué bono te gustó más?', type: 'radio', options: ['Desafío de 21 días','Bootcamp Mundo Laboral','Domina tu Entrevista de Trabajo','Fluidez Nativa','Guía Express para Viajes','Manual Antinervios','Todavía no los he visto'], req: true },
+    { id: 'contenido_nuevo', label: '¿Qué contenido te gustaría que agreguemos?', hint: 'Marca todas las que apliquen', type: 'check', options: ['Inglés para el trabajo de mi área','Inglés para el médico, el banco y trámites','Pronunciación y acento','Escuchar y entender a nativos rápido','Conversación en vivo con otros alumnos','Gramática explicada fácil','Inglés para viajar','Preparación para entrevistas','Inglés para la ciudadanía','Inglés para ayudar a mis hijos con la escuela'], other: true, req: true },
+    { id: 'meta', label: 'En 3 meses, ¿qué te gustaría poder hacer en inglés?', type: 'textarea', req: true },
+    { id: 'recomendaria', label: 'Del 0 al 10, ¿qué tan probable es que recomiendes NeuroFluency a alguien?', type: 'scale', req: true },
+    { id: 'testimonio', label: '¿Te gustaría compartir tu experiencia más adelante (texto o video)?', type: 'radio', options: ['Sí, con gusto','Tal vez, cuando avance más','No'] },
+    { id: 'comentario', label: '¿Algo más que quieras decirle a Heidy?', type: 'textarea' },
+  ]},
+];
+
+// ---------- Render ----------
+const f = document.getElementById('f'), err = document.getElementById('err');
+let step = 0, answers = {}, buyer = null;
+try { answers = JSON.parse(localStorage.getItem('nf_encuesta') || '{}'); } catch (e) {}
+const params = new URLSearchParams(location.search);
+if (params.get('email') && !answers.email) answers.email = params.get('email');
+
+function el(tag, attrs, kids) {
+  const e = document.createElement(tag);
+  for (const k in attrs || {}) { if (k === 'text') e.textContent = attrs[k]; else e.setAttribute(k, attrs[k]); }
+  (kids || []).forEach((c) => c && e.appendChild(c));
+  return e;
+}
+
+function renderQ(q) {
+  const box = el('div', { class: 'q', 'data-q': q.id });
+  const lab = el(q.type === 'radio' || q.type === 'check' || q.type === 'scale' ? 'div' : 'label', { class: 'ql', for: 'q_' + q.id });
+  lab.appendChild(document.createTextNode(q.label + ' '));
+  if (q.req) lab.appendChild(el('span', { class: 'req', text: '*' }));
+  if (q.hint) lab.appendChild(el('span', { class: 'hint', text: q.hint }));
+  box.appendChild(lab);
+  const v = answers[q.id];
+  if (['text', 'email', 'tel'].includes(q.type)) {
+    const i = el('input', { type: q.type, id: 'q_' + q.id, name: q.id, autocomplete: q.type === 'email' ? 'email' : q.type === 'tel' ? 'tel' : 'name' });
+    if (v) i.value = v;
+    box.appendChild(i);
+  } else if (q.type === 'textarea') {
+    const t = el('textarea', { id: 'q_' + q.id, name: q.id, maxlength: '1500' }); if (v) t.value = v; box.appendChild(t);
+  } else if (q.type === 'select') {
+    const s = el('select', { id: 'q_' + q.id, name: q.id });
+    s.appendChild(el('option', { value: '', text: 'Elige una opción' }));
+    q.options.forEach((o) => { const op = el('option', { value: o, text: o }); if (v === o) op.selected = true; s.appendChild(op); });
+    box.appendChild(s);
+  } else if (q.type === 'scale') {
+    const g = el('div', { class: 'scale' });
+    for (let n = 0; n <= 10; n++) {
+      const i = el('input', { type: 'radio', name: q.id, value: String(n) }); if (String(v) === String(n)) i.checked = true;
+      g.appendChild(el('label', { class: 'opt' }, [i, document.createTextNode(n)]));
+    }
+    box.appendChild(g);
+    box.appendChild(el('div', { class: 'scale-l' }, [el('span', { text: 'Nada probable' }), el('span', { text: 'Muy probable' })]));
+  } else {
+    const g = el('div', { class: 'opts' + (q.two ? ' two' : '') });
+    const type = q.type === 'check' ? 'checkbox' : 'radio';
+    const opts = q.options.concat(q.other ? ['Otro'] : []);
+    const sel = Array.isArray(v) ? v : v ? [v] : [];
+    opts.forEach((o) => {
+      const i = el('input', { type, name: q.id, value: o });
+      if (sel.includes(o) || (o === 'Otro' && answers[q.id + '_otro'])) i.checked = true;
+      g.appendChild(el('label', { class: 'opt' }, [i, document.createTextNode(o)]));
+    });
+    box.appendChild(g);
+    if (q.other) {
+      const o = el('input', { type: 'text', class: 'other', name: q.id + '_otro', placeholder: 'Escribe cuál' });
+      if (answers[q.id + '_otro']) { o.value = answers[q.id + '_otro']; o.classList.add('on'); }
+      box.appendChild(o);
+      g.addEventListener('change', () => {
+        const on = !!g.querySelector('input[value="Otro"]:checked');
+        o.classList.toggle('on', on); if (on) o.focus();
+      });
+    }
+  }
+  return box;
+}
+
+function render() {
+  const s = STEPS[step];
+  f.replaceChildren();
+  err.classList.remove('on');
+  document.getElementById('bar').style.width = Math.round(step / STEPS.length * 100) + '%';
+  document.getElementById('steplbl').textContent = 'Paso ' + (step + 1) + ' de ' + STEPS.length;
+  f.appendChild(el('h2', { text: s.title }));
+  f.appendChild(el('p', { class: 'sub', text: step === 1 && buyer && buyer.nombre ? '¡Hola, ' + buyer.nombre + '! ' + s.sub : s.sub }));
+  s.qs.forEach((q) => f.appendChild(renderQ(q)));
+  const next = el('button', { type: 'submit', class: 'btn', text: step === 0 ? 'Continuar' : step === STEPS.length - 1 ? 'Enviar respuestas' : 'Siguiente' });
+  const btns = el('div', { class: 'btns' });
+  if (step > 1) { const back = el('button', { type: 'button', class: 'ghost', text: 'Atrás' }); back.onclick = () => { collect(); step--; render(); scrollTo(0, 0); }; btns.appendChild(back); }
+  btns.appendChild(next);
+  f.appendChild(btns);
+}
+
+function collect() {
+  STEPS[step].qs.forEach((q) => {
+    if (q.type === 'check') answers[q.id] = Array.from(f.querySelectorAll(`input[name="${q.id}"]:checked`)).map((i) => i.value);
+    else if (q.type === 'radio' || q.type === 'scale') { const c = f.querySelector(`input[name="${q.id}"]:checked`); answers[q.id] = c ? c.value : ''; }
+    else { const i = f.querySelector(`[name="${q.id}"]`); answers[q.id] = i ? i.value.trim() : ''; }
+    if (q.other) { const o = f.querySelector(`[name="${q.id}_otro"]`); answers[q.id + '_otro'] = o && o.classList.contains('on') ? o.value.trim() : ''; }
+  });
+  try { localStorage.setItem('nf_encuesta', JSON.stringify(answers)); } catch (e) {}
+}
+
+function missing() {
+  for (const q of STEPS[step].qs) {
+    if (!q.req) continue;
+    const v = answers[q.id];
+    if (!v || (Array.isArray(v) && !v.length)) return q;
+    if (q.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return q;
+    if (q.type === 'tel' && v.replace(/\D/g, '').length < 8) return q;
+  }
+  return null;
+}
+
+function showErr(msg, q) {
+  err.textContent = msg; err.classList.add('on');
+  const box = q && f.querySelector(`[data-q="${q.id}"]`);
+  (box || err).scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+async function api(body) {
+  const r = await fetch('/api/encuesta', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  return r.json();
+}
+
+f.addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  collect();
+  const m = missing();
+  if (m) return showErr('Falta responder: ' + m.label, m);
+  const btn = f.querySelector('.btn'); btn.disabled = true;
+  try {
+    if (STEPS[step].verify) {
+      const out = await api({ accion: 'verificar', email: answers.email, phone: answers.phone });
+      if (!out.ok) {
+        btn.disabled = false;
+        return showErr(out.motivo === 'no_comprador'
+          ? 'No encontramos una compra con ese correo ni con ese WhatsApp. Revisa que sean los datos con los que compraste o escríbenos al WhatsApp de soporte.'
+          : 'No pudimos verificar tus datos. Intenta de nuevo en un momento.');
+      }
+      buyer = out;
+      if (out.ya_respondio) alert('Ya respondiste esta encuesta. Si la envías otra vez, se actualizan tus respuestas.');
+    }
+    if (step === STEPS.length - 1) {
+      const { email, phone, nombre } = answers;
+      const respuestas = Object.assign({}, answers); delete respuestas.email; delete respuestas.phone; delete respuestas.nombre;
+      const out = await api({ accion: 'guardar', email, phone, nombre, respuestas });
+      if (!out.ok) { btn.disabled = false; return showErr('No se pudieron guardar tus respuestas. Intenta de nuevo en un momento.'); }
+      try { localStorage.removeItem('nf_encuesta'); } catch (e) {}
+      return done();
+    }
+    step++; render(); scrollTo(0, 0);
+  } catch (e) {
+    btn.disabled = false;
+    showErr('Hubo un problema de conexión. Intenta de nuevo.');
+  }
+});
+
+function done() {
+  document.getElementById('bar').style.width = '100%';
+  document.getElementById('steplbl').textContent = '¡Listo!';
+  f.replaceChildren(el('div', { class: 'done' }, [
+    el('div', { class: 'big', text: '💛' }),
+    el('h2', { text: '¡Gracias' + (buyer && buyer.nombre ? ', ' + buyer.nombre : '') + '!' }),
+    el('p', { class: 'sub', text: 'Tus respuestas ya le llegaron a Heidy. Antes de irte, asegúrate de esto:' }),
+    el('ol', {}, [
+      el('li', { text: 'Entra al curso con el correo de tu compra (te llegó un correo de Hotmart con el acceso).' }),
+      el('li', { text: 'Dentro del curso, busca la sección del grupo de Telegram y únete.' }),
+      el('li', { text: 'Por Telegram te llega el enlace de la clase de bienvenida del martes 24 de noviembre.' }),
+    ]),
+  ]));
+  scrollTo(0, 0);
+}
+
+render();
+</script>
+</body>
+</html>
