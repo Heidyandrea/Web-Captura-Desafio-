@@ -1,6 +1,7 @@
 // /api/encuesta — encuesta de alumnos de NeuroFluency (solo compradores)
 //   POST {accion:'verificar', email, phone}          → {ok, nombre, ya_respondio} si es comprador
-//   POST {accion:'guardar', email, phone, nombre, respuestas} → guarda (una respuesta por correo; si repite, se actualiza)
+//   POST {accion:'guardar', email, phone, nombre, respuestas} → guarda (una respuesta por correo; si repite, se actualiza).
+//        Guarda aunque el correo no coincida con una compra; el enlace de Telegram solo se devuelve si coincide.
 // La verificación la hace Supabase (función nf_api_encuesta): busca el correo o los últimos 9 dígitos del
 // teléfono entre las compras aprobadas del curso y la tabla nf_compradores_extra (Whop / otros métodos).
 // Al guardar, también pone la etiqueta "Respondió Encuesta NF" en systeme.io para excluirlos de recordatorios.
@@ -9,6 +10,8 @@ const SB_URL = process.env.NF_SUPABASE_URL || 'https://nzqkqgfdisrnohiyluzj.supa
 const SB_ANON = process.env.NF_SUPABASE_ANON || 'sb_publishable_WNcuZo1C522GYYdtPZcTYQ_GwzDtdBF';
 const SIO = 'https://api.systeme.io/api';
 const TAG = 'Respondió Encuesta NF';
+// Enlace del grupo de Telegram de alumnos: solo se devuelve a quien coincide con una compra.
+const TELEGRAM = process.env.NF_TELEGRAM_URL || 'https://t.me/+e6WC804ZDr8zM2Ix';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 async function rpc(payload) {
@@ -58,6 +61,7 @@ module.exports = async (req, res) => {
   try {
     const out = await rpc(payload);
     if (accion === 'guardar' && out && out.ok) { try { await tagSysteme(email); } catch (e) { console.error('systeme', e.message); } }
+    if (accion === 'guardar' && out && out.ok && out.comprador) out.telegram = TELEGRAM;
     return res.status(200).json(out);
   } catch (e) {
     console.error(e.message);
