@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>NeuroFluency English Course — Programa completo</title>
+<meta name="description" content="Habla inglés en 90 días con NeuroFluency, el método que activa tu cerebro, no tu memoria. Escríbele a Heidy y pregunta por la beca disponible.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NeuroFluency English Course — Habla inglés en 90 días">
+<meta property="og:description" content="Mira cómo funciona el programa completo y pídele a Heidy tu beca por WhatsApp.">
+<meta property="og:image" content="https://desafio.englishwithheidy.com/inscripcion/img/plataforma.webp">
+<meta name="theme-color" content="#07070C">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- =====================================================================
+     MEDICIÓN — se ejecuta ANTES del píxel:
+     1) identifica al visitante (vid) y guarda las UTM
+     2) toma nombre/correo/teléfono si vienen en el enlace (correos, WhatsApp) o del Grupo VIP
+     3) quita esos datos personales de la URL antes de que el píxel la lea
+     ===================================================================== -->
+<script>
+(function(){
+  var LS = {
+    get:function(k){ try{ var v=localStorage.getItem(k); return v?JSON.parse(v):null; }catch(e){ return null; } },
+    set:function(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  };
+  window.ewhLS = LS;
+
+  // --- ID de visitante (mismo navegador = mismo vid; viaja a Hotmart como "sck") ---
+  var vid = LS.get('ewh_vid');
+  if (!vid || !/^v[a-z0-9]{8,24}$/.test(vid)) {
+    vid = 'v' + (Date.now().toString(36) + Math.random().toString(36).slice(2, 8)).toLowerCase().replace(/[^a-z0-9]/g,'').slice(0, 14);
+    LS.set('ewh_vid', vid);
+  }
+  window.ewhVid = vid;
+
+  // --- UTM: guarda la primera y actualiza si llega una nueva campaña ---
+  var q = new URLSearchParams(location.search);
+  var keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid'];
+  var utm = LS.get('ewh_utm') || {};
+  var hasNew = keys.some(function(k){ return q.get(k); });
+  if (hasNew) { utm = {}; keys.forEach(function(k){ if (q.get(k)) utm[k] = q.get(k).slice(0, 160); }); LS.set('ewh_utm', utm); }
+  if (!utm.referrer && document.referrer && document.referrer.indexOf(location.hostname) < 0) { utm.referrer = document.referrer.slice(0, 300); LS.set('ewh_utm', utm); }
+  window.ewhUtm = utm;
+
+  // --- Identidad conocida (para pre-llenar Hotmart y poder hacer seguimiento) ---
+  var id = LS.get('ewh_id') || {};
+  var e = q.get('email') || q.get('correo');
+  var n = q.get('name') || q.get('nombre');
+  var p = q.get('phone') || q.get('wa') || q.get('whatsapp') || q.get('telefono');
+  if (e && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.trim())) id.email = e.trim().toLowerCase();
+  if (n && n.trim().length > 1 && n.indexOf('{') < 0) id.name = n.trim().slice(0, 80);
+  if (p && p.replace(/\D/g,'').length >= 8) id.phone = p.replace(/\D/g,'').slice(0, 15);
+  var vip = LS.get('ewh_vip_done');            // guardado por la página /vip
+  if (vip) { if (!id.name && vip.n) id.name = vip.n; if (!id.email && vip.e) id.email = vip.e; if (!id.phone && vip.p) id.phone = vip.p; }
+  if (id.email || id.phone || id.name) LS.set('ewh_id', id);
+  window.ewhId = id;
+
+  // quitar datos personales de la URL (Meta no debe recibir correos en la URL)
+  var pii = ['email','correo','name','nombre','phone','wa','whatsapp','telefono'];
+  if (pii.some(function(k){ return q.has(k); })) {
+    pii.forEach(function(k){ q.delete(k); });
+    var qs = q.toString();
+    history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+  }
+})();
+</script>
+
+<!-- ============ META PIXEL (mismo píxel del desafío) + API de conversiones ============ -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+(function(){
+  var am = { external_id: window.ewhVid };      // coincidencia avanzada (el píxel la cifra)
+  if (ewhId.email) am.em = ewhId.email;
+  if (ewhId.phone) am.ph = ewhId.phone;
+  if (ewhId.name) am.fn = ewhId.name.split(/\s+/)[0].toLowerCase();
+  fbq('init', '1490857044727030', am);
+})();
+window.ewhCookie=function(k){var m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):'';};
+window.ewhFbc=function(){var fbc=ewhCookie('_fbc');if(!fbc){var c=new URLSearchParams(location.search).get('fbclid')||(window.ewhUtm&&ewhUtm.fbclid);if(c)fbc='fb.1.'+Date.now()+'.'+c;}return fbc;};
+// name: evento · params: datos para Meta · custom: evento personalizado · track: datos extra para el seguimiento · noPixel: solo servidor
+window.ewhTrack=function(name,params,custom,track,noPixel){
+  var id=name+'.'+Date.now()+'.'+Math.random().toString(36).slice(2,10);
+  if(!noPixel){ if(custom){fbq('trackCustom',name,params||{},{eventID:id});} else {fbq('track',name,params||{},{eventID:id});} }
+  try{
+    var body=JSON.stringify({event_name:name,event_id:id,event_source_url:location.href,fbp:ewhCookie('_fbp'),fbc:ewhFbc(),
+      custom_data:params||{},vid:window.ewhVid,user:window.ewhId||{},track:Object.assign({},window.ewhUtm||{},track||{})});
+    if(!(navigator.sendBeacon&&navigator.sendBeacon('/api/event',new Blob([body],{type:'application/json'})))){
+      fetch('/api/event',{method:'POST',headers:{'Content-Type':'application/json'},body:body,keepalive:true});
+    }
+  }catch(e){}
+  return id;
+};
+ewhTrack('PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1490857044727030&ev=PageView&noscript=1"/></noscript>
+
+<style>
+:root{
+  --bg:#07070C; --bg-2:#0C0B14; --bg-3:#12101D;
+  --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.16);
+  --text:#EEECF6; --muted:#A39FB6; --dim:#6F6B82;
+  --gold:#E3B964; --gold-2:#F6DA9A; --gold-3:#B8893A;
+  --violet:#8B5CF6; --violet-2:#B9A2FF;
+  --teal:#2DD4BF; --teal-2:#7CF0DF;
+  --off:#F2566D; --wa:#25D366;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+  --r:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img,video{max-width:100%;height:auto;display:block}
+.stack-img{max-width:340px;margin:0 auto 10px;border-radius:14px}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+::selection{background:var(--gold);color:#120d02}
+.wrap{max-width:880px;margin:0 auto;padding:0 18px;position:relative;z-index:2}
+.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.01em}
+.it{font-style:italic}
+.gold-text{background:linear-gradient(100deg,var(--gold-2),var(--gold) 45%,var(--gold-3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.teal{color:var(--teal-2)} .violet{color:var(--violet-2)}
+strong,b{color:#fff;font-weight:700}
+section{position:relative;scroll-margin-top:60px}
+.glass{background:linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.02));border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:var(--r);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 15px 35px -20px rgba(0,0,0,.8)}
+.amb{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0}
+.amb.v{background:rgba(139,92,246,.22)} .amb.g{background:rgba(227,185,100,.14)} .amb.t{background:rgba(45,212,191,.12)}
+.block{padding:64px 0 0}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);padding:5px 12px;border-radius:99px;border:1px solid rgba(227,185,100,.3);background:rgba(227,185,100,.07)}
+.eyebrow::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;box-shadow:0 0 6px currentColor}
+.eyebrow.t{color:var(--teal-2);border-color:rgba(45,212,191,.35);background:rgba(45,212,191,.07)}
+.unlock-pill{display:inline-block;margin:12px 0 4px;padding:8px 14px;border-radius:99px;font-size:13.5px;font-weight:700;color:var(--teal-2);background:rgba(45,212,191,.12);border:1px solid rgba(45,212,191,.45);text-decoration:none}
+.unlock-pill b{color:#fff}
+.eyebrow.v{color:var(--violet-2);border-color:rgba(139,92,246,.4);background:rgba(139,92,246,.1)}
+.st{text-align:center;margin-bottom:26px}
+.st h2{font-size:clamp(26px,4vw,40px);line-height:1.1;font-weight:800;letter-spacing:-.02em;margin-top:12px}
+.st h2 .serif{font-size:1.1em}
+.st p{color:var(--muted);font-size:16px;max-width:620px;margin:10px auto 0}
+.center{text-align:center}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:0;z-index:60;background:linear-gradient(90deg,#1a1230,#0f0c1a 50%,#1a1230);border-bottom:1px solid rgba(227,185,100,.25)}
+.topbar .in{max-width:880px;margin:0 auto;padding:8px 14px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-align:center}
+.topbar .dot{width:7px;height:7px;border-radius:50%;background:var(--off);box-shadow:0 0 8px var(--off);animation:blink 1.2s infinite}
+.topbar .cd{color:var(--gold);font-variant-numeric:tabular-nums}
+@keyframes blink{50%{opacity:.25}}
+
+/* ---------- logo ---------- */
+.logo{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:12px;border:1px solid rgba(45,212,191,.3);background:rgba(10,9,16,.85)}
+.logo-img{width:110px;max-height:36px;object-fit:contain}
+.logo-line1{font-weight:800;font-size:10.5px;letter-spacing:.02em;color:#fff;line-height:1.1;text-transform:uppercase;display:block}
+.logo-line2{display:flex;align-items:center;gap:6px;font-family:var(--serif);font-style:italic;font-size:18px;line-height:1;color:var(--teal-2);margin-top:1px}
+.sw-mini{position:relative;width:30px;height:16px;border-radius:99px;background:var(--teal);box-shadow:0 0 14px rgba(45,212,191,.7);display:inline-block}
+.sw-mini::after{content:"";position:absolute;top:2px;left:16px;width:12px;height:12px;border-radius:50%;background:#fff}
+.logo-on{font-family:var(--sans);font-style:normal;font-weight:800;font-size:9.5px;letter-spacing:.06em;color:var(--teal-2);background:rgba(45,212,191,.15);padding:1px 5px;border-radius:4px;border:1px solid rgba(45,212,191,.3)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:22px 0 0;overflow:hidden;text-align:center}
+.hero .logo{margin-bottom:18px}
+h1{font-size:clamp(31px,5.6vw,56px);line-height:1.05;font-weight:800;letter-spacing:-.025em;margin-top:14px}
+h1 .serif{font-size:1.12em}
+.lead{font-size:clamp(15.5px,1.7vw,19px);color:#D3D0E0;margin:14px auto 0;max-width:640px}
+.lead b{color:var(--gold-2)}
+.vsl{position:relative;margin:24px auto 0;max-width:780px;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#000;border:1px solid rgba(227,185,100,.45);box-shadow:0 0 70px -25px rgba(227,185,100,.55)}
+.vsl iframe,.vsl>div{position:absolute;inset:0;width:100%;height:100%;border:0}
+.hero-img{margin:24px auto 0;max-width:780px;border-radius:18px;overflow:hidden;border:1px solid rgba(227,185,100,.3)}
+.facade{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;cursor:pointer;background:#000;display:block}
+.facade img{width:100%;height:100%;object-fit:cover;opacity:.85;transition:opacity .4s,transform .6s}
+.facade:hover img{opacity:1;transform:scale(1.02)}
+.facade::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,12,0) 45%,rgba(7,7,12,.8))}
+.play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:78px;height:78px;border-radius:50%;display:grid;place-items:center;z-index:2;background:linear-gradient(135deg,var(--gold-2),var(--gold) 50%,#D29A3E);color:#160f02;font-size:27px;box-shadow:0 0 0 8px rgba(227,185,100,.18),0 10px 30px -5px rgba(227,185,100,.7);animation:pp 2.2s ease-in-out infinite}
+.play i{margin-left:5px}
+@keyframes pp{50%{box-shadow:0 0 0 16px rgba(227,185,100,.05),0 10px 30px -5px rgba(227,185,100,.7)}}
+.vlabel{position:absolute;left:14px;bottom:12px;right:14px;z-index:2;text-align:left;font-size:12px;font-weight:800;letter-spacing:.08em;color:#fff;text-transform:uppercase}
+.hero-cta{margin-top:22px}
+.mini-price{margin-top:10px;font-size:13.5px;color:var(--muted)}
+.mini-price s{color:var(--dim)} .mini-price b{color:var(--gold-2)}
+.trust{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 18px;margin-top:18px;font-size:12.5px;font-weight:700;color:var(--muted)}
+.trust span{display:inline-flex;align-items:center;gap:6px}
+.trust i{color:var(--teal-2)}
+
+/* ---------- botones ---------- */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:800;font-size:17px;letter-spacing:.02em;text-transform:uppercase;padding:19px 26px;border-radius:14px;cursor:pointer;overflow:hidden;line-height:1.2;text-align:center;border:0;transition:transform .25s,filter .25s,opacity .25s}
+.btn::before{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);animation:shine 3.2s infinite}
+@keyframes shine{0%{left:-60%}55%,100%{left:130%}}
+@keyframes zoomPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+.btn-buy{width:100%;max-width:520px;background:linear-gradient(135deg,var(--gold-2),var(--gold) 50%,#D29A3E);color:#160f02;box-shadow:0 10px 30px -6px rgba(227,185,100,.6),inset 0 1px 0 rgba(255,255,255,.5);animation:zoomPulse 2.2s ease-in-out infinite}
+.btn-buy{flex-direction:column;gap:2px}
+.btn-buy small{display:block;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:none;opacity:.8;margin-top:3px}
+.btn-buy:hover{filter:brightness(1.07)}
+.btn-buy[aria-disabled="true"]{background:rgba(255,255,255,.08);color:var(--muted);box-shadow:none;animation:none;cursor:default;border:1px solid var(--line-2)}
+.btn-buy[aria-disabled="true"]::before{display:none}
+.btn-wa{background:linear-gradient(135deg,#5BE58A,var(--wa) 55%,#1aa851);color:#04220f;font-size:14px;padding:14px 18px;box-shadow:0 8px 25px -8px rgba(37,211,102,.6)}
+.btn-wa::before{display:none}
+.secure{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:12px;font-size:12px;color:var(--dim)}
+.paylogos{display:flex;justify-content:center;gap:12px;margin-top:8px;font-size:24px;color:var(--dim)}
+
+/* ---------- dolor ---------- */
+.pain{display:grid;gap:12px;max-width:640px;margin:0 auto}
+.pain div{display:flex;gap:14px;align-items:center;padding:16px 18px;font-size:16px;font-weight:600}
+.pain .n{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:var(--gold-2);border:1px solid rgba(227,185,100,.4);background:rgba(227,185,100,.08)}
+.callout{max-width:640px;margin:22px auto 0;text-align:center;font-size:17px;color:#D3D0E0}
+.callout .serif{font-size:1.35em}
+
+/* ---------- libro vs nativo ---------- */
+.versus{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:700px;margin:0 auto}
+.versus .col{padding:18px}
+.versus h3{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.versus .off{color:#FF9AAA}.versus .on{color:var(--teal-2)}
+.versus .tag{font-size:10px;padding:2px 7px;border-radius:5px;border:1px solid currentColor}
+.versus ul{list-style:none;margin-top:12px;display:grid;gap:9px;font-size:16px;font-weight:700}
+.versus .col.l{border-color:rgba(242,86,109,.3)} .versus .col.r{border-color:rgba(45,212,191,.4);background:linear-gradient(160deg,rgba(45,212,191,.1),rgba(255,255,255,.02))}
+.versus p{margin-top:12px;font-size:13px;color:var(--muted)}
+.notlist{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:26px}
+.notlist span{font-size:14px;font-weight:700;padding:9px 14px;border-radius:99px;border:1px solid rgba(242,86,109,.3);color:#FFB3BE;background:rgba(242,86,109,.06)}
+
+/* ---------- producto ---------- */
+.product{display:grid;grid-template-columns:1.15fr 1fr;gap:22px;align-items:center}
+.product img{border-radius:16px;border:1px solid var(--line-2)}
+.big3{display:flex;align-items:center;gap:14px;margin-top:6px}
+.big3 .num{font-size:64px;font-weight:800;line-height:1}
+.big3 .eq{font-size:30px;color:var(--dim);font-weight:800}
+.big3 small{display:block;font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.feat2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.feat2 .glass{padding:16px}
+.feat2 .ic{font-size:24px}
+.feat2 h3{font-size:15.5px;font-weight:800;margin-top:8px;line-height:1.25}
+.feat2 p{font-size:13.5px;color:var(--muted);margin-top:4px}
+
+/* ---------- fases ---------- */
+.phases{position:relative;max-width:720px;margin:0 auto}
+.phases::before{content:"";position:absolute;left:27px;top:14px;bottom:14px;width:2px;background:linear-gradient(var(--gold),var(--violet) 50%,var(--teal));opacity:.5}
+.ph{position:relative;display:flex;gap:16px;padding-bottom:16px}
+.ph .num{flex:none;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:22px;font-weight:800;background:var(--bg-3);border:2px solid var(--gold);color:var(--gold-2);z-index:1}
+.ph:nth-child(2) .num{border-color:#C9A4F0;color:#E0CCFF}.ph:nth-child(3) .num{border-color:var(--violet);color:var(--violet-2)}
+.ph:nth-child(4) .num{border-color:#57C8D0;color:#A6EEF0}.ph:nth-child(5) .num{border-color:var(--teal);color:var(--teal-2)}
+.ph .card{flex:1;padding:16px 18px}
+.ph .k{font-size:10.5px;font-weight:800;letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
+.ph h3{font-size:20px;font-weight:800;line-height:1.2;margin-top:2px}
+.ph h3 span{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--muted);font-size:1.05em}
+.ph ul{list-style:none;margin-top:10px;display:grid;gap:6px;font-size:14.5px;color:#D3D0E0}
+.anki{margin-top:12px;padding:12px 14px;border-radius:12px;background:rgba(227,185,100,.08);border:1px dashed rgba(227,185,100,.4);font-size:13.5px;color:#E8E2CF}
+.anki b{color:var(--gold-2)}
+.equal{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;max-width:640px;margin:22px auto 0;padding:20px;text-align:center}
+.equal .v{font-size:36px;font-weight:800;line-height:1}
+.equal small{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-top:4px}
+
+/* ---------- cómo funciona ---------- */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid3 .glass,.grid2 .glass{padding:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ic-c{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.4)}
+.grid3 h3,.grid2 h3{font-size:16px;font-weight:800;margin-top:12px;line-height:1.25}
+.grid3 p,.grid2 p{font-size:14px;color:var(--muted);margin-top:5px}
+.new{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.1em;padding:3px 8px;border-radius:99px;background:var(--off);color:#fff;margin-left:6px;vertical-align:3px}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.vs .glass{padding:18px}
+.vs h4{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.vs p{font-size:14.5px;margin-top:8px;color:#D3D0E0}
+.vs .bad{border-color:rgba(242,86,109,.3)} .vs .bad h4{color:#FF9AAA}
+.vs .good{border-color:rgba(45,212,191,.45);background:linear-gradient(160deg,rgba(45,212,191,.1),rgba(255,255,255,.02))} .vs .good h4{color:var(--teal-2)}
+
+/* ---------- testimonios ---------- */
+.tvideo{position:relative;max-width:780px;margin:0 auto;border-radius:18px;overflow:hidden;border:1px solid rgba(45,212,191,.4);box-shadow:0 0 60px -25px rgba(45,212,191,.5);background:#000;aspect-ratio:16/9}
+.tvideo video,.tvideo iframe,.tvideo>div{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover}
+.tvideo .play{background:linear-gradient(135deg,var(--teal-2),var(--teal));color:#032520;box-shadow:0 0 0 8px rgba(45,212,191,.18),0 10px 30px -5px rgba(45,212,191,.6)}
+.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:780px;margin:14px auto 0}
+.shots img{width:100%;border-radius:14px;border:1px solid var(--line-2);background:#000}
+
+/* ---------- bonos ---------- */
+.bonos{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bono{overflow:hidden;display:flex;flex-direction:column}
+.bono .img{aspect-ratio:16/10;background:#0c0b14;overflow:hidden}
+.bono .img img{width:100%;height:100%;object-fit:cover}
+.bono .body{padding:16px 18px 18px;flex:1;display:flex;flex-direction:column}
+.bono .k{font-size:10.5px;font-weight:800;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+.bono h3{font-size:19px;font-weight:800;line-height:1.2;margin-top:4px}
+.bono ul{list-style:none;margin-top:10px;display:grid;gap:6px;font-size:14px;color:#D3D0E0;flex:1}
+.bono .val{margin-top:12px;font-size:13px;color:var(--muted)}
+.bono .val s{font-weight:700}
+.bono .val b{color:var(--teal-2)}
+
+/* ---------- acción rápida ---------- */
+.fast{padding:22px;border:1px solid rgba(242,86,109,.4);background:linear-gradient(170deg,rgba(242,86,109,.1),rgba(10,9,16,.92) 45%)}
+.fast-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.fast-grid .glass{padding:16px;text-align:center}
+.fast-grid .who{font-size:30px;font-weight:800;line-height:1}
+.fast-grid .who small{display:block;font-size:10.5px;font-weight:800;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-top:4px}
+.fast-grid h3{font-size:15px;font-weight:800;margin-top:10px;line-height:1.25}
+.fast-grid p{font-size:13px;color:var(--muted);margin-top:4px}
+.fast-imgs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.fast-imgs figure{border-radius:14px;overflow:hidden;border:1px solid rgba(227,185,100,.3);background:#0c0b14}
+.fast-imgs img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.fast-imgs figcaption{padding:10px 12px;font-size:13px;font-weight:700;color:#D2CFDD;display:flex;justify-content:space-between;gap:8px}
+.fast-imgs figcaption b{color:var(--gold-2);white-space:nowrap}
+.warn{margin-top:14px;text-align:center;font-size:13.5px;color:#FFB3BE;font-weight:700}
+
+/* ---------- oferta ---------- */
+.offer{padding:24px 20px;border:1px solid rgba(227,185,100,.5);background:linear-gradient(170deg,rgba(139,92,246,.14),rgba(10,9,16,.94) 40%);box-shadow:0 0 80px -30px rgba(227,185,100,.5),inset 0 1px 0 rgba(255,255,255,.08)}
+.stack{list-style:none;margin-top:6px}
+.stack li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 2px;border-bottom:1px dashed rgba(255,255,255,.08);font-size:15px;font-weight:600}
+.stack li .v{flex:none;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums}
+.stack li .v.inc{color:var(--teal-2);font-size:12px;letter-spacing:.06em}
+.stack li.main{font-weight:800;font-size:16px}
+.stack .tag{display:inline-block;margin-left:6px;font-size:9.5px;font-weight:800;letter-spacing:.08em;padding:2px 6px;border-radius:5px;background:rgba(227,185,100,.15);color:var(--gold-2);border:1px solid rgba(227,185,100,.35);vertical-align:2px;white-space:nowrap}
+.stack .sub{padding:16px 2px 4px;font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;border:0}
+.price{margin-top:20px;text-align:center}
+.price .total{font-size:15px;color:var(--muted)}
+.price .total s,.price .normal s{font-weight:700}
+.price .normal{font-size:15px;color:var(--muted);margin-top:2px}
+.price .now{font-size:clamp(54px,9vw,78px);line-height:1;font-weight:800;margin-top:10px;letter-spacing:-.03em}
+.price .now sup{font-size:.35em;vertical-align:1.3em;margin-right:4px;font-weight:800}
+.price .beca{display:inline-block;margin-top:10px;font-size:12.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:99px;background:rgba(45,212,191,.12);color:var(--teal-2);border:1px solid rgba(45,212,191,.4)}
+.price .cuotas{margin-top:12px;font-size:15px;color:#D3D0E0}
+.price .cuotas b{color:var(--gold-2)}
+.price .when{display:inline-block;margin-top:12px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:99px;background:rgba(242,86,109,.12);color:#FF9AAA;border:1px solid rgba(242,86,109,.35)}
+.offer .btn-buy{margin-top:20px}
+.offer-cd{display:flex;justify-content:center;gap:8px;margin-top:18px}
+.offer-cd div{min-width:62px;padding:9px 6px 7px;border-radius:12px;background:rgba(0,0,0,.45);border:1px solid rgba(227,185,100,.28);text-align:center}
+.offer-cd b{display:block;font-size:24px;line-height:1;font-weight:800;font-variant-numeric:tabular-nums;color:var(--gold-2)}
+.offer-cd small{display:block;font-size:9.5px;font-weight:800;letter-spacing:.12em;color:var(--dim);margin-top:4px;text-transform:uppercase}
+.howbuy{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+.howbuy div{padding:12px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--line);font-size:12.5px;color:var(--muted);text-align:center}
+.howbuy b{display:block;font-size:13px;margin-bottom:2px}
+.howbuy i{display:block;font-size:18px;color:var(--gold-2);margin-bottom:6px;font-style:normal}
+
+/* ---------- costo ---------- */
+.cost{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.cost .glass{padding:18px;text-align:center}
+.cost .k{font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--dim);text-transform:uppercase}
+.cost .v{font-size:30px;font-weight:800;margin-top:6px;line-height:1.1}
+.cost p{font-size:12.5px;color:var(--muted);margin-top:6px}
+.cost .us{border-color:rgba(227,185,100,.5);background:linear-gradient(160deg,rgba(227,185,100,.12),rgba(255,255,255,.02))}
+.src{font-size:11px;color:var(--dim);text-align:center;margin-top:10px}
+
+/* ---------- garantía ---------- */
+.guar{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.guar .glass{padding:22px;text-align:center}
+.seal{width:92px;height:92px;margin:0 auto;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 30% 30%,var(--gold-2),var(--gold) 55%,var(--gold-3));color:#160f02;font-weight:800;line-height:1;box-shadow:0 0 30px -5px rgba(227,185,100,.6)}
+.seal b{display:block;font-size:34px;color:#160f02}
+.seal small{font-size:10px;letter-spacing:.12em}
+.seal.t{background:radial-gradient(circle at 30% 30%,var(--teal-2),var(--teal) 60%,#14907F);box-shadow:0 0 30px -5px rgba(45,212,191,.6);font-size:34px}
+.guar h3{font-size:19px;font-weight:800;margin-top:14px}
+.guar p{font-size:14.5px;color:#D3D0E0;margin-top:6px}
+
+/* ---------- heidy ---------- */
+.me{display:grid;grid-template-columns:260px 1fr;gap:26px;align-items:center}
+.me .photo{position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(139,92,246,.4);aspect-ratio:4/5}
+.me .photo img{width:100%;height:100%;object-fit:cover;object-position:center 25%}
+.me .badge{position:absolute;left:12px;bottom:12px;padding:8px 12px;border-radius:12px;background:rgba(7,7,12,.85);border:1px solid rgba(227,185,100,.4);text-align:center}
+.me .badge b{display:block;font-size:24px;line-height:1;color:var(--gold-2)}
+.me .badge small{font-size:10.5px;font-weight:700;color:var(--muted)}
+.me h3{font-size:30px;font-weight:800;line-height:1.1}
+.me h3 span{display:block;font-family:var(--serif);font-style:italic;font-weight:400;font-size:.75em;color:var(--violet-2);margin-top:4px}
+.me p{font-size:15.5px;color:#D3D0E0;margin-top:12px}
+.me .quote{font-family:var(--serif);font-style:italic;font-size:21px;line-height:1.3;color:var(--gold-2);margin-top:14px}
+
+/* ---------- caminos ---------- */
+.paths{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.paths .glass{padding:18px}
+.paths .k{font-size:10.5px;font-weight:800;letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
+.paths h3{font-size:17px;font-weight:800;margin-top:6px;line-height:1.25}
+.paths p{font-size:14px;color:var(--muted);margin-top:8px}
+.paths .best{border-color:rgba(45,212,191,.5);background:linear-gradient(160deg,rgba(45,212,191,.12),rgba(255,255,255,.02))}
+.paths .best .k{color:var(--teal-2)}
+
+/* ---------- faq ---------- */
+.faq{max-width:700px;margin:0 auto;display:grid;gap:10px}
+.faq details{padding:0}
+.faq summary{list-style:none;cursor:pointer;padding:16px 18px;font-size:15.5px;font-weight:700;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;font-size:22px;color:var(--gold);transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 18px 16px;font-size:14.5px;color:#C9C5D8}
+
+/* ---------- cierre ---------- */
+.final{text-align:center;padding:30px 22px;border:1px solid rgba(227,185,100,.45);background:linear-gradient(170deg,rgba(227,185,100,.1),rgba(10,9,16,.94) 50%)}
+.final h2{font-size:clamp(26px,4vw,38px);font-weight:800;line-height:1.12}
+.final p{color:#D3D0E0;font-size:16px;max-width:560px;margin:12px auto 0}
+.help{margin-top:26px;padding:18px;text-align:center;border-color:rgba(37,211,102,.35)}
+.help h3{font-size:17px;font-weight:800}
+.help p{font-size:14px;color:var(--muted);margin-top:4px}
+.help .row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px}
+
+/* cerrado / aún no abre */
+.state-box{display:none;margin:22px auto 0;max-width:600px;padding:22px;text-align:center}
+.state-box h2{font-size:22px;font-weight:800}
+.state-box p{color:var(--muted);font-size:14.5px;margin-top:8px}
+body.closed .state-closed{display:block;border-color:rgba(242,86,109,.45)}
+body.closed .buy-only{display:none!important}
+
+/* barra fija móvil */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:70;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(7,7,12,.94);border-top:1px solid rgba(227,185,100,.3);display:flex;align-items:center;gap:10px;transform:translateY(110%);transition:transform .4s cubic-bezier(.2,.8,.2,1);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.sticky.show{transform:none}
+.sticky .p{flex:none;line-height:1.1}
+.sticky .p b{display:block;font-size:20px;color:var(--gold-2)}
+.sticky .p small{font-size:10.5px;color:var(--muted);font-weight:700}
+.sticky .btn-buy{flex:1;padding:14px 10px;font-size:14px;animation:none}
+body.closed .sticky{display:none}
+
+/* WhatsApp flotante */
+.wa-fab{position:fixed;right:16px;bottom:86px;z-index:71;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--wa);color:#fff;font-size:30px;box-shadow:0 8px 24px -6px rgba(37,211,102,.7);border:0;cursor:pointer}
+.wa-menu{position:fixed;right:16px;bottom:150px;z-index:72;width:270px;padding:14px;display:none}
+.wa-menu.open{display:block;animation:fade .3s ease}
+.wa-menu p{font-size:13px;color:var(--muted);margin-bottom:10px}
+.wa-menu a{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:12px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.35);font-size:14px;font-weight:700;margin-top:8px}
+.wa-menu a i{color:var(--wa);font-size:20px}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (min-width:900px){ .wa-fab{bottom:24px} .wa-menu{bottom:88px} }
+
+footer{padding:30px 0 110px;border-top:1px solid var(--line);text-align:center;font-size:12px;color:var(--dim);margin-top:60px}
+footer .links{display:flex;justify-content:center;gap:12px;margin-top:6px}
+footer .links a{display:inline-block;padding:10px 4px}
+footer a:hover{color:var(--gold)}
+footer .disclaimer{max-width:720px;margin:8px auto 0;font-size:11px;line-height:1.5}
+
+@media (max-width:760px){
+  .block{padding-top:52px}
+  .product,.me{grid-template-columns:1fr}
+  .me .photo{max-width:280px;margin:0 auto}
+  .me{text-align:center}
+  .grid3,.cost,.paths,.fast-grid{grid-template-columns:1fr}
+  .grid2,.feat2,.vs,.guar,.bonos,.fast-imgs{grid-template-columns:1fr}
+  .versus{grid-template-columns:1fr}
+  .howbuy{grid-template-columns:1fr 1fr}
+  .shots{grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .btn{font-size:15.5px;padding:17px 14px}
+  .offer{padding:18px 14px}
+  .glass{backdrop-filter:none;-webkit-backdrop-filter:none;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.025)),var(--bg-2)}
+  .amb{filter:blur(60px)}
+  .play{width:64px;height:64px;font-size:22px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+/* ===== versión compacta ===== */
+.block{padding:44px 0 0}
+.st{margin-bottom:18px}
+.st h2{font-size:clamp(23px,3.6vw,34px)}
+h1{font-size:clamp(29px,5.2vw,50px);margin-top:12px}
+.hero{padding-top:18px}
+.hero .lead{margin-top:10px}
+.vsl,.hero-img{margin-top:18px}
+.hero-cta{margin-top:16px}
+.trust{margin-top:12px}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.chip-i{display:flex;gap:10px;align-items:center;padding:11px 12px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+.chip-i>span{flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:17px;background:rgba(139,92,246,.14);border:1px solid rgba(139,92,246,.35)}
+.chip-i b{display:block;font-size:13.5px;line-height:1.2}
+.chip-i small{display:block;font-size:12px;color:var(--muted);line-height:1.3;margin-top:2px}
+.ph{padding-bottom:10px}
+.ph .card{padding:13px 15px}
+.ph h3{font-size:17.5px}
+.ph ul{gap:3px;font-size:14px;margin-top:7px}
+.anki{margin-top:9px;padding:9px 12px;font-size:13px}
+.phases::before{left:21px}
+.ph .num{width:44px;height:44px;font-size:18px}
+.incl{display:flex;flex-wrap:wrap;gap:6px;padding:10px 0 4px}
+.incl span{font-size:12.5px;font-weight:700;padding:6px 10px;border-radius:99px;background:rgba(45,212,191,.08);border:1px solid rgba(45,212,191,.3);color:#D9F7F2}
+.stack-h{margin-top:16px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.fast-h{color:#FF9AAA}
+.bmini{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.bmini div{border-radius:12px;overflow:hidden;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+.bmini img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.bmini p{padding:7px 9px 8px;font-size:12px;line-height:1.25}
+.bmini b{display:block;font-size:12.5px}
+.bmini small{color:var(--teal-2);font-weight:700}
+.stack li{padding:9px 2px;font-size:14px}
+.fast-note{font-size:12.5px;color:var(--muted);margin-top:8px}
+.price .total{font-size:13.5px}
+.offer-cd{margin-top:14px}
+.offer .btn-buy{margin-top:14px}
+.guar{grid-template-columns:1fr 1fr;gap:10px}
+.guar .glass{display:flex;gap:14px;align-items:center;text-align:left;padding:14px 16px}
+.guar .seal{flex:none;width:62px;height:62px;margin:0}
+.guar .seal b{font-size:24px}.guar .seal small{font-size:8.5px}.guar .seal.t{font-size:24px}
+.guar h3{font-size:16px;margin-top:0}
+.guar p{font-size:13.5px;margin-top:3px}
+.faq summary{padding:14px 16px;font-size:15px}
+.final{text-align:center;margin-top:20px;padding:0;border:0;background:none}
+.help{margin-top:18px;padding:16px}
+footer{margin-top:40px}
+@media (max-width:760px){
+  .block{padding-top:36px}
+  .chips{grid-template-columns:1fr 1fr}
+  .chip-i{flex-direction:column;align-items:flex-start;gap:6px;padding:10px}
+  .bmini{grid-template-columns:1fr 1fr}
+  .guar{grid-template-columns:1fr}
+  .vsl,.hero-img{margin-left:-6px;margin-right:-6px;border-radius:14px}
+  .stack li{font-size:13.5px}
+  .stack .tag{display:block;width:max-content;margin:3px 0 0}
+}
+
+/* ===== versión premium: barra grande + más aire ===== */
+body{line-height:1.6}
+.topbar{background:linear-gradient(90deg,#20163a,#100d1d 50%,#20163a);border-bottom:1px solid rgba(227,185,100,.35);box-shadow:0 8px 30px -12px rgba(0,0,0,.8)}
+.topbar .in{display:block;max-width:880px;padding:10px 16px;text-transform:none;letter-spacing:0;font-size:inherit}
+.tb-row{display:flex;align-items:center;justify-content:center;gap:10px 18px;flex-wrap:wrap}
+.tb-label{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.tb-label .dot{width:9px;height:9px}
+.tb-cd{display:flex;align-items:center;gap:6px}
+.tb-cd span{min-width:52px;padding:6px 6px 5px;border-radius:10px;background:rgba(0,0,0,.45);border:1px solid rgba(227,185,100,.4);text-align:center;line-height:1}
+.tb-cd b{display:block;font-size:22px;font-weight:800;color:var(--gold-2);font-variant-numeric:tabular-nums}
+.tb-cd small{display:block;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.tb-cd i{font-style:normal;font-weight:800;color:var(--gold);opacity:.7}
+.tb-unlock{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:nowrap;white-space:nowrap;padding:9px 16px;background:linear-gradient(90deg,rgba(45,212,191,.08),rgba(45,212,191,.2),rgba(45,212,191,.08));border-top:1px solid rgba(45,212,191,.35);font-size:14.5px;color:#D9F7F2}
+.tb-unlock b{color:var(--teal-2)}
+.tb-unlock em{font-style:normal;color:var(--muted);font-weight:700}
+.tb-unlock u{margin-left:6px;text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:99px;background:var(--teal);color:#032520}
+section{scroll-margin-top:150px}
+.block{padding:84px 0 0}
+.st{margin-bottom:30px}
+.st h2{font-size:clamp(26px,4vw,40px);margin-top:14px}
+.hero{padding-top:34px}
+h1{font-size:clamp(32px,5.6vw,56px);margin-top:16px}
+.hero .lead{margin-top:16px;line-height:1.55}
+.vsl,.hero-img{margin-top:28px}
+.hero-cta{margin-top:26px}
+.mini-price{margin-top:12px}
+.trust{margin-top:20px;gap:10px 22px}
+.chips{gap:14px}
+.chip-i{padding:16px 16px;border-radius:16px}
+.chip-i b{font-size:14.5px}
+.chip-i small{font-size:13px;margin-top:4px}
+.phases::before{left:23px}
+.ph{padding-bottom:16px;gap:18px}
+.ph .num{width:48px;height:48px;font-size:19px}
+.ph .card{padding:20px 22px}
+.ph h3{font-size:19px}
+.ph ul{gap:7px;font-size:15px;margin-top:12px}
+.anki{margin-top:14px;padding:12px 14px;font-size:13.5px}
+.offer{padding:34px 30px}
+.incl{gap:8px;padding:16px 0 6px}
+.incl span{font-size:13px;padding:7px 12px}
+.stack-h{margin-top:30px;padding-top:22px;border-top:1px solid var(--line);font-size:12px;letter-spacing:.14em}
+.bmini{gap:12px;margin-top:14px}
+.bmini div{border-radius:14px}
+.bmini p{padding:11px 12px 12px;font-size:12.5px}
+.bmini b{font-size:13.5px;margin-bottom:2px}
+.stack li{padding:13px 4px;font-size:15px}
+.unlocked{margin-top:30px;padding:4px 18px 10px;border-radius:16px;border:1px solid rgba(45,212,191,.45);background:linear-gradient(160deg,rgba(45,212,191,.12),rgba(45,212,191,.03));box-shadow:0 0 40px -18px rgba(45,212,191,.6)}
+.unlocked .stack-h{margin-top:14px;padding-top:0;border-top:0;color:var(--teal-2)}
+.unlocked .stack li{border-bottom-color:rgba(45,212,191,.18);font-weight:700}
+.unlocked .stack li:last-child{border-bottom:0}
+.unlocked .stack .tag{background:rgba(45,212,191,.18);color:var(--teal-2);border-color:rgba(45,212,191,.45)}
+.fast-note{margin-top:12px}
+.price{margin-top:34px;padding-top:28px;border-top:1px solid var(--line)}
+.price .total{font-size:14.5px}
+.price .now{margin-top:14px}
+.price .beca{margin-top:14px;font-size:13px;padding:8px 14px}
+.price .cuotas{margin-top:16px}
+.offer-cd{margin-top:22px;gap:10px}
+.offer .btn-buy{margin-top:22px}
+.guar{gap:14px}
+.guar .glass{padding:20px 22px;gap:18px}
+.faq{gap:12px}
+.faq summary{padding:18px 20px}
+.faq details p{padding:0 20px 18px}
+.final{margin-top:30px}
+.help{margin-top:30px;padding:22px}
+@media (max-width:760px){
+  section{scroll-margin-top:170px}
+  .block{padding-top:60px}
+  .topbar .in{padding:7px 10px}
+  .tb-row{gap:4px 8px}
+  .tb-label{font-size:11px;letter-spacing:.04em}
+  .tb-cd{gap:3px}
+  .tb-cd span{min-width:38px;padding:4px 3px 3px;border-radius:8px}
+  .tb-cd b{font-size:16px}
+  .tb-cd small{font-size:7.5px;margin-top:2px}
+  .tb-cd i{font-size:12px}
+  .tb-unlock{padding:7px 10px;font-size:12.5px;gap:4px}
+  .tb-unlock em{display:none}
+  .tb-unlock{white-space:normal;flex-wrap:wrap;text-align:center;line-height:1.35}
+  .tb-unlock u{margin-left:4px;font-size:10.5px;padding:2px 8px}
+  .chip-i{padding:14px 12px}
+  .ph .card{padding:16px 16px}
+  .offer{padding:24px 16px}
+  .unlocked{padding:2px 12px 8px}
+  .bmini{gap:10px}
+  .stack li{font-size:14px;padding:12px 2px}
+}
+.ucards{display:grid;gap:12px;margin:6px 0 8px}
+.ucard{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center;padding:12px;border-radius:14px;background:rgba(0,0,0,.25);border:1px solid rgba(45,212,191,.3)}
+.ucard img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}
+.ucard .tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.1em;padding:3px 8px;border-radius:6px;background:rgba(45,212,191,.18);color:var(--teal-2);border:1px solid rgba(45,212,191,.45)}
+.ucard b{display:block;font-size:19px;margin-top:8px;line-height:1.2}
+.ucard small{display:block;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--gold-2)}
+.ucard em{display:block;font-style:normal;font-weight:800;color:var(--muted);margin-top:6px}
+.ucard .mine{font-size:13px;color:#D9F7F2;margin-top:6px}
+@media (max-width:760px){.ucard{grid-template-columns:110px 1fr;gap:12px}.ucard b{font-size:17px}}
+</style>
+
+<style>
+/* ---------- /oferta: beca por WhatsApp ---------- */
+.btn-heidy{width:100%;max-width:520px;flex-direction:column;gap:2px;font-size:17px;padding:19px 22px;animation:zoomPulse 2.2s ease-in-out infinite}
+.btn-heidy .l1{display:inline-flex;align-items:center;gap:10px}
+.btn-heidy .l1 i{font-size:24px}
+.btn-heidy small{display:block;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:none;opacity:.85;margin-top:3px}
+.beca-box{max-width:560px;margin:18px auto 0;padding:16px 18px;border-radius:16px;text-align:center;background:linear-gradient(160deg,rgba(45,212,191,.16),rgba(45,212,191,.04));border:1px solid rgba(45,212,191,.5);box-shadow:0 0 40px -18px rgba(45,212,191,.6)}
+.beca-box .t{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-2)}
+.beca-box p{margin-top:6px;font-size:15.5px;color:#E7FBF7;line-height:1.45}
+.beca-box p b{color:#fff}
+.oficial{margin-top:14px;font-size:14px;color:var(--muted)}
+.oficial b{color:var(--text)}
+.price .oficial-big{font-size:clamp(40px,7vw,60px);line-height:1;font-weight:800;margin-top:8px;letter-spacing:-.03em;color:var(--text)}
+.price .oficial-big sup{font-size:.38em;vertical-align:1.2em;margin-right:4px}
+.price .lbl{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.offer .btn-heidy{margin-top:18px}
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:760px;margin:0 auto}
+.steps3 .glass{padding:16px;text-align:center}
+.steps3 .n{width:34px;height:34px;margin:0 auto;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#04220f;background:linear-gradient(135deg,#5BE58A,var(--wa))}
+.steps3 b{display:block;margin-top:10px;font-size:15px}
+.steps3 small{display:block;margin-top:4px;font-size:13px;color:var(--muted);line-height:1.4}
+.safe{display:flex;gap:10px;align-items:flex-start;text-align:left;max-width:560px;margin:16px auto 0;padding:12px 14px;border-radius:12px;background:rgba(242,86,109,.07);border:1px solid rgba(242,86,109,.3);font-size:13px;color:#E7E3F0}
+.safe i{color:var(--off);font-size:16px;margin-top:2px}
+.sticky .btn-wa{flex:1;padding:14px 10px;font-size:14px}
+.sticky .p b{font-size:16px}
+@media (max-width:640px){ .steps3{grid-template-columns:1fr} .btn-heidy{font-size:15.5px;padding:18px 12px} }
+</style>
+</head>
+<body>
+
+<!-- ============ 1. HERO + VIDEO DE VENTAS ============ -->
+<header class="hero">
+  <div class="amb v" style="width:420px;height:420px;top:-120px;left:-160px"></div>
+  <div class="amb g" style="width:320px;height:320px;top:140px;right:-140px"></div>
+  <div class="wrap">
+    <span class="eyebrow">NEUROFLUENCY · EL PROGRAMA COMPLETO</span>
+    <h1>Habla inglés en <span class="gold-text"><span class="serif it">90 días</span></span> con NeuroFluency</h1>
+    <p class="lead">Ya viste el método en las clases. En este video Heidy te muestra <b>todo lo que tienes dentro del programa</b> y cómo vas a recorrer el camino hasta la fluidez.</p>
+
+    <div class="vsl" id="vsl"></div>
+
+    <div class="beca-box">
+      <span class="t">🎓 Beca disponible</span>
+      <p>El precio oficial es US$597, pero <b>no tienes que pagarlo completo</b>. Escríbele a Heidy por WhatsApp y pídele la beca para entrar.</p>
+    </div>
+    <div class="hero-cta">
+      <a href="https://wa.me/593963300100" class="btn btn-wa btn-heidy js-heidy" data-boton="hero" target="_blank" rel="noopener"><span class="l1"><i class="fa-brands fa-whatsapp"></i> Quiero mi beca · Escribirle a Heidy</span><small>Se abre WhatsApp con Heidy · +593 96 330 0100</small></a>
+    </div>
+    <div class="trust">
+      <span><i class="fa-solid fa-user-graduate"></i> +8.000 estudiantes</span>
+      <span><i class="fa-solid fa-shield-halved"></i> Garantía 7 días</span>
+      <span><i class="fa-solid fa-infinity"></i> Acceso vitalicio</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ 2. MÉTODO ============ -->
+  <section class="block" id="programa">
+    <div class="st">
+      <span class="eyebrow v">🧠 El método</span>
+      <h2><span class="gold-text">3 meses</span> de estudio = <span class="serif it">5 años de academia</span></h2>
+    </div>
+    <div class="chips">
+      <div class="chip-i"><span>🌊</span><div><b>Exposición masiva</b><small>Textos, audios y videos a tu nivel</small></div></div>
+      <div class="chip-i"><span>🧠</span><div><b>Técnicas de memoria</b><small>Anki: no olvidas lo que aprendes</small></div></div>
+      <div class="chip-i"><span>🌱</span><div><b>Desde cero</b><small>Paso a paso hasta la fluidez</small></div></div>
+      <div class="chip-i"><span>📈</span><div><b>Básico o intermedio</b><small>Refuerzas tu base y por fin hablas</small></div></div>
+    </div>
+  </section>
+
+  <!-- ============ 3. LAS 5 FASES ============ -->
+  <section class="block" id="fases">
+    <div class="st">
+      <span class="eyebrow v">🗺 Contenido del curso · 90 días</span>
+      <h2>5 fases. Cada una <span class="serif it gold-text">desbloquea un bloqueo</span></h2>
+    </div>
+    <div class="phases">
+      <div class="ph"><span class="num">1</span><div class="card glass">
+        <span class="k">Fase 1</span><h3>Despertar <span>· activas tus oídos 👂</span></h3>
+        <ul><li>🌊 Te sumerges en mucho inglés real</li><li>🛠 Las técnicas de estudio de Heidy</li><li>🧱 Construyes tu base: la pre-inmersión</li></ul>
+        <div class="anki">📲 Planilla lista para Anki con las <b>349 frases más frecuentes</b>: 12 al día × 30 días ≈ <b>80% del vocabulario</b> de conversaciones comunes.</div>
+      </div></div>
+      <div class="ph"><span class="num">2</span><div class="card glass">
+        <span class="k">Fase 2</span><h3>Conexión <span>· tu oído se conecta al ritmo nativo 🔗</span></h3>
+        <ul><li>🚀 Vocabulario mucho más rápido</li><li>🗣 Contracciones y modismos nativos</li><li>📖 Inglés real adaptado a tu nivel</li></ul>
+      </div></div>
+      <div class="ph"><span class="num">3</span><div class="card glass">
+        <span class="k">Fase 3</span><h3>Inmersión nativa <span>· tu inglés despega 🚀</span></h3>
+        <ul><li>📺 Series, películas, podcasts y YouTube</li><li>🎤 Charlas y diálogos avanzados</li><li>💜 Contenido que te gusta… y ahora entiendes</li></ul>
+      </div></div>
+      <div class="ph"><span class="num">4</span><div class="card glass">
+        <span class="k">Fase 4</span><h3>Transformación <span>· piensas en inglés 🧠</span></h3>
+        <ul><li>🗣 Pronunciación nativa con shadowing</li><li>🇺🇸 Clases 100% en inglés… ¡y las entiendes!</li><li>♻ Usas el inglés para aprender inglés</li></ul>
+      </div></div>
+      <div class="ph"><span class="num">5</span><div class="card glass">
+        <span class="k">Fase 5</span><h3>Fluidez real <span>· hablar se vuelve natural ✨</span></h3>
+        <ul><li>🤖 IA para practicar tu speaking a diario</li><li>🎯 Eliges el área que quieres mejorar</li><li>🏆 Tu inglés será irreconocible</li></ul>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============ 4. TESTIMONIOS ============ -->
+  <section class="block" id="testimonios">
+    <div class="st">
+      <span class="eyebrow t">💬 Alumnos de NeuroFluency</span>
+      <h2>Estaban como tú… <span class="serif it gold-text">hasta que decidieron</span></h2>
+    </div>
+    <div class="tvideo" id="tvideo"></div>
+  </section>
+
+  <!-- ============ 5. LO QUE INCLUYE + PRECIO + BECA ============ -->
+  <section class="block" id="oferta">
+    <div class="st">
+      <span class="eyebrow">✨ Todo lo que te llevas</span>
+      <h2>Tu inscripción a <span class="serif it gold-text">NeuroFluency</span></h2>
+    </div>
+    <div class="offer glass" id="ofertaBox">
+      <ul class="stack">
+        <li class="main">🧠 NeuroFluency English Course · 5 fases</li>
+      </ul>
+      <div class="incl">
+        <span>♾️ Acceso vitalicio</span><span>🔴 8 mentorías en vivo · 3 meses</span><span>💬 Soporte 7 días</span>
+        <span>👥 Comunidad</span><span>🎓 Certificado</span><span>📧 Acceso inmediato</span>
+      </div>
+
+      <p class="stack-h">🎁 Bonos incluidos</p>
+      <div class="bmini">
+        <div><img src="/inscripcion/img/bono-21dias.webp" alt="" loading="lazy"><p><b>Desafío 21 días</b><small>US$97</small></p></div>
+        <div><img src="/inscripcion/img/bono-bootcamp.webp" alt="" loading="lazy"><p><b>Bootcamp mundo laboral</b><small>US$97</small></p></div>
+        <div><img src="/inscripcion/img/bono-entrevista.webp" alt="" loading="lazy"><p><b>Domina tu entrevista</b><small>US$97</small></p></div>
+        <div><img src="/inscripcion/img/bono-fluidez.webp" alt="" loading="lazy"><p><b>Código de fluidez nativa</b><small>US$97</small></p></div>
+      </div>
+
+      <div class="price">
+        <p class="lbl">Precio oficial</p>
+        <p class="oficial-big"><sup>US$</sup>597</p>
+        <div class="beca-box">
+          <span class="t">🎓 Pero hay una beca para ti</span>
+          <p>Antes de pagar el precio completo, <b>escríbele a Heidy</b>. Ella te cuenta la beca disponible y las formas de pago de tu país.</p>
+        </div>
+      </div>
+      <div class="center">
+        <a href="https://wa.me/593963300100" class="btn btn-wa btn-heidy js-heidy" data-boton="oferta" target="_blank" rel="noopener"><span class="l1"><i class="fa-brands fa-whatsapp"></i> Pedir mi beca a Heidy</span><small>Se abre WhatsApp con Heidy · +593 96 330 0100</small></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. CÓMO ENTRAR ============ -->
+  <section class="block">
+    <div class="st">
+      <span class="eyebrow t">📲 Cómo entrar</span>
+      <h2>3 pasos y <span class="serif it gold-text">empiezas hoy</span></h2>
+    </div>
+    <div class="steps3">
+      <div class="glass"><span class="n">1</span><b>Escríbele a Heidy</b><small>Toca el botón verde: se abre WhatsApp con tu mensaje listo.</small></div>
+      <div class="glass"><span class="n">2</span><b>Pide tu beca</b><small>Heidy te dice la beca disponible y cómo pagar desde tu país.</small></div>
+      <div class="glass"><span class="n">3</span><b>Recibe tu acceso</b><small>Te llega al correo y empiezas la Fase 1 ese mismo día.</small></div>
+    </div>
+  </section>
+
+  <!-- ============ 7. GARANTÍAS ============ -->
+  <section class="block">
+    <div class="guar">
+      <div class="glass"><div class="seal"><div><b>7</b><small>DÍAS</small></div></div>
+        <div><h3>Garantía de 7 días</h3><p>Si decides no continuar, te devolvemos el 100%. Sin preguntas.</p></div></div>
+      <div class="glass"><div class="seal t">⭐</div>
+        <div><h3>Garantía de satisfacción</h3><p>La regla de oro: o funciona… o no inviertes ni un centavo.</p></div></div>
+    </div>
+  </section>
+
+  <!-- ============ 8. FAQ + CIERRE ============ -->
+  <section class="block">
+    <div class="st"><span class="eyebrow v">Preguntas frecuentes</span></div>
+    <div class="faq">
+      <details class="glass"><summary>¿Cómo me inscribo?</summary><p>Escríbele a Heidy por WhatsApp con el botón verde. Ella te explica la beca disponible y te envía tu enlace de pago.</p></details>
+      <details class="glass"><summary>¿Tengo que pagar los US$597?</summary><p>No necesariamente. Hay una beca disponible: pídesela a Heidy por WhatsApp antes de pagar.</p></details>
+      <details class="glass"><summary>¿Puedo pagar en cuotas o en mi moneda?</summary><p>Pregúntale a Heidy por las formas de pago disponibles en tu país.</p></details>
+      <details class="glass"><summary>¿Cómo recibo el acceso?</summary><p>Al confirmar tu pago te llega un correo con tu usuario y contraseña, y Heidy te da la bienvenida por WhatsApp.</p></details>
+      <details class="glass"><summary>¿Cuánto tiempo necesito al día?</summary><p>Tú decides el ritmo, sin cronogramas rígidos. El acceso es de por vida.</p></details>
+    </div>
+
+    <div class="final glass" style="margin-top:30px">
+      <h2>Tu inglés no tiene que esperar <span class="serif it gold-text">otra edición</span></h2>
+      <p>Escríbele a Heidy ahora y pregúntale por tu beca.</p>
+      <div style="margin-top:18px"><a href="https://wa.me/593963300100" class="btn btn-wa btn-heidy js-heidy" data-boton="final" target="_blank" rel="noopener"><span class="l1"><i class="fa-brands fa-whatsapp"></i> Quiero mi beca · Escribirle a Heidy</span><small>Se abre WhatsApp con Heidy · +593 96 330 0100</small></a></div>
+      <div class="safe">
+        <i class="fa-solid fa-shield-halved"></i>
+        <div><b>El único WhatsApp oficial de Heidy es +593 96 330 0100.</b> Nadie del equipo te va a escribir ni llamar desde otro número para cobrarte.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 English With Heidy · NeuroFluency English Course.</p>
+    <div class="links"><a href="/privacidad.html">Privacidad</a><span style="padding:10px 0">•</span><a href="/terminos.html">Términos</a></div>
+    <p class="disclaimer">Este sitio no forma parte de Facebook ni de Meta Platforms, Inc. Los resultados dependen de la práctica y la constancia de cada persona.</p>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky">
+  <div class="p"><b>🎓 Beca disponible</b><small>Pídela a Heidy</small></div>
+  <a href="https://wa.me/593963300100" class="btn btn-wa js-heidy" data-boton="barra" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp" style="font-size:20px"></i> Escribir a Heidy</a>
+</div>
+
+<script>
+// =====================================================================
+//  AJUSTES — único lugar que se toca
+// =====================================================================
+const VSL_YT    = 'fyd-GoFqG14';            // video de ventas (el mismo de la página de pagos)
+const WA_HEIDY  = '593963300100';
+const WA_TEXTO  = 'Hola Heidy 👋 Vi las clases del desafío y quiero información para entrar a NeuroFluency.';
+// =====================================================================
+
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+const waUrl = () => 'https://wa.me/' + WA_HEIDY + '?text=' + encodeURIComponent(WA_TEXTO);
+
+// ---------- Botones de WhatsApp ----------
+$$('.js-heidy').forEach(a => {
+  a.href = waUrl();
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    ewhTrack('Contact', { content_name: 'NF_OFERTA_WA_HEIDY' }, false, { boton: 'oferta_' + (a.dataset.boton || '') });
+    const url = waUrl();
+    setTimeout(() => { location.href = url; }, 250);
+  });
+});
+
+// ---------- Barra fija + scroll ----------
+let maxScroll = 0; const hitos = [25, 50, 75, 90]; const enviados = {};
+function onScroll() {
+  const h = document.documentElement;
+  const pct = Math.round((h.scrollTop + innerHeight) / h.scrollHeight * 100);
+  if (pct > maxScroll) maxScroll = Math.min(100, pct);
+  hitos.forEach(x => { if (maxScroll >= x && !enviados[x]) { enviados[x] = 1; ewhTrack('Scroll', {}, true, { scroll: x, boton: 'oferta_scroll' }, true); } });
+  $('#sticky').classList.toggle('show', h.scrollTop > innerHeight * 0.9);
+}
+addEventListener('scroll', onScroll, { passive: true });
+
+// ---------- Videos ----------
+let ytReady = null;
+function loadYT() {
+  if (ytReady) return ytReady;
+  ytReady = new Promise((res, rej) => {
+    if (window.YT && YT.Player) return res();
+    window.onYouTubeIframeAPIReady = res;
+    const s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; s.onerror = rej; document.head.appendChild(s);
+  });
+  return ytReady;
+}
+const players = [];
+function pausarOtros(p) { players.forEach(o => { try { if (o !== p) (o.pauseVideo ? o.pauseVideo() : o.pause()); } catch (e) {} }); }
+function progreso(tipo) {
+  const sent = {};
+  return pct => {
+    [10, 25, 50, 75, 95].forEach(x => {
+      if (pct >= x && !sent[x]) {
+        sent[x] = 1;
+        ewhTrack('VideoProgreso', {}, true, { video: tipo === 'vsl' ? x : 0, boton: 'oferta_' + tipo + '_' + x }, true);
+        if (tipo === 'vsl' && x === 50) ewhTrack('VioVideoVenta', { content_name: 'NF_VSL_50' }, true, { video: 50, boton: 'oferta' });
+      }
+    });
+  };
+}
+function ytFacade(box, id, img, label, tipo) {
+  box.innerHTML = '<button class="facade" type="button" aria-label="Reproducir ' + label + '"><img src="' + img + '" alt="' + label + '" onerror="this.src=\'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg\'">' +
+    '<span class="play"><i class="fa-solid fa-play"></i></span><span class="vlabel"><i class="fa-brands fa-youtube"></i> ' + label + '</span></button>';
+  box.querySelector('.facade').addEventListener('click', () => {
+    const holder = document.createElement('div'); box.innerHTML = ''; box.appendChild(holder);
+    const prog = progreso(tipo);
+    loadYT().then(() => {
+      let timer = null;
+      const p = new YT.Player(holder, {
+        videoId: id, host: 'https://www.youtube-nocookie.com',
+        playerVars: Object.assign({ autoplay: 1, rel: 0, modestbranding: 1, playsinline: 1 }, /^https?:$/.test(location.protocol) ? { origin: location.origin } : {}),
+        events: { onStateChange: e => {
+          clearInterval(timer);
+          if (e.data === YT.PlayerState.PLAYING) {
+            pausarOtros(p);
+            timer = setInterval(() => { const d = p.getDuration() || 0; if (d) prog(p.getCurrentTime() / d * 100); }, 1000);
+          }
+        } }
+      });
+      players.push(p);
+    }).catch(() => {
+      box.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+    });
+  });
+}
+
+ytFacade($('#vsl'), VSL_YT, 'https://i.ytimg.com/vi/' + VSL_YT + '/maxresdefault.jpg', 'Mira cómo funciona NeuroFluency', 'vsl');
+
+(function () {
+  const box = $('#tvideo');
+  box.innerHTML = '<video src="/inscripcion/testimonios.mp4" poster="/inscripcion/img/testimonios-poster.webp" controls playsinline preload="none" title="Testimonios de alumnos de NeuroFluency"></video>' +
+    '<button class="facade" type="button" aria-label="Reproducir testimonios" style="background:transparent"><span class="play"><i class="fa-solid fa-play"></i></span><span class="vlabel"><i class="fa-solid fa-heart"></i> Testimonios de alumnos</span></button>';
+  const v = box.querySelector('video'), f = box.querySelector('.facade'), prog = progreso('testimonios');
+  let first = true;
+  f.addEventListener('click', () => { f.remove(); v.play(); });
+  v.addEventListener('play', () => { if (f.isConnected) f.remove(); pausarOtros(v); if (first) { first = false; ewhTrack('VioTestimonios', { content_name: 'NF_TESTIMONIOS' }, true, { boton: 'oferta' }); } });
+  v.addEventListener('timeupdate', () => { if (v.duration) prog(v.currentTime / v.duration * 100); });
+  players.push(v);
+})();
+
+onScroll();
+</script>
+</body>
+</html>

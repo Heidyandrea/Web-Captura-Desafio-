@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Desafío: Activa tu Cerebro Bilingüe — Repeticiones</title>
-<meta name="description" content="Mira las repeticiones de las 4 clases del Desafío Activa tu Cerebro Bilingüe. Disponibles hasta el 21 de noviembre.">
+<meta name="description" content="Mira las repeticiones de las 4 clases del Desafío Activa tu Cerebro Bilingüe, en orden.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Desafío: Activa tu Cerebro Bilingüe — Repeticiones de las 4 clases">
-<meta property="og:description" content="Las 4 clases del desafío, en orden. Disponibles solo hasta el 21 de noviembre.">
+<meta property="og:description" content="Las 4 clases del desafío, en orden: tu oído, tu voz, tu mapa de 90 días y el bonus de inglés para tu trabajo.">
 <meta property="og:image" content="https://i.imgur.com/prWnZhA.jpeg">
 <meta name="theme-color" content="#07070C">
 
@@ -187,6 +187,12 @@ h1 .gold-text{display:block;padding-bottom:.08em}
 @keyframes shine{0%{left:-60%}55%,100%{left:130%}}
 @keyframes zoomPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
 .wa-hint{margin-top:10px;font-size:13px;color:var(--muted)}
+.btn-gold{width:100%;max-width:480px;background:linear-gradient(135deg,var(--gold-2),var(--gold) 50%,#D29A3E);color:#160f02;box-shadow:0 8px 25px -6px rgba(227,185,100,.6),inset 0 1px 0 rgba(255,255,255,.5);animation:zoomPulse 2.2s ease-in-out infinite;margin-top:6px}
+.btn-gold:hover{filter:brightness(1.07)}
+.nf-cta{margin-top:14px;padding:16px;border-radius:14px;text-align:center;background:linear-gradient(160deg,rgba(227,185,100,.14),rgba(227,185,100,.03));border:1px solid rgba(227,185,100,.45)}
+.nf-cta p{font-size:14px;color:#E4E1EE;margin-bottom:12px}
+.nf-cta .btn{font-size:15px;padding:16px 14px}
+.reg-wa .warn{margin-top:20px;margin-bottom:0}
 
 .quote{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.6vw,28px);line-height:1.25;max-width:700px;margin:10px auto 0;text-align:center;color:#E9E6F2;padding:0 10px}
 
@@ -232,8 +238,7 @@ footer .disclaimer{max-width:720px;margin:8px auto 0;font-size:11px;line-height:
 
 <div class="topbar">
   <div class="in">
-    <i class="dot"></i> Repeticiones disponibles por tiempo limitado
-    <span id="topCd" class="cd"></span>
+    <i class="dot"></i> Repeticiones de las 4 clases del desafío
   </div>
 </div>
 
@@ -253,14 +258,6 @@ footer .disclaimer{max-width:720px;margin:8px auto 0;font-size:11px;line-height:
     <h1>Desafío: <span class="gold-text"><span class="serif it">Activa tu cerebro bilingüe</span></span></h1>
     <p class="lead">Recorre el camino <b>de la clase 1 a la 4</b>, en orden. Cada clase enciende una parte de tu cerebro bilingüe: primero el oído, después la voz, luego tu mapa de 90 días.</p>
 
-    <div class="count" id="count" aria-label="Tiempo restante">
-      <div><b id="cdD">00</b><small>Días</small></div>
-      <div><b id="cdH">00</b><small>Horas</small></div>
-      <div><b id="cdM">00</b><small>Min</small></div>
-      <div><b id="cdS">00</b><small>Seg</small></div>
-    </div>
-    <p class="until">Las repeticiones se eliminan el <b>21 de noviembre a las 11:59 PM</b> (hora de Ecuador / Colombia).</p>
-
     <div class="progress glass">
       <div class="row">Tu progreso <span><b id="pCount">0</b> de 4 clases vistas</span></div>
       <div class="bar"><i id="pBar"></i></div>
@@ -269,10 +266,6 @@ footer .disclaimer{max-width:720px;margin:8px auto 0;font-size:11px;line-height:
       </div>
     </div>
 
-    <div class="closed-box glass">
-      <h2>Las repeticiones ya no están disponibles</h2>
-      <p>El plazo para ver las clases terminó el 21 de noviembre. Si todavía no estás en la comunidad, únete al grupo de WhatsApp para enterarte del próximo desafío.</p>
-    </div>
   </div>
 </header>
 
@@ -329,6 +322,10 @@ footer .disclaimer{max-width:720px;margin:8px auto 0;font-size:11px;line-height:
         <div class="chal">
           <div class="k"><i class="fa-solid fa-star"></i> Desbloqueas: la ruta a la fluidez</div>
         </div>
+        <div class="nf-cta">
+          <p><b>¿Quieres recorrer este mapa con Heidy?</b> Mira el resumen de NeuroFluency, el programa completo, y pídele tu beca por WhatsApp.</p>
+          <a href="/oferta" class="btn btn-gold js-oferta" data-boton="clase3"><i class="fa-solid fa-circle-play" style="font-size:20px"></i> Ver el programa completo</a>
+        </div>
         <div class="actions">
           <button class="mark" type="button"><i class="fa-solid fa-check"></i> <span>Marcar como vista</span></button>
           <a class="next" href="#clase-4">Siguiente <i class="fa-solid fa-arrow-down"></i></a>
@@ -349,26 +346,25 @@ footer .disclaimer{max-width:720px;margin:8px auto 0;font-size:11px;line-height:
         </div>
         <div class="actions">
           <button class="mark" type="button"><i class="fa-solid fa-check"></i> <span>Marcar como vista</span></button>
-          <a class="next" href="#grupo">Último paso <i class="fa-solid fa-arrow-down"></i></a>
+          <a class="next" href="#programa">Último paso <i class="fa-solid fa-arrow-down"></i></a>
         </div>
       </article>
     </section>
 
     <!-- META: WHATSAPP -->
-    <section class="stop goal" id="grupo">
-      <div class="node"><i class="fa-brands fa-whatsapp"></i></div>
+    <section class="stop goal" id="programa">
+      <div class="node"><i class="fa-solid fa-rocket"></i></div>
       <div class="reg-wa glass">
         <span class="free">ÚLTIMO PASO DEL CAMINO</span>
         <h2>Mantén tu cerebro bilingüe en <span class="teal">ON</span>. Sigamos <span class="gold-text"><span class="serif it">juntos</span></span>.</h2>
-        <p class="desc">En el <b>Grupo VIP</b> se anuncian primero los bonos que se desbloquean esta semana y tienes los enlaces oficiales de inscripción a NeuroFluency.</p>
+        <p class="desc">Mira el resumen de <b>NeuroFluency</b>, el programa completo para hablar inglés en 90 días. El precio oficial es US$597, pero <b>hay una beca disponible</b>: pídesela a Heidy por WhatsApp.</p>
+        <a href="/oferta" class="btn btn-gold js-oferta" data-boton="final">
+          <i class="fa-solid fa-circle-play" style="font-size:22px"></i> VER EL PROGRAMA COMPLETO
+        </a>
         <div class="warn">
           <i class="fa-solid fa-circle-exclamation"></i>
-          <div><b>Solo Heidy y Pablo administran el grupo.</b> Nadie del equipo te va a escribir ni llamar por privado para cobrarte.</div>
+          <div><b>El único WhatsApp oficial de Heidy es +593 96 330 0100.</b> Nadie del equipo te va a escribir ni llamar desde otro número para cobrarte.</div>
         </div>
-        <a href="https://chat.whatsapp.com/BafKQebS00WKZbUQ3hGjnN" class="btn btn-wa" id="waBtn">
-          <i class="fa-brands fa-whatsapp" style="font-size:24px"></i> UNIRME AL GRUPO VIP
-        </a>
-        <p class="wa-hint">Se abrirá WhatsApp: toca <b>“Unirse al grupo”</b> para entrar.</p>
       </div>
     </section>
   </div>
@@ -392,10 +388,9 @@ footer .disclaimer{max-width:720px;margin:8px auto 0;font-size:11px;line-height:
 // =====================================================================
 //  AJUSTES — único lugar que se toca
 // =====================================================================
-//  Fecha límite: 21 nov 2026, 11:59 PM hora Ecuador/Colombia (UTC-5)
-const FECHA_LIMITE = new Date('2026-11-21T23:59:59-05:00');
-//  Los IDs de YouTube y el enlace del grupo están en el HTML
-//  (atributo data-yt de cada video y href del botón #waBtn).
+//  Las clases quedan disponibles sin fecha límite.
+//  Los IDs de YouTube están en el HTML (atributo data-yt de cada video).
+//  Los botones "Ver el programa completo" llevan a /oferta (resumen + WhatsApp de Heidy).
 // =====================================================================
 
 const KEY = 'ewh_acb_vistos';
@@ -425,7 +420,7 @@ function render() {
   // Línea del camino: llega hasta la última clase vista (o al grupo si vio las 4)
   const path = document.getElementById('path'), fill = document.getElementById('pathFill');
   const last = Math.max(-1, ...seen);
-  const target = n === 4 ? document.getElementById('grupo') : (last >= 0 ? stops[last] : null);
+  const target = n === 4 ? document.getElementById('programa') : (last >= 0 ? stops[last] : null);
   fill.style.height = target ? (target.offsetTop + 30 - 40) + 'px' : '0px';
   // Logo: el cerebro se enciende al completar las 4
   const logo = document.getElementById('brandLogo');
@@ -478,7 +473,7 @@ document.querySelectorAll('.video').forEach(v => {
             if (e.data === YT.PlayerState.PLAYING) players.forEach(o => { if (o !== p && o.pauseVideo) o.pauseVideo(); });
             if (e.data === YT.PlayerState.ENDED) {
               markSeen(i, true);
-              const nx = i < 3 ? stops[i + 1] : document.getElementById('grupo');
+              const nx = i < 3 ? stops[i + 1] : document.getElementById('programa');
               setTimeout(() => nx.scrollIntoView({behavior: 'smooth', block: 'start'}), 900);
             }
           }
@@ -491,25 +486,21 @@ document.querySelectorAll('.video').forEach(v => {
   });
 });
 
-// ---------- WhatsApp ----------
-document.getElementById('waBtn').addEventListener('click', e => {
-  e.preventDefault();
-  const href = e.currentTarget.href;
-  if (window.ewhTrack) ewhTrack('Contact', {content_name: 'ACB_REPLAY_WA_VIP', clases_vistas: seen.length});
-  setTimeout(() => { window.location.href = href; }, 250);
+// ---------- Botones al programa completo (/oferta), con las UTM de esta visita ----------
+const q = new URLSearchParams(location.search);
+document.querySelectorAll('.js-oferta').forEach(a => {
+  const u = new URL('/oferta', location.origin);
+  ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid'].forEach(k => { if (q.get(k)) u.searchParams.set(k, q.get(k)); });
+  if (!u.searchParams.get('utm_source')) u.searchParams.set('utm_source', 'clases');
+  u.searchParams.set('utm_content', 'clases_' + a.dataset.boton);
+  a.href = u.pathname + u.search;
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    if (window.ewhTrack) ewhTrack('ViewContent', {content_name: 'ACB_REPLAY_A_OFERTA_' + a.dataset.boton.toUpperCase(), clases_vistas: seen.length});
+    setTimeout(() => { window.location.href = a.href; }, 250);
+  });
 });
 
-// ---------- Cuenta regresiva + cierre automático ----------
-const pad = n => String(n).padStart(2, '0');
-function tick() {
-  const ms = FECHA_LIMITE - Date.now();
-  if (ms <= 0) { document.body.classList.add('closed'); render(); return; }
-  const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60, s = Math.floor(ms / 1e3) % 60;
-  cdD.textContent = pad(d); cdH.textContent = pad(h); cdM.textContent = pad(m); cdS.textContent = pad(s);
-  topCd.textContent = '· Se eliminan en ' + (d ? d + 'd ' : '') + pad(h) + ':' + pad(m) + ':' + pad(s);
-  setTimeout(tick, 1000);
-}
-tick();
 render();
 window.addEventListener('resize', render, {passive: true});
 window.addEventListener('load', render);
