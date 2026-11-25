@@ -281,8 +281,9 @@ function done(tg) {
     const a = el('a', { href: tg, target: '_blank', rel: 'noopener', class: 'btn tg', text: 'Unirme al grupo de Telegram' });
     kids.push(a);
     kids.push(el('p', { class: 'note', text: 'Si no tienes Telegram, descárgalo gratis en tu celular y vuelve a tocar el botón.' }));
+    kids.push(el('p', { class: 'note' }, [document.createTextNode('¿Problemas para entrar? '), el('a', { href: 'https://wa.me/593992969267', target: '_blank', rel: 'noopener', style: 'color:#E3B964', text: 'Escríbenos a soporte' })]));
   } else {
-    kids.push(el('p', { class: 'sub', text: 'No encontramos tu compra con ese correo. Escríbenos por WhatsApp y te enviamos el enlace del grupo de Telegram.' }));
+    kids.push(el('p', { class: 'sub', text: 'Escríbenos por WhatsApp y te enviamos el enlace del grupo de Telegram.' }));
     kids.push(el('a', { href: 'https://wa.me/593992969267', target: '_blank', rel: 'noopener', class: 'btn tg', text: 'Escribir a soporte por WhatsApp' }));
   }
   f.replaceChildren(el('div', { class: 'done' }, kids));
