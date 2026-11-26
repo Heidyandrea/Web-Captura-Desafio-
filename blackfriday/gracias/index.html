@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Estás en la lista · Black Friday NeuroFluency</title>
+<meta name="description" content="Último paso: entra al grupo de WhatsApp de Black Friday.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Black Friday NeuroFluency · Hasta 67% OFF">
+<meta property="og:description" content="Anótate en la lista de espera: webinar en vivo con Heidy el lunes 30 de noviembre y precio Black Friday solo para la lista.">
+<meta property="og:image" content="https://desafio.englishwithheidy.com/inscripcion/img/plataforma.webp">
+<meta name="theme-color" content="#050507">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- =====================================================================
+     MEDICIÓN — se ejecuta ANTES del píxel:
+     1) identifica al visitante (vid) y guarda las UTM
+     2) toma nombre/correo/teléfono si vienen en el enlace (correos, WhatsApp) o del Grupo VIP
+     3) quita esos datos personales de la URL antes de que el píxel la lea
+     ===================================================================== -->
+<script>
+(function(){
+  var LS = {
+    get:function(k){ try{ var v=localStorage.getItem(k); return v?JSON.parse(v):null; }catch(e){ return null; } },
+    set:function(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  };
+  window.ewhLS = LS;
+
+  // --- ID de visitante (mismo navegador = mismo vid; viaja a Hotmart como "sck") ---
+  var vid = LS.get('ewh_vid');
+  if (!vid || !/^v[a-z0-9]{8,24}$/.test(vid)) {
+    vid = 'v' + (Date.now().toString(36) + Math.random().toString(36).slice(2, 8)).toLowerCase().replace(/[^a-z0-9]/g,'').slice(0, 14);
+    LS.set('ewh_vid', vid);
+  }
+  window.ewhVid = vid;
+
+  // --- UTM: guarda la primera y actualiza si llega una nueva campaña ---
+  var q = new URLSearchParams(location.search);
+  var keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid'];
+  var utm = LS.get('ewh_utm') || {};
+  var hasNew = keys.some(function(k){ return q.get(k); });
+  if (hasNew) { utm = {}; keys.forEach(function(k){ if (q.get(k)) utm[k] = q.get(k).slice(0, 160); }); LS.set('ewh_utm', utm); }
+  if (!utm.referrer && document.referrer && document.referrer.indexOf(location.hostname) < 0) { utm.referrer = document.referrer.slice(0, 300); LS.set('ewh_utm', utm); }
+  window.ewhUtm = utm;
+
+  // --- Identidad conocida (para pre-llenar Hotmart y poder hacer seguimiento) ---
+  var id = LS.get('ewh_id') || {};
+  var e = q.get('email') || q.get('correo');
+  var n = q.get('name') || q.get('nombre');
+  var p = q.get('phone') || q.get('wa') || q.get('whatsapp') || q.get('telefono');
+  if (e && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.trim())) id.email = e.trim().toLowerCase();
+  if (n && n.trim().length > 1 && n.indexOf('{') < 0) id.name = n.trim().slice(0, 80);
+  if (p && p.replace(/\D/g,'').length >= 8) id.phone = p.replace(/\D/g,'').slice(0, 15);
+  var vip = LS.get('ewh_vip_done');            // guardado por la página /vip
+  if (vip) { if (!id.name && vip.n) id.name = vip.n; if (!id.email && vip.e) id.email = vip.e; if (!id.phone && vip.p) id.phone = vip.p; }
+  if (id.email || id.phone || id.name) LS.set('ewh_id', id);
+  window.ewhId = id;
+
+  // quitar datos personales de la URL (Meta no debe recibir correos en la URL)
+  var pii = ['email','correo','name','nombre','phone','wa','whatsapp','telefono'];
+  if (pii.some(function(k){ return q.has(k); })) {
+    pii.forEach(function(k){ q.delete(k); });
+    var qs = q.toString();
+    history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+  }
+})();
+</script>
+
+<!-- ============ META PIXEL (mismo píxel del desafío) + API de conversiones ============ -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+(function(){
+  var am = { external_id: window.ewhVid };      // coincidencia avanzada (el píxel la cifra)
+  if (ewhId.email) am.em = ewhId.email;
+  if (ewhId.phone) am.ph = ewhId.phone;
+  if (ewhId.name) am.fn = ewhId.name.split(/\s+/)[0].toLowerCase();
+  fbq('init', '1490857044727030', am);
+})();
+window.ewhCookie=function(k){var m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):'';};
+window.ewhFbc=function(){var fbc=ewhCookie('_fbc');if(!fbc){var c=new URLSearchParams(location.search).get('fbclid')||(window.ewhUtm&&ewhUtm.fbclid);if(c)fbc='fb.1.'+Date.now()+'.'+c;}return fbc;};
+// name: evento · params: datos para Meta · custom: evento personalizado · track: datos extra para el seguimiento · noPixel: solo servidor
+window.ewhTrack=function(name,params,custom,track,noPixel){
+  var id=name+'.'+Date.now()+'.'+Math.random().toString(36).slice(2,10);
+  if(!noPixel){ if(custom){fbq('trackCustom',name,params||{},{eventID:id});} else {fbq('track',name,params||{},{eventID:id});} }
+  try{
+    var body=JSON.stringify({event_name:name,event_id:id,event_source_url:location.href,fbp:ewhCookie('_fbp'),fbc:ewhFbc(),
+      custom_data:params||{},vid:window.ewhVid,user:window.ewhId||{},track:Object.assign({},window.ewhUtm||{},track||{})});
+    if(!(navigator.sendBeacon&&navigator.sendBeacon('/api/event',new Blob([body],{type:'application/json'})))){
+      fetch('/api/event',{method:'POST',headers:{'Content-Type':'application/json'},body:body,keepalive:true});
+    }
+  }catch(e){}
+  return id;
+};
+ewhTrack('PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1490857044727030&ev=PageView&noscript=1"/></noscript>
+<style>
+:root{--bg:#050507;--card:#101017;--line:rgba(255,255,255,.09);--text:#F2F0F7;--muted:#A8A4B8;--dim:#706C80;
+  --gold:#E8BE62;--gold-2:#FBE3A6;--gold-3:#B88834;--red:#FF3B4F;--wa:#25D366;
+  --display:'Archivo Black','Plus Jakarta Sans',system-ui,sans-serif;--serif:'Instrument Serif',Georgia,serif;--sans:'Plus Jakarta Sans',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:620px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px));padding-block:30px 60px;text-align:center}
+.gold{background:linear-gradient(100deg,var(--gold-2),var(--gold) 50%,var(--gold-3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tape{overflow:hidden;white-space:nowrap;font-family:var(--display);font-size:13px;letter-spacing:.12em;padding:8px 0;background:linear-gradient(90deg,var(--gold-3),var(--gold) 30%,var(--gold-2) 50%,var(--gold) 70%,var(--gold-3));color:#140d00}
+.tape .track{display:inline-flex;gap:26px;animation:m 24s linear infinite;padding-left:26px}
+.tape span{display:inline-flex;gap:26px}
+@keyframes m{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.steps{display:flex;justify-content:center;gap:8px;margin-bottom:18px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.steps span{padding:6px 12px;border-radius:99px;border:1px solid var(--line);color:var(--dim)}
+.steps .ok{color:#04220f;background:var(--wa);border-color:var(--wa)}
+.steps .now{color:#140d00;background:var(--gold);border-color:var(--gold)}
+h1{font-size:clamp(28px,6vw,40px);line-height:1.1;font-weight:800;letter-spacing:-.02em;text-wrap:balance}
+.lead{margin-top:12px;color:#D6D3E2;font-size:17px}
+.lead b{color:var(--gold-2)}
+.bar{height:10px;border-radius:99px;background:#1a1822;margin:20px auto 6px;max-width:420px;overflow:hidden}
+.bar div{height:100%;width:80%;background:linear-gradient(90deg,var(--gold),var(--wa));border-radius:99px}
+.barl{font-size:12.5px;color:var(--muted)}
+.card{margin-top:22px;background:linear-gradient(180deg,#14121C,#0D0C13);border:1px solid rgba(37,211,102,.5);border-radius:20px;padding:22px 18px;box-shadow:0 30px 80px -30px rgba(37,211,102,.35)}
+.card h2{font-size:20px;font-weight:800}
+.card p{margin-top:6px;color:var(--muted);font-size:14.5px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:16px;border:0;cursor:pointer;text-decoration:none;font:inherit;font-weight:800;text-transform:uppercase;letter-spacing:.03em;border-radius:14px;padding:18px;font-size:16px}
+.btn-wa{background:linear-gradient(135deg,#5BE58A,var(--wa));color:#04220f;box-shadow:0 10px 30px -8px rgba(37,211,102,.7);animation:p 2.2s ease-in-out infinite}
+.btn-wa i{font-size:24px}
+.btn-cal{background:transparent;border:1px solid rgba(232,190,98,.5);color:var(--gold-2);font-size:14px;padding:14px;animation:none}
+@keyframes p{50%{transform:scale(1.03)}}
+.date{display:flex;gap:14px;align-items:center;text-align:left;margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.cal{flex-shrink:0;width:58px;border-radius:10px;overflow:hidden;text-align:center;background:#fff;color:#111}
+.cal .m{background:var(--red);color:#fff;font-size:10.5px;font-weight:800;padding:3px 0}
+.cal .d{font-family:var(--display);font-size:24px;line-height:1.15}
+.cal .w{font-size:9px;font-weight:800;color:#555;padding-bottom:4px;text-transform:uppercase}
+.date b{display:block}
+.date small{color:var(--muted);font-size:13px}
+.warn{margin-top:18px;display:flex;gap:10px;text-align:left;font-size:13px;color:#E7E3F0;background:rgba(255,59,79,.07);border:1px solid rgba(255,59,79,.3);border-radius:12px;padding:12px 14px}
+.warn i{color:var(--red);margin-top:3px}
+footer{text-align:center;font-size:12px;color:var(--dim);padding-bottom:40px}
+footer a{color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.tape .track,.btn-wa{animation:none}}
+</style>
+</head>
+<body>
+<div class="tape"><div class="track"><span><i>★ BLACK FRIDAY</i><i>ESTÁS EN LA LISTA</i><i>★ WEBINAR LUNES 30 · 7 PM</i><i>★ BLACK FRIDAY</i><i>ESTÁS EN LA LISTA</i><i>★ WEBINAR LUNES 30 · 7 PM</i></span><span aria-hidden="true"><i>★ BLACK FRIDAY</i><i>ESTÁS EN LA LISTA</i><i>★ WEBINAR LUNES 30 · 7 PM</i><i>★ BLACK FRIDAY</i><i>ESTÁS EN LA LISTA</i><i>★ WEBINAR LUNES 30 · 7 PM</i></span></div></div>
+
+<main class="wrap">
+  <div class="steps"><span class="ok">✓ Lista</span><span class="now">2 · Grupo</span><span>3 · Webinar</span></div>
+  <h1><span id="hola">¡Listo!</span> Tu lugar está <span class="gold">guardado</span></h1>
+  <p class="lead">Falta <b>un último paso</b>: entra al grupo de WhatsApp. Ahí llega el enlace del webinar y el <b>precio Black Friday</b> apenas se abra.</p>
+  <div class="bar"><div></div></div>
+  <p class="barl">80% completado · solo falta entrar al grupo</p>
+
+  <div class="card">
+    <h2>Grupo Black Friday NeuroFluency</h2>
+    <p>Ahí llegan el enlace del webinar y el de la oferta Black Friday.</p>
+    <a class="btn btn-wa" id="waBtn" href="https://chat.whatsapp.com/F6YxjKi28zaH5uvqL6TwKC"><i class="fa-brands fa-whatsapp"></i> Entrar al grupo de WhatsApp</a>
+  </div>
+
+  <div class="date">
+    <div class="cal"><div class="m">NOV</div><div class="d">30</div><div class="w">lunes</div></div>
+    <div><b>Webinar en vivo · 7:00 p. m. (Ecuador)</b><small>6 p. m. México · 7 p. m. Colombia y Perú · 9 p. m. Chile y Argentina · en YouTube</small></div>
+  </div>
+  <a class="btn btn-cal" id="calBtn" target="_blank" rel="noopener" href="#">📅 Agregar a mi calendario</a>
+
+  <div class="warn"><i class="fa-solid fa-shield-halved"></i><div><b>Los únicos números oficiales son el de Heidy (+593 96 330 0100) y el de Pablo (+593 99 296 9267).</b> Nadie del equipo te pedirá pagos por otro número.</div></div>
+</main>
+<footer><a href="/privacidad.html">Privacidad</a> · <a href="/terminos.html">Términos</a></footer>
+
+<script>
+const GRUPO = 'https://chat.whatsapp.com/F6YxjKi28zaH5uvqL6TwKC';
+const id = (window.ewhLS && ewhLS.get('ewh_bf_done')) || {};
+if (id.n) document.getElementById('hola').textContent = '¡Listo, ' + id.n + '!';
+const cal = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+  '&text=' + encodeURIComponent('Webinar Black Friday NeuroFluency con Heidy') +
+  '&dates=20261201T000000Z/20261201T013000Z' +
+  '&details=' + encodeURIComponent('El enlace del en vivo llega por el grupo de WhatsApp y por correo. Grupo: ' + GRUPO);
+document.getElementById('calBtn').href = cal;
+document.getElementById('waBtn').addEventListener('click', e => {
+  e.preventDefault();
+  ewhTrack('Contact', { content_name: 'BF2026_GRUPO_WA' }, false, { boton: 'bf_gracias_grupo' });
+  setTimeout(() => { location.href = GRUPO; }, 250);
+});
+</script>
+</body>
+</html>

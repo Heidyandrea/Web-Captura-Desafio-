@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Black Friday NeuroFluency · Hasta 67% OFF</title>
+<meta name="description" content="Black Friday de NeuroFluency: anótate en la lista de espera, mira el webinar en vivo con Heidy el lunes 30 de noviembre y recibe el precio especial.">
+<meta name="robots" content="index, follow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Black Friday NeuroFluency · Hasta 67% OFF">
+<meta property="og:description" content="Anótate en la lista de espera: webinar en vivo con Heidy el lunes 30 de noviembre y precio Black Friday solo para la lista.">
+<meta property="og:image" content="https://desafio.englishwithheidy.com/inscripcion/img/plataforma.webp">
+<meta name="theme-color" content="#050507">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- =====================================================================
+     MEDICIÓN — se ejecuta ANTES del píxel:
+     1) identifica al visitante (vid) y guarda las UTM
+     2) toma nombre/correo/teléfono si vienen en el enlace (correos, WhatsApp) o del Grupo VIP
+     3) quita esos datos personales de la URL antes de que el píxel la lea
+     ===================================================================== -->
+<script>
+(function(){
+  var LS = {
+    get:function(k){ try{ var v=localStorage.getItem(k); return v?JSON.parse(v):null; }catch(e){ return null; } },
+    set:function(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  };
+  window.ewhLS = LS;
+
+  // --- ID de visitante (mismo navegador = mismo vid; viaja a Hotmart como "sck") ---
+  var vid = LS.get('ewh_vid');
+  if (!vid || !/^v[a-z0-9]{8,24}$/.test(vid)) {
+    vid = 'v' + (Date.now().toString(36) + Math.random().toString(36).slice(2, 8)).toLowerCase().replace(/[^a-z0-9]/g,'').slice(0, 14);
+    LS.set('ewh_vid', vid);
+  }
+  window.ewhVid = vid;
+
+  // --- UTM: guarda la primera y actualiza si llega una nueva campaña ---
+  var q = new URLSearchParams(location.search);
+  var keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','fbclid'];
+  var utm = LS.get('ewh_utm') || {};
+  var hasNew = keys.some(function(k){ return q.get(k); });
+  if (hasNew) { utm = {}; keys.forEach(function(k){ if (q.get(k)) utm[k] = q.get(k).slice(0, 160); }); LS.set('ewh_utm', utm); }
+  if (!utm.referrer && document.referrer && document.referrer.indexOf(location.hostname) < 0) { utm.referrer = document.referrer.slice(0, 300); LS.set('ewh_utm', utm); }
+  window.ewhUtm = utm;
+
+  // --- Identidad conocida (para pre-llenar Hotmart y poder hacer seguimiento) ---
+  var id = LS.get('ewh_id') || {};
+  var e = q.get('email') || q.get('correo');
+  var n = q.get('name') || q.get('nombre');
+  var p = q.get('phone') || q.get('wa') || q.get('whatsapp') || q.get('telefono');
+  if (e && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.trim())) id.email = e.trim().toLowerCase();
+  if (n && n.trim().length > 1 && n.indexOf('{') < 0) id.name = n.trim().slice(0, 80);
+  if (p && p.replace(/\D/g,'').length >= 8) id.phone = p.replace(/\D/g,'').slice(0, 15);
+  var vip = LS.get('ewh_vip_done');            // guardado por la página /vip
+  if (vip) { if (!id.name && vip.n) id.name = vip.n; if (!id.email && vip.e) id.email = vip.e; if (!id.phone && vip.p) id.phone = vip.p; }
+  if (id.email || id.phone || id.name) LS.set('ewh_id', id);
+  window.ewhId = id;
+
+  // quitar datos personales de la URL (Meta no debe recibir correos en la URL)
+  var pii = ['email','correo','name','nombre','phone','wa','whatsapp','telefono'];
+  if (pii.some(function(k){ return q.has(k); })) {
+    pii.forEach(function(k){ q.delete(k); });
+    var qs = q.toString();
+    history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+  }
+})();
+</script>
+
+<!-- ============ META PIXEL (mismo píxel del desafío) + API de conversiones ============ -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+(function(){
+  var am = { external_id: window.ewhVid };      // coincidencia avanzada (el píxel la cifra)
+  if (ewhId.email) am.em = ewhId.email;
+  if (ewhId.phone) am.ph = ewhId.phone;
+  if (ewhId.name) am.fn = ewhId.name.split(/\s+/)[0].toLowerCase();
+  fbq('init', '1490857044727030', am);
+})();
+window.ewhCookie=function(k){var m=document.cookie.match('(?:^|; )'+k+'=([^;]*)');return m?decodeURIComponent(m[1]):'';};
+window.ewhFbc=function(){var fbc=ewhCookie('_fbc');if(!fbc){var c=new URLSearchParams(location.search).get('fbclid')||(window.ewhUtm&&ewhUtm.fbclid);if(c)fbc='fb.1.'+Date.now()+'.'+c;}return fbc;};
+// name: evento · params: datos para Meta · custom: evento personalizado · track: datos extra para el seguimiento · noPixel: solo servidor
+window.ewhTrack=function(name,params,custom,track,noPixel){
+  var id=name+'.'+Date.now()+'.'+Math.random().toString(36).slice(2,10);
+  if(!noPixel){ if(custom){fbq('trackCustom',name,params||{},{eventID:id});} else {fbq('track',name,params||{},{eventID:id});} }
+  try{
+    var body=JSON.stringify({event_name:name,event_id:id,event_source_url:location.href,fbp:ewhCookie('_fbp'),fbc:ewhFbc(),
+      custom_data:params||{},vid:window.ewhVid,user:window.ewhId||{},track:Object.assign({},window.ewhUtm||{},track||{})});
+    if(!(navigator.sendBeacon&&navigator.sendBeacon('/api/event',new Blob([body],{type:'application/json'})))){
+      fetch('/api/event',{method:'POST',headers:{'Content-Type':'application/json'},body:body,keepalive:true});
+    }
+  }catch(e){}
+  return id;
+};
+ewhTrack('PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1490857044727030&ev=PageView&noscript=1"/></noscript>
+<style>
+/* Black Friday · lista de espera — negro profundo, oro y cinta roja */
+:root{
+  --bg:#050507; --bg-2:#0B0A10; --card:#101017; --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.16);
+  --text:#F2F0F7; --muted:#A8A4B8; --dim:#706C80;
+  --gold:#E8BE62; --gold-2:#FBE3A6; --gold-3:#B88834;
+  --red:#FF3B4F; --red-2:#FF7A86; --teal:#2DD4BF; --wa:#25D366;
+  --display:'Archivo Black','Plus Jakarta Sans',system-ui,sans-serif;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:100%;max-width:1060px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.serif{font-family:var(--serif);font-weight:400}
+.it{font-style:italic}
+.gold{background:linear-gradient(100deg,var(--gold-2),var(--gold) 50%,var(--gold-3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.red{color:var(--red)}
+
+/* ---------- cintas Black Friday ---------- */
+.tape{position:relative;overflow:hidden;white-space:nowrap;font-family:var(--display);font-size:14px;letter-spacing:.12em;text-transform:uppercase;padding:9px 0;user-select:none}
+.tape .track{display:inline-flex;gap:28px;animation:marq 26s linear infinite;padding-left:28px}
+.tape span{display:inline-flex;align-items:center;gap:28px}
+.tape i{font-style:normal;opacity:.9}
+.tape.g{background:linear-gradient(90deg,var(--gold-3),var(--gold) 30%,var(--gold-2) 50%,var(--gold) 70%,var(--gold-3));color:#140d00}
+.tape.k{background:#000;color:var(--gold);border-top:1px solid rgba(232,190,98,.35);border-bottom:1px solid rgba(232,190,98,.35)}
+.tape.r{background:var(--red);color:#fff}
+.tape.rev .track{animation-direction:reverse}
+.tiltbox{overflow:hidden;padding-block:14px}
+.tape.tilt{transform:rotate(-2.2deg) scale(1.06);margin:12px 0;box-shadow:0 10px 30px -10px rgba(0,0,0,.8)}
+.tape.tilt2{transform:rotate(1.8deg) scale(1.04);margin-top:-46px;margin-bottom:22px;opacity:.96}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- barra superior con cuenta regresiva ---------- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:41;background:#000}
+.cdbar{background:#000;border-bottom:1px solid rgba(232,190,98,.25);display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;padding:8px 14px;font-size:12.5px;font-weight:700;letter-spacing:.04em}
+.cdbar .lbl{color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-size:11px}
+.cdbar .lbl b{color:var(--red)}
+.cdbar .dot{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);animation:blink 1.1s infinite}
+.cd{display:inline-flex;gap:6px;font-variant-numeric:tabular-nums}
+.cd div{min-width:40px;text-align:center;background:#121019;border:1px solid rgba(232,190,98,.3);border-radius:7px;padding:3px 4px;line-height:1}
+.cd b{display:block;font-family:var(--display);font-size:16px;color:var(--gold-2);font-weight:400}
+.cd small{font-size:8.5px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
+.cdbar a{background:var(--gold);color:#140d00;text-decoration:none;padding:6px 12px;border-radius:99px;font-weight:800;font-size:12px}
+@keyframes blink{50%{opacity:.25}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding-block:38px 26px;text-align:center;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-20% -10% auto;height:620px;background:radial-gradient(closest-side,rgba(255,59,79,.22),transparent 70%),radial-gradient(closest-side at 70% 40%,rgba(232,190,98,.18),transparent 70%);pointer-events:none}
+.hero .wrap{position:relative}
+.badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--red);padding:7px 14px;border-radius:6px;transform:rotate(-2deg);box-shadow:0 8px 24px -8px rgba(255,59,79,.8)}
+.mega{margin-top:18px;font-family:var(--display);font-weight:400;font-size:clamp(46px,11vw,112px);line-height:.92;letter-spacing:-.02em;text-transform:uppercase}
+.mega .bf{display:block;color:#fff;text-shadow:0 0 40px rgba(255,59,79,.35)}
+.mega .off{display:block;margin-top:6px}
+.mega .off small{display:block;font-family:var(--sans);font-weight:800;font-size:clamp(13px,2.4vw,18px);letter-spacing:.24em;color:var(--muted);margin-bottom:6px}
+h1.sub{margin:20px auto 0;max-width:760px;font-size:clamp(22px,3.6vw,32px);line-height:1.2;font-weight:800;letter-spacing:-.01em;text-wrap:balance}
+.lead{margin:14px auto 0;max-width:640px;font-size:clamp(15.5px,2vw,18px);color:#D6D3E2}
+.lead b{color:var(--gold-2)}
+
+/* ---------- formulario ---------- */
+.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:start;margin-top:28px;text-align:left}
+.formcard{position:relative;background:linear-gradient(180deg,#14121C,#0D0C13);border:1px solid rgba(232,190,98,.45);border-radius:20px;padding:22px 20px 20px;box-shadow:0 30px 80px -30px rgba(232,190,98,.35),0 0 0 6px rgba(232,190,98,.05)}
+.formcard .ribbon{position:absolute;top:-13px;left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--red);color:#fff;font-family:var(--display);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;border-radius:6px}
+.formcard h2{font-size:21px;line-height:1.2;font-weight:800;text-align:center;margin-top:6px}
+.formcard .s{text-align:center;font-size:13.5px;color:var(--muted);margin-top:6px}
+.f{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.f label{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.04em;margin-bottom:-4px}
+.in{width:100%;height:52px;border-radius:12px;border:1px solid var(--line-2);background:#0A0910;color:var(--text);font:inherit;font-size:16px;padding:0 14px;outline:none;transition:border-color .2s,box-shadow .2s}
+.in:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(232,190,98,.2)}
+.ph{display:grid;grid-template-columns:118px 1fr;gap:8px}
+select.in{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--gold) 50%),linear-gradient(135deg,var(--gold) 50%,transparent 50%);background-position:calc(100% - 16px) 22px,calc(100% - 11px) 22px;background-size:5px 5px;background-repeat:no-repeat;padding-right:26px}
+.err{min-height:18px;font-size:13px;color:var(--red-2);font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;border:0;cursor:pointer;text-decoration:none;font:inherit;font-weight:800;letter-spacing:.03em;text-transform:uppercase;border-radius:14px;padding:17px 18px;font-size:16px;line-height:1.2;text-align:center;transition:transform .15s,filter .2s}
+.btn:active{transform:scale(.98)}
+.btn-gold{background:linear-gradient(135deg,var(--gold-2),var(--gold) 50%,#D29A3E);color:#140d00;box-shadow:0 10px 30px -8px rgba(232,190,98,.7),inset 0 1px 0 rgba(255,255,255,.5);animation:pulse 2.4s ease-in-out infinite}
+.btn-gold:hover{filter:brightness(1.06)}
+.btn[disabled]{opacity:.7;cursor:wait;animation:none}
+@keyframes pulse{50%{transform:scale(1.025)}}
+.fine{font-size:12px;color:var(--dim);text-align:center;line-height:1.45}
+.fine a{color:var(--muted)}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:#CFCBDC;line-height:1.45}
+.chk input{width:18px;height:18px;flex-shrink:0;margin-top:1px;accent-color:var(--gold)}
+
+/* lado derecho: qué recibes */
+.perks{display:flex;flex-direction:column;gap:12px}
+.perk{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.perk .n{flex-shrink:0;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:rgba(232,190,98,.1);border:1px solid rgba(232,190,98,.3)}
+.perk b{display:block;font-size:15.5px}
+.perk small{display:block;font-size:13.5px;color:var(--muted);margin-top:3px;line-height:1.45}
+.date{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,rgba(255,59,79,.16),rgba(255,59,79,.04));border:1px solid rgba(255,59,79,.45);border-radius:16px;padding:14px 16px}
+.cal{flex-shrink:0;width:62px;border-radius:10px;overflow:hidden;text-align:center;background:#fff;color:#111;box-shadow:0 8px 20px -8px rgba(0,0,0,.6)}
+.cal .m{background:var(--red);color:#fff;font-size:11px;font-weight:800;letter-spacing:.1em;padding:3px 0}
+.cal .d{font-family:var(--display);font-size:26px;line-height:1.1;padding:3px 0 1px}
+.cal .w{font-size:9.5px;font-weight:800;color:#555;padding-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
+.date b{display:block;font-size:16px}
+.date small{color:#E8C8CC;font-size:13px}
+
+/* ---------- secciones ---------- */
+section{padding-block:46px}
+.st{text-align:center;max-width:720px;margin:0 auto 26px}
+.eb{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(232,190,98,.35);background:rgba(232,190,98,.07);padding:5px 12px;border-radius:99px}
+.st h2{margin-top:12px;font-size:clamp(26px,4.4vw,40px);line-height:1.1;font-weight:800;letter-spacing:-.02em;text-wrap:balance}
+.st p{margin-top:10px;color:var(--muted)}
+.pains{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.pain{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.pain .q{font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.2;color:#fff}
+.pain p{margin-top:8px;font-size:14px;color:var(--muted)}
+.enemy{margin-top:16px;text-align:center;font-size:17px;max-width:720px;margin-left:auto;margin-right:auto}
+.enemy b{color:var(--gold-2)}
+.agenda{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:860px;margin:0 auto}
+.ag{display:flex;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.ag .k{flex-shrink:0;font-family:var(--display);font-size:30px;line-height:1;color:var(--gold)}
+.ag b{display:block;font-size:16px}
+.ag small{display:block;color:var(--muted);font-size:14px;margin-top:4px}
+.ag.hot{border-color:rgba(255,59,79,.5);background:linear-gradient(135deg,rgba(255,59,79,.12),var(--card))}
+.ag.hot .k{color:var(--red)}
+.who{display:grid;grid-template-columns:.8fr 1.2fr;gap:26px;align-items:center;max-width:900px;margin:0 auto}
+.who img{border-radius:20px;border:1px solid rgba(232,190,98,.35);width:100%;aspect-ratio:4/5;object-fit:cover;background:#111}
+.who h3{font-size:26px;font-weight:800;line-height:1.15}
+.who p{margin-top:10px;color:#D6D3E2}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.stats div{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 6px}
+.stats b{display:block;font-family:var(--display);font-size:22px;color:var(--gold-2);font-weight:400}
+.stats small{font-size:11.5px;color:var(--muted)}
+.tvideo{position:relative;max-width:420px;margin:0 auto;border-radius:20px;overflow:hidden;border:1px solid rgba(232,190,98,.35);background:#000;aspect-ratio:9/16}
+.tvideo video{width:100%;height:100%;object-fit:cover;display:block}
+.faq{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 16px}
+.faq summary{cursor:pointer;list-style:none;font-weight:700;padding:13px 26px 13px 0;position:relative}
+.faq summary::after{content:"+";position:absolute;right:0;top:9px;font-size:22px;color:var(--gold)}
+.faq details[open] summary::after{content:"–"}
+.faq summary::-webkit-details-marker{display:none}
+.faq p{padding:0 0 14px;color:var(--muted);font-size:14.5px}
+.final{text-align:center;background:radial-gradient(closest-side,rgba(232,190,98,.14),transparent 80%),var(--bg-2);border:1px solid rgba(232,190,98,.35);border-radius:24px;padding:34px 20px;max-width:820px;margin:0 auto}
+.final h2{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(28px,5.6vw,48px);line-height:1}
+.final p{margin:12px auto 18px;max-width:520px;color:#D6D3E2}
+.final .btn{max-width:460px}
+.support{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:560px;margin:22px auto 0}
+.sup{display:flex;align-items:center;gap:10px;justify-content:center;text-decoration:none;border-radius:12px;padding:12px 10px;font-size:14px;font-weight:700;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.45);color:#DFFBEA}
+.sup i{font-size:20px;color:var(--wa)}
+.sup small{display:block;font-weight:600;font-size:11.5px;color:#9FD9B5}
+footer{padding-block:30px 110px;text-align:center;font-size:12px;color:var(--dim)}
+footer .links{display:flex;gap:14px;justify-content:center;margin:8px 0}
+footer a{color:var(--muted)}
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;gap:10px;align-items:center;padding:10px max(14px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-left,0px));background:rgba(5,5,7,.94);backdrop-filter:blur(10px);border-top:1px solid rgba(232,190,98,.35);transform:translateY(110%);transition:transform .35s}
+.sticky.show{transform:none}
+.sticky .t{flex:1;min-width:0;font-size:12.5px;line-height:1.25}
+.sticky .t b{display:block;font-family:var(--display);font-weight:400;font-size:15px;color:var(--gold-2);letter-spacing:.02em}
+.sticky .btn{width:auto;flex-shrink:0;padding:13px 16px;font-size:13.5px;animation:none}
+@media (max-width:820px){
+  .grid,.who{grid-template-columns:1fr}
+  .perks{order:2} .who img{max-width:320px;margin:0 auto}
+  .pains{grid-template-columns:1fr} .agenda{grid-template-columns:1fr}
+}
+@media (max-width:420px){ .support{grid-template-columns:1fr} .cd div{min-width:36px} }
+@media (prefers-reduced-motion:reduce){ .tape .track,.btn-gold,.cdbar .dot{animation:none} }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="cdbar" id="cdbar">
+    <i class="dot"></i>
+    <span class="lbl" id="cdLbl">Webinar Black Friday · <b>en vivo</b> en</span>
+    <div class="cd" id="cd"><div><b id="cD">00</b><small>días</small></div><div><b id="cH">00</b><small>horas</small></div><div><b id="cM">00</b><small>min</small></div><div><b id="cS">00</b><small>seg</small></div></div>
+    <a href="#lista" class="js-scroll">Anotarme</a>
+  </div>
+</div>
+
+<div class="tape g"><div class="track"><span><i>★ BLACK FRIDAY</i><i>HASTA 67% OFF</i><i>★ NEUROFLUENCY</i><i>LISTA DE ESPERA ABIERTA</i><i>★ BLACK FRIDAY</i><i>HASTA 67% OFF</i><i>★ NEUROFLUENCY</i><i>LISTA DE ESPERA ABIERTA</i></span><span aria-hidden="true"><i>★ BLACK FRIDAY</i><i>HASTA 67% OFF</i><i>★ NEUROFLUENCY</i><i>LISTA DE ESPERA ABIERTA</i><i>★ BLACK FRIDAY</i><i>HASTA 67% OFF</i><i>★ NEUROFLUENCY</i><i>LISTA DE ESPERA ABIERTA</i></span></div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">🔥 Solo 1 vez al año</span>
+    <div class="mega">
+      <span class="bf">Black Friday</span>
+      <span class="off gold"><small>NEUROFLUENCY ENGLISH COURSE</small>Hasta 67% OFF</span>
+    </div>
+    <h1 class="sub">Habla inglés en 90 días con el método que <span class="gold">activa tu cerebro</span>, no tu memoria</h1>
+    <p class="lead">El precio Black Friday se revela en un <b>webinar en vivo con Heidy el lunes 30 de noviembre</b>. El enlace para comprar con descuento llega <b>solo a quienes están en la lista</b>.</p>
+
+    <div class="grid" id="lista">
+      <form class="formcard" id="wlForm" novalidate>
+        <span class="ribbon">Lista de espera · gratis</span>
+        <h2>Anótate y recibe el <span class="gold">precio Black Friday</span></h2>
+        <p class="s">Te enviamos el enlace del webinar y de la oferta por WhatsApp y correo.</p>
+        <div class="f">
+          <label for="wlNombre">Tu nombre</label>
+          <input class="in" id="wlNombre" name="nombre" autocomplete="given-name" placeholder="¿Cómo te llamas?" maxlength="80" required>
+          <label for="wlEmail">Tu correo</label>
+          <input class="in" id="wlEmail" name="email" type="email" inputmode="email" autocomplete="email" placeholder="tucorreo@gmail.com" required>
+          <label for="wlPhone">Tu WhatsApp</label>
+          <div class="ph">
+            <select class="in" id="wlPais" aria-label="Código de país">
+              <option value="593">🇪🇨 +593</option><option value="57">🇨🇴 +57</option><option value="52">🇲🇽 +52</option>
+              <option value="1">🇺🇸 +1</option><option value="51">🇵🇪 +51</option><option value="56">🇨🇱 +56</option>
+              <option value="54">🇦🇷 +54</option><option value="507">🇵🇦 +507</option><option value="34">🇪🇸 +34</option>
+              <option value="58">🇻🇪 +58</option><option value="591">🇧🇴 +591</option><option value="506">🇨🇷 +506</option>
+              <option value="502">🇬🇹 +502</option><option value="503">🇸🇻 +503</option><option value="504">🇭🇳 +504</option>
+              <option value="505">🇳🇮 +505</option><option value="595">🇵🇾 +595</option><option value="598">🇺🇾 +598</option>
+              <option value="1809">🇩🇴 +1 809</option><option value="">🌎 Otro</option>
+            </select>
+            <input class="in" id="wlPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="99 123 4567" maxlength="22" required>
+          </div>
+          <label class="chk"><input type="checkbox" id="wlOk" checked> <span>Acepto recibir por WhatsApp y correo el enlace del webinar y de la oferta Black Friday. Puedo salir cuando quiera.</span></label>
+          <p class="err" id="wlErr" role="alert"></p>
+          <button class="btn btn-gold" id="wlBtn" type="submit">🔥 Quiero el precio Black Friday</button>
+          <p class="fine">Tus datos están seguros. Ver <a href="/privacidad.html" target="_blank" rel="noopener">política de privacidad</a>.</p>
+        </div>
+      </form>
+
+      <div class="perks">
+        <div class="date">
+          <div class="cal"><div class="m">NOV</div><div class="d">30</div><div class="w">lunes</div></div>
+          <div><b>Webinar en vivo · 7:00 p. m.</b><small>Hora de Ecuador, Colombia y Perú (6 p. m. México · 9 p. m. Chile y Argentina) · en YouTube</small></div>
+        </div>
+        <div class="perk"><span class="n">🔓</span><div><b>El precio más bajo del año</b><small>NeuroFluency completo con hasta 67% de descuento sobre el precio normal de US$597.</small></div></div>
+        <div class="perk"><span class="n">📲</span><div><b>Enlace solo para la lista</b><small>Al terminar el webinar te llega el enlace de compra Black Friday por WhatsApp y correo.</small></div></div>
+        <div class="perk"><span class="n">🎁</span><div><b>7 bonos incluidos</b><small>Kit SOS English, Gimnasia Vocal, Protocolo Cero Vergüenza y 4 bonos más. Valor total del paquete: US$1.814.</small></div></div>
+        <div class="perk"><span class="n">⏳</span><div><b>Solo 3 días</b><small>Las inscripciones abren el lunes 30 a las 8 p. m. y cierran el miércoles 2 de diciembre a las 11:59 p. m.</small></div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="tiltbox"><div class="tape k tilt rev"><div class="track"><span><i>LISTA DE ESPERA</i><i>★</i><i>WEBINAR LUNES 30 · 7 PM</i><i>★</i><i>CARRITO 30 NOV – 2 DIC</i><i>★</i><i>LISTA DE ESPERA</i><i>★</i><i>WEBINAR LUNES 30 · 7 PM</i><i>★</i><i>CARRITO 30 NOV – 2 DIC</i><i>★</i></span><span aria-hidden="true"><i>LISTA DE ESPERA</i><i>★</i><i>WEBINAR LUNES 30 · 7 PM</i><i>★</i><i>CARRITO 30 NOV – 2 DIC</i><i>★</i><i>LISTA DE ESPERA</i><i>★</i><i>WEBINAR LUNES 30 · 7 PM</i><i>★</i><i>CARRITO 30 NOV – 2 DIC</i><i>★</i></span></div></div></div>
+
+<main>
+  <section>
+    <div class="wrap">
+      <div class="st">
+        <span class="eb">¿Te pasa esto?</span>
+        <h2>Llevas años estudiando inglés… <span class="serif it gold">y todavía no lo hablas</span></h2>
+      </div>
+      <div class="pains">
+        <div class="pain"><p class="q">“Entiendo, pero me bloqueo al hablar.”</p><p>Sabes la respuesta en tu cabeza, pero no sale. Te da vergüenza equivocarte.</p></div>
+        <div class="pain"><p class="q">“Hablan muy rápido y me pierdo.”</p><p>En una serie, una llamada o una reunión, el inglés real te pasa por encima.</p></div>
+        <div class="pain"><p class="q">“Ya probé apps, academias y nada.”</p><p>Reglas, listas de vocabulario y ejercicios que se olvidan en una semana.</p></div>
+      </div>
+      <p class="enemy">No es falta de talento. El problema es el método: <b>memorizar reglas no activa el inglés en tu cerebro</b>. NeuroFluency hace lo contrario.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="st">
+        <span class="eb">Webinar en vivo · lunes 30 · 7 p. m.</span>
+        <h2>Lo que vas a ver con <span class="serif it gold">Heidy</span></h2>
+      </div>
+      <div class="agenda">
+        <div class="ag"><span class="k">01</span><div><b>Por qué no hablas, aunque estudies</b><small>El bloqueo invisible que frena a la mayoría de hispanohablantes.</small></div></div>
+        <div class="ag"><span class="k">02</span><div><b>El método NeuroFluency</b><small>Cómo aprende tu cerebro un idioma, igual que aprendiste español.</small></div></div>
+        <div class="ag"><span class="k">03</span><div><b>Tu ruta de 90 días</b><small>Las 5 fases para pasar de entender a hablar con fluidez.</small></div></div>
+        <div class="ag hot"><span class="k">04</span><div><b>La oferta Black Friday</b><small>El precio especial y los bonos, solo para quienes están en la lista.</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="who">
+        <img src="/inscripcion/img/heidy.webp" alt="Heidy, creadora de NeuroFluency" loading="lazy" onerror="this.remove()">
+        <div>
+          <span class="eb">Quién te enseña</span>
+          <h3 style="margin-top:12px">Heidy · creadora de <span class="gold">NeuroFluency</span></h3>
+          <p>Heidy aprendió inglés de adulta y creó un método basado en cómo funciona el cerebro: mucha exposición a inglés real, técnicas de memoria y práctica de voz, en vez de reglas y memorización.</p>
+          <div class="stats">
+            <div><b>+8.000</b><small>estudiantes</small></div>
+            <div><b>90</b><small>días de ruta</small></div>
+            <div><b>5</b><small>fases</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="st">
+        <span class="eb">Alumnos de NeuroFluency</span>
+        <h2>Estaban como tú… <span class="serif it gold">hasta que decidieron</span></h2>
+      </div>
+      <div class="tvideo"><video src="/inscripcion/testimonios.mp4" poster="/inscripcion/img/testimonios-poster.webp" controls playsinline preload="none" title="Testimonios de alumnos de NeuroFluency"></video></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="st"><span class="eb">Preguntas frecuentes</span></div>
+      <div class="faq">
+        <details><summary>¿Cuánto cuesta anotarse en la lista?</summary><p>Nada. La lista y el webinar son gratis. Solo pagas si decides entrar a NeuroFluency con el precio Black Friday.</p></details>
+        <details><summary>¿Cuándo y dónde es el webinar?</summary><p>El lunes 30 de noviembre a las 7:00 p. m. (hora de Ecuador), en vivo por YouTube. Te enviamos el enlace por WhatsApp y correo.</p></details>
+        <details><summary>¿Y si no puedo ver el webinar en vivo?</summary><p>Igual recibes por WhatsApp y correo el enlace de la oferta Black Friday, que está abierta hasta el miércoles 2 de diciembre a las 11:59 p. m.</p></details>
+        <details><summary>¿Sirve si empiezo desde cero?</summary><p>Sí. NeuroFluency empieza desde la base y avanza por 5 fases hasta la fluidez. Si ya tienes nivel básico o intermedio, refuerzas tu base y por fin hablas.</p></details>
+        <details><summary>¿El precio es en dólares?</summary><p>Sí, en USD. Al pagar, tu banco o tu país pueden sumar impuestos o cargos por compras internacionales. Esos cargos no los cobra NeuroFluency ni Heidy.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="final">
+        <h2><span class="red">Black Friday</span><br><span class="gold">NeuroFluency</span></h2>
+        <p>Anótate en la lista para ver el webinar y recibir el enlace con hasta 67% de descuento.</p>
+        <a href="#lista" class="btn btn-gold js-scroll">🔥 Anotarme en la lista</a>
+        <div class="support">
+          <a class="sup js-sup" data-wa="593963300100" data-who="heidy" href="https://wa.me/593963300100" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i><span>Escribir a Heidy<small>+593 96 330 0100</small></span></a>
+          <a class="sup js-sup" data-wa="593992969267" data-who="pablo" href="https://wa.me/593992969267" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i><span>Soporte · Pablo<small>+593 99 296 9267</small></span></a>
+        </div>
+        <p class="fine" style="margin-top:12px">Solo estos dos números son oficiales. Nadie del equipo te pedirá pagos por otro número.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="tape r"><div class="track"><span><i>★ BLACK FRIDAY NEUROFLUENCY</i><i>HASTA 67% OFF</i><i>★ BLACK FRIDAY NEUROFLUENCY</i><i>HASTA 67% OFF</i><i>★ BLACK FRIDAY NEUROFLUENCY</i><i>HASTA 67% OFF</i></span><span aria-hidden="true"><i>★ BLACK FRIDAY NEUROFLUENCY</i><i>HASTA 67% OFF</i><i>★ BLACK FRIDAY NEUROFLUENCY</i><i>HASTA 67% OFF</i><i>★ BLACK FRIDAY NEUROFLUENCY</i><i>HASTA 67% OFF</i></span></div></div>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 English With Heidy · NeuroFluency English Course.</p>
+    <div class="links"><a href="/privacidad.html">Privacidad</a><span>•</span><a href="/terminos.html">Términos</a></div>
+    <p>Este sitio no forma parte de Facebook ni de Meta Platforms, Inc. Los resultados dependen de la práctica y la constancia de cada persona.</p>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky">
+  <div class="t"><b>BLACK FRIDAY · HASTA 67% OFF</b>Webinar lunes 30 · 7 p. m.</div>
+  <a href="#lista" class="btn btn-gold js-scroll">Anotarme</a>
+</div>
+
+<script>
+// =====================================================================
+//  AJUSTES — único lugar que se toca
+// =====================================================================
+const WEBINAR  = new Date('2026-11-30T19:00:00-05:00');   // lunes 30, 7 p. m. Ecuador
+const CARRITO  = new Date('2026-11-30T20:00:00-05:00');   // abre el carrito
+const CIERRE   = new Date('2026-12-02T23:59:59-05:00');   // cierra el carrito
+const GRACIAS  = '/blackfriday/gracias';
+// =====================================================================
+const $ = s => document.querySelector(s);
+const pad = n => String(n).padStart(2, '0');
+
+// ---------- Cuenta regresiva ----------
+function tick() {
+  const now = Date.now();
+  let target = WEBINAR, lbl = 'Webinar Black Friday · <b>en vivo</b> en';
+  if (now >= WEBINAR && now < CARRITO) { target = CARRITO; lbl = '<b>Webinar en vivo ahora</b> · la oferta abre en'; }
+  else if (now >= CARRITO) { target = CIERRE; lbl = 'Oferta Black Friday · <b>cierra</b> en'; }
+  $('#cdLbl').innerHTML = lbl;
+  const ms = Math.max(0, target - now);
+  $('#cD').textContent = pad(Math.floor(ms / 864e5)); $('#cH').textContent = pad(Math.floor(ms / 36e5) % 24);
+  $('#cM').textContent = pad(Math.floor(ms / 6e4) % 60); $('#cS').textContent = pad(Math.floor(ms / 1e3) % 60);
+}
+tick(); setInterval(tick, 1000);
+
+// ---------- Scroll suave al formulario + barra fija ----------
+document.querySelectorAll('.js-scroll').forEach(a => a.addEventListener('click', e => {
+  e.preventDefault(); $('#lista').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(() => $('#wlNombre').focus({ preventScroll: true }), 600);
+}));
+const form = $('#wlForm');
+let hitos = {};
+addEventListener('scroll', () => {
+  const r = form.getBoundingClientRect();
+  $('#sticky').classList.toggle('show', r.bottom < 0 || r.top > innerHeight);
+  const h = document.documentElement, pct = Math.round((h.scrollTop + innerHeight) / h.scrollHeight * 100);
+  [25, 50, 75, 90].forEach(x => { if (pct >= x && !hitos[x]) { hitos[x] = 1; ewhTrack('Scroll', {}, true, { scroll: x, boton: 'bf_waitlist' }, true); } });
+}, { passive: true });
+
+// ---------- Pre-llenado si ya conocemos a la persona ----------
+(function () {
+  const id = window.ewhId || {};
+  if (id.name) $('#wlNombre').value = id.name;
+  if (id.email) $('#wlEmail').value = id.email;
+})();
+
+// ---------- Botones de soporte ----------
+document.querySelectorAll('.js-sup').forEach(a => {
+  const txt = 'Hola 👋 Tengo una pregunta sobre el Black Friday de NeuroFluency.';
+  a.href = 'https://wa.me/' + a.dataset.wa + '?text=' + encodeURIComponent(txt);
+  a.addEventListener('click', () => ewhTrack('Contact', { content_name: 'BF2026_SOPORTE_' + a.dataset.who.toUpperCase() }, false, { boton: 'bf_soporte_' + a.dataset.who }));
+});
+
+// ---------- Envío del formulario ----------
+const err = $('#wlErr'), btn = $('#wlBtn');
+function fullPhone() {
+  const cc = $('#wlPais').value, raw = $('#wlPhone').value.trim();
+  let d = raw.replace(/\D/g, '');
+  if (raw.startsWith('+') || raw.startsWith('00') || !cc) return d.replace(/^00/, '');
+  if (cc === '1809') return '1' + d.replace(/^1/, '');
+  d = d.replace(/^0+/, '');                       // 099… → 99…
+  return d.startsWith(cc) && d.length > cc.length + 7 ? d : cc + d;
+}
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const nombre = $('#wlNombre').value.trim(), email = $('#wlEmail').value.trim().toLowerCase(), phone = fullPhone();
+  if (nombre.length < 2) { err.textContent = 'Escribe tu nombre.'; $('#wlNombre').focus(); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { err.textContent = 'Revisa tu correo, parece que falta algo.'; $('#wlEmail').focus(); return; }
+  if (phone.length < 8 || phone.length > 15) { err.textContent = 'Escribe tu WhatsApp completo para enviarte el enlace.'; $('#wlPhone').focus(); return; }
+  if (!$('#wlOk').checked) { err.textContent = 'Marca la casilla para poder enviarte el enlace del webinar.'; return; }
+  err.textContent = ''; btn.disabled = true; btn.textContent = 'Guardando tu lugar…';
+
+  // misma identidad para el píxel, la API de conversiones y la página de gracias
+  const ident = Object.assign({}, window.ewhId || {}, { name: nombre, email, phone });
+  window.ewhId = ident; try { ewhLS.set('ewh_id', ident); } catch (x) {}
+  try { fbq('init', '1490857044727030', { external_id: window.ewhVid, em: email, ph: phone, fn: nombre.split(/\s+/)[0].toLowerCase() }); } catch (x) {}
+  const evId = 'Lead.' + Date.now() + '.' + Math.random().toString(36).slice(2, 10);
+  try { fbq('track', 'Lead', { content_name: 'BF2026_WAITLIST' }, { eventID: evId }); } catch (x) {}
+  const QS = new URLSearchParams(location.search), utm = window.ewhUtm || {};
+  const paid = !!(QS.get('fbclid') || utm.fbclid || /meta|facebook|instagram|fb|ig/i.test(utm.utm_source || ''));
+  const sel = $('#wlPais'); const pais = sel.options[sel.selectedIndex].text.replace(/[^\p{L}\s+\d]/gu, '').trim();
+  const body = JSON.stringify({ nombre, email, phone, pais, paid, vid: window.ewhVid, event_id: evId,
+    event_source_url: location.href, fbp: ewhCookie('_fbp'), fbc: ewhFbc(), track: utm });
+  try {
+    await Promise.race([
+      fetch('/api/waitlist', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, keepalive: true }),
+      new Promise(r => setTimeout(r, 3500))
+    ]);
+  } catch (x) {}
+  try { ewhLS.set('ewh_bf_done', { n: nombre.split(/\s+/)[0], t: Date.now() }); } catch (x) {}
+  location.href = GRACIAS + (location.search || '');
+});
+window.addEventListener('pageshow', () => { btn.disabled = false; btn.textContent = '🔥 Quiero el precio Black Friday'; });
+</script>
+</body>
+</html>
